@@ -9,7 +9,7 @@ const Footer = () => {
             <Container>
                 <Row>
                     <Col className="text-center py-3"> {/*py-3 = padding on y axis 3 */}
-                        Copyright &copy; {year} Tech Shop
+                        Copyright &copy; {year} Yaniv Weinshtein
                     </Col>
                 </Row>
             </Container>
