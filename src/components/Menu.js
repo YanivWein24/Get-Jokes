@@ -15,11 +15,13 @@ const Menu = (props) => {
     const [pun, setPun] = useState(false)
     const [spooky, setSpooky] = useState(false)
     const [christmas, setChristmas] = useState(false)
+    const [searchString, setSearchString] = useState("")
 
     // let categories = [Dark, Misc, Spooky];
-    const category = any ? "/Any" : `/${programming ? "Programming" : ""}${misc ? "Miscellaneous" : ""}${dark ? "Dark" : ""}${pun ? "Pun" : ""}${spooky ? "Spooky" : ""}${christmas ? "Christmas" : ""}`
+    const category = any ? "/Any" : `/${programming ? "Programming" : ""}${misc ? "Miscellaneous" : ""}
+    ${dark ? "Dark" : ""}${pun ? "Pun" : ""}${spooky ? "Spooky" : ""}${christmas ? "Christmas" : ""}`
 
-    const url = `https://v2.jokeapi.dev/joke${category}?blacklistFlags=&contains=`
+    const url = `https://v2.jokeapi.dev/joke${category}?blacklistFlags=&contains=${searchString}`
 
     const anyCategory = (event) => {
         // console.log(event.target)
@@ -43,6 +45,15 @@ const Menu = (props) => {
     // const changeCategories = (event) => {
     //     setCategories((prevCategories)) console.log(e.target.checked)
     // }
+
+    const searchJoke = (event) => {
+        // call the findJoke method if the user presses "Enter" on the search field
+        if (event.key === 'Enter') {
+            props.findJoke(url)
+            setSearchString("")
+        }
+    }
+
     return (
         <div>
             <h1>What kind of joke are you looking for?</h1>
@@ -62,14 +73,19 @@ const Menu = (props) => {
                         <span id="catSelectMulti">
                             <Row>
                                 {/* <input type="checkbox" id="cat-cb3" value={dark} onChange={e => { setAny(false); props.displayCategory(e) }} /><label for="cat-cb3">Dark</label> */}
-                                <input type="checkbox" id="cat-cb3" value={dark} checked={dark} onChange={() => { setAny(false); setDark(!dark) }} /><label for="cat-cb3">Dark</label>
-                                <input type="checkbox" id="cat-cb2" value={misc} checked={misc} onChange={() => { setAny(false); setMisc(!misc) }} /><label for="cat-cb2">Misc</label>
+                                <input type="checkbox" id="cat-cb3" value={dark} checked={dark} onChange={
+                                    () => { setAny(false); setDark(!dark) }} /><label for="cat-cb3">Dark</label>
+                                <input type="checkbox" id="cat-cb2" value={misc} checked={misc} onChange={
+                                    () => { setAny(false); setMisc(!misc) }} /><label for="cat-cb2">Misc</label>
                                 <input type="checkbox" id="cat-cb1" value={programming} checked={programming} onChange={() => { setAny(false); setProgramming(!programming) }} /><label for="cat-cb1">Programming</label>
                             </Row>
                             <Row>
-                                <input type="checkbox" id="cat-cb4" value={pun} checked={pun} onChange={() => { setAny(false); setPun(!pun) }} /><label for="cat-cb4">Pun</label>
-                                <input type="checkbox" id="cat-cb5" value={spooky} checked={spooky} onChange={() => { setAny(false); setSpooky(!spooky) }} /><label for="cat-cb5">Spooky</label>
-                                <input type="checkbox" id="cat-cb6" value={christmas} checked={christmas} onChange={() => { setAny(false); setChristmas(!christmas) }} /><label for="cat-cb6">Christmas</label>
+                                <input type="checkbox" id="cat-cb4" value={pun} checked={pun} onChange={
+                                    () => { setAny(false); setPun(!pun) }} /><label for="cat-cb4">Pun</label>
+                                <input type="checkbox" id="cat-cb5" value={spooky} checked={spooky} onChange={
+                                    () => { setAny(false); setSpooky(!spooky) }} /><label for="cat-cb5">Spooky</label>
+                                <input type="checkbox" id="cat-cb6" value={christmas} checked={christmas} onChange={
+                                    () => { setAny(false); setChristmas(!christmas) }} /><label for="cat-cb6">Christmas</label>
                             </Row>
                         </span>
                     </Row>
@@ -83,15 +99,32 @@ const Menu = (props) => {
                 </Col>
                 <Col >
                     <Row>
-                        <input type="checkbox" id="blf-cb1" onChange={reRender()} /><label for="blf-cb1">nsfw</label>
-                        <input type="checkbox" id="blf-cb2" onChange={reRender()} /><label for="blf-cb2">religious</label>
-                        <input type="checkbox" id="blf-cb3" onChange={reRender()} /><label for="blf-cb3">political</label>
+                        <input type="checkbox" id="blf-cb1" onChange={reRender()} />
+                        <label for="blf-cb1">nsfw</label>
+                        <input type="checkbox" id="blf-cb2" onChange={reRender()} />
+                        <label for="blf-cb2">religious</label>
+                        <input type="checkbox" id="blf-cb3" onChange={reRender()} />
+                        <label for="blf-cb3">political</label>
                     </Row>
                     <Row>
-                        <input type="checkbox" id="blf-cb4" onChange={reRender()} /><label for="blf-cb4">racist</label>
-                        <input type="checkbox" id="blf-cb5" onChange={reRender()} /><label for="blf-cb5">sexist</label>
-                        <input type="checkbox" id="blf-cb6" onChange={reRender()} /><label for="blf-cb6">explicit</label>
+                        <input type="checkbox" id="blf-cb4" onChange={reRender()} />
+                        <label for="blf-cb4">racist</label>
+                        <input type="checkbox" id="blf-cb5" onChange={reRender()} />
+                        <label for="blf-cb5">sexist</label>
+                        <input type="checkbox" id="blf-cb6" onChange={reRender()} />
+                        <label for="blf-cb6">explicit</label>
                     </Row>
+                </Col>
+            </Row>
+            <hr />
+            <Row>
+                <Col md={6} sm={12} className="headers">
+                    Search for a joke that
+                    contains this search string:
+                </Col>
+                <Col>
+                    <input type="text" className="searchString" placeholder="(optional)" onKeyPress={searchJoke}
+                        value={searchString} onChange={(e) => setSearchString(e.target.value)} /><label></label>
                 </Col>
             </Row>
         </div>

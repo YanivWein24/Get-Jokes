@@ -90,3 +90,18 @@ input {
   justify-content: left;
   /* align-items: center; */
 }
+
+.searchString {
+  text-align: center;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 2px solid rgba(238, 238, 238, 0.5);
+  min-height: 2rem;
+}
+
+footer {
+  font-size: 0.75rem;
+  /* font-size: 1.; */
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.4);
+}
