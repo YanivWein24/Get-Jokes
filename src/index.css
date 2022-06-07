@@ -10,6 +10,7 @@ body {
   background: #eee;
   background-color: #eee;
   background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
+
 }
 
 code {
@@ -73,10 +74,19 @@ span a {
 
 .url {
   margin: 0.5rem auto 0;
+  /* padding: .5rem; */
   font-size: 1rem;
   font-weight: 300;
 }
 
 input {
   margin: .3rem;
+}
+
+.customCheckbox {
+  position: relative;
+  /* left: 20%; */
+  display: flex;
+  justify-content: left;
+  /* align-items: center; */
 }
