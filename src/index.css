@@ -7,6 +7,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #eee;
+  background-color: #eee;
+  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
 }
 
 code {
@@ -16,4 +19,64 @@ code {
 
 main {
   min-height: 75vh;
+  margin: 3% auto;
+  width: 100%;
+  display: flex;
+  text-align: center;
+}
+
+.Search {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 35px;
+  padding: 1rem;
+}
+
+hr {
+  width: 65%;
+  border-top: 8px dotted rgba(0, 0, 0, 0.2);
+  padding: .3rem;
+}
+
+div h1 {
+  font-size: 1.7rem;
+  padding: 0.7rem 0 1rem;
+  color: #fff;
+}
+
+div.row {
+  margin: .5rem auto;
+}
+
+.headers {
+  font-weight: 700;
+  margin: 0.8rem auto;
+  color: #eee;
+  column-width: 50%;
+}
+
+span a {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.joke {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 35px;
+  padding: 1rem;
+  width: 85%;
+  margin: 2rem auto 0;
+}
+
+.url {
+  margin: 0.5rem auto 0;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+input {
+  margin: .3rem;
 }

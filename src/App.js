@@ -9,7 +9,14 @@ import Menu from "./components/Menu"
 
 function App() {
 
-  const url = `https://v2.jokeapi.dev/joke/Any?type=single`
+  // const url = `https://v2.jokeapi.dev/joke/Any?type=single`
+  const [url, setUrl] = useState("")
+
+  const getUrl = (url) => {
+    setUrl(url)
+  }
+  console.log(url)
+
   const [data, setData] = useState({})
   const [category, setCategory] = useState("")
   const [joke, setJoke] = useState("")
@@ -28,6 +35,9 @@ function App() {
     // })
   }
 
+  const displayCategory = (event) => {
+    console.log(event.target.checked);
+  }
 
   return (
     <div className="App">
@@ -35,8 +45,9 @@ function App() {
       <main>
         <Container> {/* center the content */}
           <div className="Search">
-            <Menu />
+            <Menu getUrl={getUrl} displayCategory={displayCategory} />
             <Button variant="outline-success" className="rounded my-3" type="button" onClick={findJoke}>Search</Button>
+            <p className="url">API Request: {url}</p>
           </div>
           {data.error === false && <Joke category={category} joke={joke}></Joke>}
         </Container>
