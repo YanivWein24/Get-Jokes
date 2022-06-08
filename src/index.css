@@ -24,11 +24,6 @@ body {
   background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 main {
   min-height: 75vh;
   margin: 3% auto;
@@ -37,11 +32,10 @@ main {
   text-align: center;
 }
 
-hr {
-  width: 65%;
-  border-top: 8px dotted var(--color-grey-2);
-  padding: .3em;
-  margin: 2rem auto;
+span a {
+  color: var(--color-white);
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .Search {
@@ -49,7 +43,6 @@ hr {
   border-radius: 35px;
   padding: 1rem;
 }
-
 
 /* Menu Header */
 div h1 {
@@ -62,7 +55,14 @@ div.row {
   margin: .5rem auto;
 }
 
-.headers {
+hr {
+  width: 65%;
+  border-top: 8px dotted var(--color-grey-2);
+  padding: .3em;
+  margin: 2rem auto;
+}
+
+.options {
   font-weight: 700;
   font-size: 1.2rem;
   margin: auto;
@@ -70,51 +70,16 @@ div.row {
   column-width: 50%;
 }
 
+input {
+  margin: .3rem;
+  cursor: pointer;
+}
+
 label {
   font-size: 1rem;
   font-weight: 350;
-}
+  cursor: pointer;
 
-span a {
-  color: var(--color-white);
-  font-size: 1.3rem;
-  font-weight: 600;
-}
-
-.joke {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-white);
-  background-color: var(--color-grey-2);
-  border-radius: 30px;
-  padding: 1rem;
-  width: 85%;
-  margin: 2rem auto 0;
-}
-
-.url {
-  margin: 0.5rem auto 0;
-  padding: .5rem;
-  font-size: 1rem;
-  font-weight: 300;
-  color: var(--color-grey-0);
-  background-color: var(--color-grey-1);
-  border-radius: 1rem;
-  width: 60%;
-  word-wrap: break-word
-    /* prevents the text from overflowing the parent div */
-}
-
-input {
-  margin: .3rem;
-}
-
-.customCheckbox {
-  position: relative;
-  /* left: 20%; */
-  display: flex;
-  justify-content: left;
-  /* align-items: center; */
 }
 
 .searchString {
@@ -135,9 +100,41 @@ input {
   padding-top: 2rem;
 }
 
+.url {
+  margin: 0.5rem auto 0;
+  padding: .5rem;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--color-grey-0);
+  background-color: var(--color-grey-1);
+  border-radius: 1rem;
+  width: 60%;
+  word-wrap: break-word
+    /* prevents the text from overflowing the parent div */
+}
+
+.joke {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-white);
+  background-color: var(--color-grey-2);
+  border-radius: 30px;
+  padding: 1rem;
+  width: 85%;
+  margin: 2rem auto 0;
+}
+
+.jokeCategory {
+  margin-bottom: 0.5rem;
+}
+
 .jokeType {
   display: flex;
   align-items: center;
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 footer {
@@ -150,21 +147,24 @@ footer {
 
 @media only screen and (max-width: 420px) {
 
-  .headers {
+  .options {
     margin-bottom: 0.65rem;
   }
-
-  .url {
-    width: 100%;
-  }
-
 
   .searchString {
     max-width: 70%;
     display: inline-block;
   }
 
+  .url {
+    width: 100%;
+  }
+
   .jokeType {
     display: inline-block;
+  }
+
+  .joke {
+    font-size: 1.2rem;
   }
 }

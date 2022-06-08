@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'react-bootstrap'
 
 const Menu = (props) => {
 
-    // categories:
+    // Categories:
     const [any, setAny] = useState(true)
     const [dark, setDark] = useState(false)
     const [misc, setMisc] = useState(false)
@@ -11,10 +11,6 @@ const Menu = (props) => {
     const [pun, setPun] = useState(false)
     const [spooky, setSpooky] = useState(false)
     const [christmas, setChristmas] = useState(false)
-
-    const [categories, setCategories] = useState([])
-    const [blackList, setBlackList] = useState([])
-
 
     // BlackList Flags:
     const [nsfw, setNsfw] = useState(false)
@@ -24,19 +20,27 @@ const Menu = (props) => {
     const [sexist, setSexist] = useState(false)
     const [explicit, setExplicit] = useState(false)
 
-    const [searchString, setSearchString] = useState("")
+    // Arrays of categories and blacklists flags
+    const [categories, setCategories] = useState([])
+    const [blackList, setBlackList] = useState([])
 
+    // Joke Format
     const [single, setSingle] = useState(true)
     const [twoPart, setTwoPart] = useState(true)
     const jokeType = (single && twoPart ? "" : (single ? (blackList[0] === undefined ? "?type=Single" : "&type=Single") : (blackList[0] === undefined ? "?type=TwoPart" : "&type=TwoPart")))
 
+    // Search Joke String
+    const [searchString, setSearchString] = useState("")
+    const searchStringFormatted = searchString && (blackList[0] === undefined && jokeType === "" ? `?contains=${searchString}` : `&contains=${searchString}`)
+    // if the users apply blackList flags or change the joke type, then instead of "?contains=" we will need to use "&contains="
+
+    // Add / Remove a category from the array 
     const handleCategoryChange = (event) => {
         const { id, checked } = event.target
         // we could also use the property "value" instead of "checked", but it returns "true"/"false" as strings
         if (checked) {
             setCategories((prevCategories) => {
                 return [...prevCategories, id]
-
             })
         } else {
             setCategories((prevCategories) => {
@@ -47,6 +51,7 @@ const Menu = (props) => {
         }
     }
 
+    // Create a valid string from the "categories" array to be used in the url 
     const categoriesString = () => {
         let catString = ""
         categories.forEach((category) => {
@@ -61,13 +66,13 @@ const Menu = (props) => {
         return catString
     }
 
+    // Add / Remove a blacklist flag from the array 
     const handleBlackListChange = (event) => {
         const { id, checked } = event.target
         // we could also use the property "value" instead of "checked", but it returns "true"/"false" as strings
         if (checked) {
             setBlackList((prevFlags) => {
                 return [...prevFlags, id]
-
             })
         } else {
             setBlackList((prevFlags) => {
@@ -78,6 +83,7 @@ const Menu = (props) => {
         }
     }
 
+    // Create a valid string from the "blackList" array to be used in the url 
     const blackListString = () => {
         let flags = ""
         blackList.forEach((flag, index) => {
@@ -96,8 +102,6 @@ const Menu = (props) => {
 
     const blackListFlags = blackListString()
     const category = any ? "/Any" : categoriesString()
-    const searchStringFormatted = searchString && (blackList[0] === undefined && jokeType === "" ? `?contains=${searchString}` : `&contains=${searchString}`)
-    // if the users apply blackList flags or change the joke type, then instead of "?contains=" we will need to use "&contains="
     const url = `https://v2.jokeapi.dev/joke${category}${blackListFlags}${jokeType}${searchStringFormatted}`
 
     const anyCategory = () => {
@@ -143,12 +147,12 @@ const Menu = (props) => {
         <div>
             <h1>What kind of joke are you looking for?</h1>
             <Row>
-                <Col md={6} sm={12} className="headers">
+                <Col md={6} sm={12} className="options">
                     Select A Category:
                 </Col>
                 <Col>
                     <Row>
-                        <input type="radio" name="catSelect" value="any" id="cat-radio1" checked={any} onChange={anyCategory} />
+                        <input type="radio" name="catSelect" value="any" checked={any} onChange={anyCategory} />
                         <label value="any" onClick={anyCategory}>Any</label>
                     </Row>
                     <Row>
@@ -177,7 +181,7 @@ const Menu = (props) => {
             </Row>
             <hr />
             <Row>
-                <Col md={6} sm={12} className="headers">
+                <Col md={6} sm={12} className="options">
                     Select flags to blacklist (optional):
                 </Col>
                 <Col >
@@ -207,9 +211,9 @@ const Menu = (props) => {
             </Row>
             <hr />
             <Row>
-                <Col md={6} sm={12} className="headers">
+                <Col md={6} sm={12} className="options">
                     Search for a joke that
-                    contains this search string:
+                    contains this string:
                 </Col>
                 <Col>
                     <input type="text" className="searchString" placeholder="(optional)" onKeyPress={searchJoke}
@@ -218,7 +222,7 @@ const Menu = (props) => {
             </Row>
             <hr />
             <Row>
-                <Col md={6} sm={12} className="headers">
+                <Col md={6} sm={12} className="options">
                     Select at least one joke type:
                 </Col>
                 <Col className="jokeType">
