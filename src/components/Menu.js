@@ -16,20 +16,28 @@ const Menu = (props) => {
     const [pun, setPun] = useState(false)
     const [spooky, setSpooky] = useState(false)
     const [christmas, setChristmas] = useState(false)
+    const category = any ? "Any" : `${programming ? "Programming" : ""}${misc ? "Miscellaneous" : ""}${dark ? "Dark" : ""}${pun ? "Pun" : ""}${spooky ? "Spooky" : ""}${christmas ? "Christmas" : ""}`
 
+    // BlackList Flags:
+    const [nsfw, setNsfw] = useState(false)
+    const [religious, setReligious] = useState(false)
+    const [political, setPolitical] = useState(false)
+    const [racist, setRacist] = useState(false)
+    const [sexist, setSexist] = useState(false)
+    const [explicit, setExplicit] = useState(false)
+    const blackList = `${nsfw ? "nsfw" : ""}${religious ? "religious" : ""}${political ? "political" : ""}${racist ? "racist" : ""}${sexist ? "sexist" : ""}${explicit ? "explicit" : ""}`
+
+    const [searchString, setSearchString] = useState("")
 
     const [single, setSingle] = useState(true)
     const [twoPart, setTwoPart] = useState(true)
     const jokeType = (single && twoPart ? "" : (single ? "&type=Single" : "&type=TwoPart"))
-    const [searchString, setSearchString] = useState("")
 
-    const category = any ? "/Any" : `/${programming ? "Programming" : ""}${misc ? "Miscellaneous" : ""}${dark ? "Dark" : ""}${pun ? "Pun" : ""}${spooky ? "Spooky" : ""}${christmas ? "Christmas" : ""}`
 
-    const url = `https://v2.jokeapi.dev/joke${category}?blacklistFlags=${jokeType}&contains=${searchString}`
+    const url = `https://v2.jokeapi.dev/joke/${category}?blacklistFlags=${blackList}${jokeType}&contains=${searchString}`
 
     const anyCategory = (event) => {
         // console.log(event.target)
-        // console.log(event.target.value)
         setAny(true)
         setDark(false)
         setMisc(false)
@@ -63,10 +71,7 @@ const Menu = (props) => {
             <h1>What kind of joke are you looking for?</h1>
             <Row>
                 <Col md={6} sm={12} className="headers">
-                    Select Category / Categories: <br />
-                    (All categories are applied by default)
-
-
+                    Select A Category:
                 </Col>
                 <Col>
                     <Row>
@@ -76,20 +81,20 @@ const Menu = (props) => {
                     <Row>
                         <span id="catSelectMulti">
                             <Row>
-                                {/* <input type="checkbox" id="cat-cb3" value={dark} onChange={e => { setAny(false); props.displayCategory(e) }} /><label for="cat-cb3">Dark</label> */}
-                                <input type="checkbox" id="cat-cb3" value={dark} checked={dark} onChange={
-                                    () => { setAny(false); setDark(!dark) }} /><label for="cat-cb3">Dark</label>
-                                <input type="checkbox" id="cat-cb2" value={misc} checked={misc} onChange={
-                                    () => { setAny(false); setMisc(!misc) }} /><label for="cat-cb2">Misc</label>
-                                <input type="checkbox" id="cat-cb1" value={programming} checked={programming} onChange={() => { setAny(false); setProgramming(!programming) }} /><label for="cat-cb1">Programming</label>
+                                <input type="checkbox" id="Dark" value={dark} checked={dark} onChange={
+                                    () => { setAny(false); setDark(!dark) }} /><label for="Dark">Dark</label>
+                                <input type="checkbox" id="Misc" value={misc} checked={misc} onChange={
+                                    () => { setAny(false); setMisc(!misc) }} /><label for="Misc">Misc</label>
+                                <input type="checkbox" id="Programming" value={programming} checked={programming} onChange={() => { setAny(false); setProgramming(!programming) }} />
+                                <label for="Programming">Programming</label>
                             </Row>
                             <Row>
-                                <input type="checkbox" id="cat-cb4" value={pun} checked={pun} onChange={
-                                    () => { setAny(false); setPun(!pun) }} /><label for="cat-cb4">Pun</label>
-                                <input type="checkbox" id="cat-cb5" value={spooky} checked={spooky} onChange={
-                                    () => { setAny(false); setSpooky(!spooky) }} /><label for="cat-cb5">Spooky</label>
-                                <input type="checkbox" id="cat-cb6" value={christmas} checked={christmas} onChange={
-                                    () => { setAny(false); setChristmas(!christmas) }} /><label for="cat-cb6">Christmas</label>
+                                <input type="checkbox" id="Pun" value={pun} checked={pun} onChange={
+                                    () => { setAny(false); setPun(!pun) }} /><label for="Pun">Pun</label>
+                                <input type="checkbox" id="Spooky" value={spooky} checked={spooky} onChange={
+                                    () => { setAny(false); setSpooky(!spooky) }} /><label for="Spooky">Spooky</label>
+                                <input type="checkbox" id="Christmas" value={christmas} checked={christmas} onChange={
+                                    () => { setAny(false); setChristmas(!christmas) }} /><label for="Christmas">Christmas</label>
                             </Row>
                         </span>
                     </Row>
@@ -103,20 +108,20 @@ const Menu = (props) => {
                 </Col>
                 <Col >
                     <Row>
-                        <input type="checkbox" id="blf-cb1" onChange={reRender()} />
-                        <label for="blf-cb1">nsfw</label>
-                        <input type="checkbox" id="blf-cb2" onChange={reRender()} />
-                        <label for="blf-cb2">religious</label>
-                        <input type="checkbox" id="blf-cb3" onChange={reRender()} />
-                        <label for="blf-cb3">political</label>
+                        <input type="checkbox" id="nsfw" value={nsfw} checked={nsfw} onChange={() => setNsfw(!nsfw)} />
+                        <label for="nsfw">NSFW</label>
+                        <input type="checkbox" id="religious" value={religious} checked={religious} onChange={() => setReligious(!religious)} />
+                        <label for="religious">Religious</label>
+                        <input type="checkbox" id="political" value={political} checked={political} onChange={() => setPolitical(!political)} />
+                        <label for="political">Political</label>
                     </Row>
                     <Row>
-                        <input type="checkbox" id="blf-cb4" onChange={reRender()} />
-                        <label for="blf-cb4">racist</label>
-                        <input type="checkbox" id="blf-cb5" onChange={reRender()} />
-                        <label for="blf-cb5">sexist</label>
-                        <input type="checkbox" id="blf-cb6" onChange={reRender()} />
-                        <label for="blf-cb6">explicit</label>
+                        <input type="checkbox" id="racist" value={racist} checked={racist} onChange={() => setRacist(!racist)} />
+                        <label for="racist">Racist</label>
+                        <input type="checkbox" id="sexist" value={sexist} checked={sexist} onChange={() => setSexist(!sexist)} />
+                        <label for="sexist">Sexist</label>
+                        <input type="checkbox" id="explicit" value={explicit} checked={explicit} onChange={() => setExplicit(!explicit)} />
+                        <label for="explicit">Explicit</label>
                     </Row>
                 </Col>
             </Row>
