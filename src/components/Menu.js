@@ -1,5 +1,6 @@
+import { type } from '@testing-library/user-event/dist/type'
 import React, { useState } from 'react'
-import { Row, Col, Form } from 'react-bootstrap'
+import { Row, Col, Button } from 'react-bootstrap'
 
 const reRender = () => {
     // console.log("aasd")
@@ -7,7 +8,7 @@ const reRender = () => {
 
 const Menu = (props) => {
 
-
+    // categories:
     const [any, setAny] = useState(true)
     const [dark, setDark] = useState(false)
     const [misc, setMisc] = useState(false)
@@ -15,13 +16,16 @@ const Menu = (props) => {
     const [pun, setPun] = useState(false)
     const [spooky, setSpooky] = useState(false)
     const [christmas, setChristmas] = useState(false)
+
+
+    const [single, setSingle] = useState(true)
+    const [twoPart, setTwoPart] = useState(true)
+    const jokeType = (single && twoPart ? "" : (single ? "&type=Single" : "&type=TwoPart"))
     const [searchString, setSearchString] = useState("")
 
-    // let categories = [Dark, Misc, Spooky];
-    const category = any ? "/Any" : `/${programming ? "Programming" : ""}${misc ? "Miscellaneous" : ""}
-    ${dark ? "Dark" : ""}${pun ? "Pun" : ""}${spooky ? "Spooky" : ""}${christmas ? "Christmas" : ""}`
+    const category = any ? "/Any" : `/${programming ? "Programming" : ""}${misc ? "Miscellaneous" : ""}${dark ? "Dark" : ""}${pun ? "Pun" : ""}${spooky ? "Spooky" : ""}${christmas ? "Christmas" : ""}`
 
-    const url = `https://v2.jokeapi.dev/joke${category}?blacklistFlags=&contains=${searchString}`
+    const url = `https://v2.jokeapi.dev/joke${category}?blacklistFlags=${jokeType}&contains=${searchString}`
 
     const anyCategory = (event) => {
         // console.log(event.target)
@@ -47,8 +51,8 @@ const Menu = (props) => {
     // }
 
     const searchJoke = (event) => {
-        // call the findJoke method if the user presses "Enter" on the search field
-        if (event.key === 'Enter') {
+        // call the findJoke method only if the user presses "Enter" on the search field, or if the user presses the search button
+        if (event.key === 'Enter' || event.target.type === 'button') {
             props.findJoke(url)
             setSearchString("")
         }
@@ -127,6 +131,20 @@ const Menu = (props) => {
                         value={searchString} onChange={(e) => setSearchString(e.target.value)} /><label></label>
                 </Col>
             </Row>
+            <hr />
+            <Row>
+                <Col md={6} sm={12} className="headers">
+                    Select at least one joke type:
+                </Col>
+                <Col>
+                    <input type="checkbox" id="single" value={single} checked={single} onChange={
+                        () => { setSingle(!single); }} /><label for="single">Single Part</label>
+                    <input type="checkbox" id="twoPart" value={twoPart} checked={twoPart} onChange={
+                        () => { setTwoPart(!twoPart); }} /><label for="twoPart">Two Part</label>
+                </Col>
+            </Row>
+            <Button variant="outline-success" className="rounded my-3" type="button" onClick={searchJoke}>Search</Button>
+
         </div>
     )
 }

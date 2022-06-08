@@ -24,6 +24,11 @@ function App() {
   const [delivery, setDelivery] = useState("")
   // const [blackList, setBlackList] = useState({})
 
+
+  const getSearchState = (searchString, setSearchString) => {
+
+  }
+
   const findJoke = async (event) => {
     try {
       const response = await axios.get(url)
@@ -48,25 +53,17 @@ function App() {
     }
   }
 
-
-
-  const displayCategory = (event) => {
-    console.log(event.target.value);
-    console.log(event.target.checked);
-  }
-
   return (
     <div className="App">
       <Header />
       <main>
         <Container> {/* center the content */}
           <div className="Search">
-            <Menu getUrl={getUrl} displayCategory={displayCategory} findJoke={findJoke} />
-            <Button variant="outline-success" className="rounded my-3" type="button" onClick={findJoke}>Search</Button>
+            <Menu getUrl={getUrl} findJoke={findJoke} />
             <p className="url">API Request: {url}</p>
           </div>
-          {data.error === false && (data.type === 'single' ? <Joke category={category} joke={joke}></Joke>
-            : <TwoPartJoke category={category} setup={setup} delivery={delivery}></TwoPartJoke>)}
+          {data.error === false ? (data.type === 'single' ? <Joke category={category} joke={joke}></Joke>
+            : <TwoPartJoke category={category} setup={setup} delivery={delivery}></TwoPartJoke>) : (data.error !== undefined ? <Joke category={"Error"} joke={"Could not find a joke that matches these specifications"}></Joke> : "")}
         </Container>
       </main>
       <Footer />
