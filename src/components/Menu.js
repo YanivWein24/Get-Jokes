@@ -2,10 +2,6 @@ import { type } from '@testing-library/user-event/dist/type'
 import React, { useState } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 
-const reRender = () => {
-    // console.log("aasd")
-}
-
 const Menu = (props) => {
 
     // categories:
@@ -33,7 +29,7 @@ const Menu = (props) => {
 
     const [single, setSingle] = useState(true)
     const [twoPart, setTwoPart] = useState(true)
-    const jokeType = (single && twoPart ? "" : (single ? "&type=Single" : "&type=TwoPart"))
+    const jokeType = (single && twoPart ? "" : (single ? (blackList[0] === undefined ? "?type=Single" : "&type=Single") : (blackList[0] === undefined ? "?type=TwoPart" : "&type=TwoPart")))
 
     const handleCategoryChange = (event) => {
         const { id, checked } = event.target
@@ -57,8 +53,6 @@ const Menu = (props) => {
         categories.forEach((category) => {
             if (category === categories[0]) {
                 catString += `/${category}`
-            } else if (category === categories[categories.length]) {
-                catString += `${category}`
             } else {
                 catString += `,${category}`
                 console.log(categories.length)
@@ -103,10 +97,11 @@ const Menu = (props) => {
 
     const blackListFlags = blackListString()
     const category = any ? "/Any" : categoriesString()
-    const searchStringFormatted = searchString ? `&contains=${searchString}` : ""
+    const searchStringFormatted = searchString && (blackList[0] === undefined && jokeType === "" ? `?contains=${searchString}` : `&contains=${searchString}`)
+    // if the users apply blackList flags or change the joke type, then instead of "?contains=" we will need to use "&contains="
     const url = `https://v2.jokeapi.dev/joke${category}${blackListFlags}${jokeType}${searchStringFormatted}`
 
-    const anyCategory = (event) => {
+    const anyCategory = () => {
         setAny(true)
         setDark(false)
         setMisc(false)
@@ -126,8 +121,21 @@ const Menu = (props) => {
         // call the findJoke method only if the user presses "Enter" on the search field, or if the user presses the search button
         if (event.key === 'Enter' || event.target.type === 'button') {
             props.findJoke(url)
-            setSearchString("")
+            // setSearchString("")
         }
+    }
+
+    const reset = () => {
+        anyCategory() // this method resets all the categories
+        setNsfw(false)
+        setReligious(false)
+        setPolitical(false)
+        setRacist(false)
+        setSexist(false)
+        setExplicit(false)
+        setSearchString("")
+        setSingle(true)
+        setTwoPart(true)
     }
 
     return (
@@ -221,10 +229,10 @@ const Menu = (props) => {
                 </Col>
             </Row>
             <Row>
-                RESET BUTTON
+                <Button variant="outline-success" className="rounded m-auto btn-sm" onClick={reset}>Reset</Button>
+                {/* className => rounded, margin auto */}
             </Row>
-            <Button variant="outline-success" className="rounded my-3" type="button" onClick={searchJoke}>Search</Button>
-            <p>{categoriesString()}</p>
+            <Button variant="success" className="rounded my-3" type="button" onClick={searchJoke}>Search</Button>
 
         </div>
     )
