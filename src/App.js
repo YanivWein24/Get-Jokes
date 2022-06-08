@@ -25,7 +25,7 @@ function App() {
   const findJoke = async (event) => {
     try {
       const response = await axios.get(url)
-      console.log(response.data)
+      // console.log(response.data)
       setData(response.data)
       setCategory(response.data.category)
       if (response.data.type === 'single') {
@@ -60,8 +60,8 @@ function App() {
           {/* first we check if we received a response from the api by checking the data.error property. 
           if its false this means we received a successful response, so now we check if the type of the response is "single" or "twoPart" and render the output component accordingly.
           if data.error !== false then it could mean two things:
-          1. we didn't send a request yet, so "data" is undefined (therefore "data.error" is also undefined), in this case we will just return an empty string.
-          2. data.error === true this means we sent a wrong request and responded with an error. in this case we will render the error inside the "Joke" component     */}
+          1. we didn't send a request yet, so "data" is undefined (therefore "data.error" is also undefined). in this case we will just return an empty string.
+          2. data.error === true this means we sent a wrong request and responded with an error. in this case we will return an error message inside the "Joke" component     */}
         </Container>
       </main>
       <Footer />

@@ -16,7 +16,10 @@ const Menu = (props) => {
     const [pun, setPun] = useState(false)
     const [spooky, setSpooky] = useState(false)
     const [christmas, setChristmas] = useState(false)
-    const category = any ? "Any" : `${programming ? "Programming" : ""}${misc ? "Miscellaneous" : ""}${dark ? "Dark" : ""}${pun ? "Pun" : ""}${spooky ? "Spooky" : ""}${christmas ? "Christmas" : ""}`
+
+    const [categories, setCategories] = useState([])
+    const [blackList, setBlackList] = useState([])
+
 
     // BlackList Flags:
     const [nsfw, setNsfw] = useState(false)
@@ -25,7 +28,6 @@ const Menu = (props) => {
     const [racist, setRacist] = useState(false)
     const [sexist, setSexist] = useState(false)
     const [explicit, setExplicit] = useState(false)
-    const blackList = `${nsfw ? "nsfw" : ""}${religious ? "religious" : ""}${political ? "political" : ""}${racist ? "racist" : ""}${sexist ? "sexist" : ""}${explicit ? "explicit" : ""}`
 
     const [searchString, setSearchString] = useState("")
 
@@ -33,11 +35,78 @@ const Menu = (props) => {
     const [twoPart, setTwoPart] = useState(true)
     const jokeType = (single && twoPart ? "" : (single ? "&type=Single" : "&type=TwoPart"))
 
+    const handleCategoryChange = (event) => {
+        const { id, checked } = event.target
+        // we could also use the property "value" instead of "checked", but it returns "true"/"false" as strings
+        if (checked) {
+            setCategories((prevCategories) => {
+                return [...prevCategories, id]
 
-    const url = `https://v2.jokeapi.dev/joke/${category}?blacklistFlags=${blackList}${jokeType}&contains=${searchString}`
+            })
+        } else {
+            setCategories((prevCategories) => {
+                return prevCategories.filter((category) => {
+                    return category !== id
+                })
+            })
+        }
+    }
+
+    const categoriesString = () => {
+        let catString = ""
+        categories.forEach((category) => {
+            if (category === categories[0]) {
+                catString += `/${category}`
+            } else if (category === categories[categories.length]) {
+                catString += `${category}`
+            } else {
+                catString += `,${category}`
+                console.log(categories.length)
+            }
+        }
+        )
+        return catString
+    }
+
+    const handleBlackListChange = (event) => {
+        const { id, checked } = event.target
+        // we could also use the property "value" instead of "checked", but it returns "true"/"false" as strings
+        if (checked) {
+            setBlackList((prevFlags) => {
+                return [...prevFlags, id]
+
+            })
+        } else {
+            setBlackList((prevFlags) => {
+                return prevFlags.filter((flag) => {
+                    return flag !== id
+                })
+            })
+        }
+    }
+
+    const blackListString = () => {
+        let flags = ""
+        blackList.forEach((flag, index) => {
+            if (flag === blackList[0]) {
+                flags += `?blacklistFlags=${flag}`
+            } else if (flag === blackList[blackList.length]) {
+                flags += `${flag}`
+            } else {
+                flags += `,${flag}`
+                console.log(blackList.length)
+            }
+        }
+        )
+        return flags
+    }
+
+    const blackListFlags = blackListString()
+    const category = any ? "/Any" : categoriesString()
+    const searchStringFormatted = searchString ? `&contains=${searchString}` : ""
+    const url = `https://v2.jokeapi.dev/joke${category}${blackListFlags}${jokeType}${searchStringFormatted}`
 
     const anyCategory = (event) => {
-        // console.log(event.target)
         setAny(true)
         setDark(false)
         setMisc(false)
@@ -52,11 +121,6 @@ const Menu = (props) => {
     }
     sendUrl()
     // call the function to actually send the url to App.js
-
-    // const [categories, setCategories] = useState([])
-    // const changeCategories = (event) => {
-    //     setCategories((prevCategories)) console.log(e.target.checked)
-    // }
 
     const searchJoke = (event) => {
         // call the findJoke method only if the user presses "Enter" on the search field, or if the user presses the search button
@@ -82,19 +146,21 @@ const Menu = (props) => {
                         <span id="catSelectMulti">
                             <Row>
                                 <input type="checkbox" id="Dark" value={dark} checked={dark} onChange={
-                                    () => { setAny(false); setDark(!dark) }} /><label for="Dark">Dark</label>
+                                    async (e) => { await setAny(false); await setDark(!dark); handleCategoryChange(e) }} /><label for="Dark">Dark</label>
                                 <input type="checkbox" id="Misc" value={misc} checked={misc} onChange={
-                                    () => { setAny(false); setMisc(!misc) }} /><label for="Misc">Misc</label>
-                                <input type="checkbox" id="Programming" value={programming} checked={programming} onChange={() => { setAny(false); setProgramming(!programming) }} />
+                                    async (e) => { await setAny(false); await setMisc(!misc); handleCategoryChange(e) }} /><label for="Misc">Misc</label>
+                                <input type="checkbox" id="Programming" value={programming} checked={programming} onChange={
+                                    async (e) => { await setAny(false); await setProgramming(!programming); handleCategoryChange(e) }
+                                } />
                                 <label for="Programming">Programming</label>
                             </Row>
                             <Row>
                                 <input type="checkbox" id="Pun" value={pun} checked={pun} onChange={
-                                    () => { setAny(false); setPun(!pun) }} /><label for="Pun">Pun</label>
+                                    async (e) => { await setAny(false); await setPun(!pun); handleCategoryChange(e) }} /><label for="Pun">Pun</label>
                                 <input type="checkbox" id="Spooky" value={spooky} checked={spooky} onChange={
-                                    () => { setAny(false); setSpooky(!spooky) }} /><label for="Spooky">Spooky</label>
+                                    async (e) => { await setAny(false); await setSpooky(!spooky); handleCategoryChange(e) }} /><label for="Spooky">Spooky</label>
                                 <input type="checkbox" id="Christmas" value={christmas} checked={christmas} onChange={
-                                    () => { setAny(false); setChristmas(!christmas) }} /><label for="Christmas">Christmas</label>
+                                    async (e) => { await setAny(false); await setChristmas(!christmas); handleCategoryChange(e) }} /><label for="Christmas">Christmas</label>
                             </Row>
                         </span>
                     </Row>
@@ -108,19 +174,25 @@ const Menu = (props) => {
                 </Col>
                 <Col >
                     <Row>
-                        <input type="checkbox" id="nsfw" value={nsfw} checked={nsfw} onChange={() => setNsfw(!nsfw)} />
+                        <input type="checkbox" id="nsfw" value={nsfw} checked={nsfw} onChange={
+                            async (e) => { await setNsfw(!nsfw); handleBlackListChange(e) }} />
                         <label for="nsfw">NSFW</label>
-                        <input type="checkbox" id="religious" value={religious} checked={religious} onChange={() => setReligious(!religious)} />
+                        <input type="checkbox" id="religious" value={religious} checked={religious} onChange={
+                            async (e) => { await setReligious(!religious); handleBlackListChange(e) }} />
                         <label for="religious">Religious</label>
-                        <input type="checkbox" id="political" value={political} checked={political} onChange={() => setPolitical(!political)} />
+                        <input type="checkbox" id="political" value={political} checked={political} onChange={
+                            async (e) => { await setPolitical(!political); handleBlackListChange(e) }} />
                         <label for="political">Political</label>
                     </Row>
                     <Row>
-                        <input type="checkbox" id="racist" value={racist} checked={racist} onChange={() => setRacist(!racist)} />
+                        <input type="checkbox" id="racist" value={racist} checked={racist} onChange={
+                            async (e) => { await setRacist(!racist); handleBlackListChange(e) }} />
                         <label for="racist">Racist</label>
-                        <input type="checkbox" id="sexist" value={sexist} checked={sexist} onChange={() => setSexist(!sexist)} />
+                        <input type="checkbox" id="sexist" value={sexist} checked={sexist} onChange={
+                            async (e) => { await setSexist(!sexist); handleBlackListChange(e) }} />
                         <label for="sexist">Sexist</label>
-                        <input type="checkbox" id="explicit" value={explicit} checked={explicit} onChange={() => setExplicit(!explicit)} />
+                        <input type="checkbox" id="explicit" value={explicit} checked={explicit} onChange={
+                            async (e) => { await setExplicit(!explicit); handleBlackListChange(e) }} />
                         <label for="explicit">Explicit</label>
                     </Row>
                 </Col>
@@ -148,7 +220,11 @@ const Menu = (props) => {
                         () => { setTwoPart(!twoPart); }} /><label for="twoPart">Two Part</label>
                 </Col>
             </Row>
+            <Row>
+                RESET BUTTON
+            </Row>
             <Button variant="outline-success" className="rounded my-3" type="button" onClick={searchJoke}>Search</Button>
+            <p>{categoriesString()}</p>
 
         </div>
     )
