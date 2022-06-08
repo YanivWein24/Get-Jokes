@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const Joke = (props) => {
     return (
         <div className="joke">
@@ -19,7 +18,6 @@ const TwoPartJoke = (props) => {
         </div>
     )
 }
-
 
 export default Joke
 export { TwoPartJoke }

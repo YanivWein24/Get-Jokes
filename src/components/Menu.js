@@ -1,4 +1,3 @@
-import { type } from '@testing-library/user-event/dist/type'
 import React, { useState } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 
@@ -136,6 +135,8 @@ const Menu = (props) => {
         setSearchString("")
         setSingle(true)
         setTwoPart(true)
+        setBlackList([])
+        setCategories([])
     }
 
     return (
@@ -151,8 +152,8 @@ const Menu = (props) => {
                         <label value="any" onClick={anyCategory}>Any</label>
                     </Row>
                     <Row>
-                        <span id="catSelectMulti">
-                            <Row>
+                        <span>
+                            <Row className="catSelectMulti">
                                 <input type="checkbox" id="Dark" value={dark} checked={dark} onChange={
                                     async (e) => { await setAny(false); await setDark(!dark); handleCategoryChange(e) }} /><label for="Dark">Dark</label>
                                 <input type="checkbox" id="Misc" value={misc} checked={misc} onChange={
@@ -162,7 +163,7 @@ const Menu = (props) => {
                                 } />
                                 <label for="Programming">Programming</label>
                             </Row>
-                            <Row>
+                            <Row className="catSelectMulti">
                                 <input type="checkbox" id="Pun" value={pun} checked={pun} onChange={
                                     async (e) => { await setAny(false); await setPun(!pun); handleCategoryChange(e) }} /><label for="Pun">Pun</label>
                                 <input type="checkbox" id="Spooky" value={spooky} checked={spooky} onChange={
@@ -172,7 +173,6 @@ const Menu = (props) => {
                             </Row>
                         </span>
                     </Row>
-
                 </Col>
             </Row>
             <hr />
@@ -213,7 +213,7 @@ const Menu = (props) => {
                 </Col>
                 <Col>
                     <input type="text" className="searchString" placeholder="(optional)" onKeyPress={searchJoke}
-                        value={searchString} onChange={(e) => setSearchString(e.target.value)} /><label></label>
+                        value={searchString} onChange={(e) => setSearchString(e.target.value)} />
                 </Col>
             </Row>
             <hr />
@@ -221,19 +221,19 @@ const Menu = (props) => {
                 <Col md={6} sm={12} className="headers">
                     Select at least one joke type:
                 </Col>
-                <Col>
+                <Col className="jokeType">
                     <input type="checkbox" id="single" value={single} checked={single} onChange={
                         () => { setSingle(!single); }} /><label for="single">Single Part</label>
                     <input type="checkbox" id="twoPart" value={twoPart} checked={twoPart} onChange={
                         () => { setTwoPart(!twoPart); }} /><label for="twoPart">Two Part</label>
                 </Col>
             </Row>
-            <Row>
+            <Row className="reset">
                 <Button variant="outline-success" className="rounded m-auto btn-sm" onClick={reset}>Reset</Button>
                 {/* className => rounded, margin auto */}
             </Row>
-            <Button variant="success" className="rounded my-3" type="button" onClick={searchJoke}>Search</Button>
-
+            <Button variant="success" className="rounded mx-auto my-2" type="button" onClick={searchJoke}>Search</Button>
+            {/* className => rounded, margin auto on x axis, margin 16px on y axis */}
         </div>
     )
 }
