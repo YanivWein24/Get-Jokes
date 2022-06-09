@@ -10,6 +10,8 @@
   --color-grey-2: rgba(0, 0, 0, 0.2);
   --color-grey-3: rgba(0, 0, 0, 0.3);
   --color-grey-4: rgba(0, 0, 0, 0.4);
+  --color-green-success: rgba(75, 191, 115, 1);
+
 }
 
 body {
@@ -144,6 +146,42 @@ footer {
   color: var(--color-grey-4);
 }
 
+/* https://moderncss.dev/pure-css-custom-checkbox-style/#custom-checkbox-style */
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: inherit;
+  margin: 0.3rem;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.75em;
+  height: 0.75em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--color-green-success);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:focus {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
+}
+
+/* https://moderncss.dev/pure-css-custom-checkbox-style/#custom-checkbox-style */
 
 @media only screen and (max-width: 420px) {
 
@@ -161,7 +199,7 @@ footer {
   }
 
   .jokeType {
-    display: inline-block;
+    justify-content: center;
   }
 
   .joke {

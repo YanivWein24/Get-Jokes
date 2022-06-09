@@ -160,7 +160,7 @@ const Menu = (props) => {
                 </Col>
                 <Col>
                     <Row>
-                        <input type="radio" name="catSelect" value="any" checked={any} onChange={anyCategory} />
+                        <input type="checkbox" name="catSelect" value="any" checked={any} onChange={anyCategory} />
                         <label value="any" onClick={anyCategory}>Any</label>
                     </Row>
                     <Row>
