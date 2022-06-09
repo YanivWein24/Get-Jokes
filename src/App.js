@@ -51,7 +51,7 @@ function App() {
             <p className="url">API Request: {url}</p>
           </div>
           {data.error === false ? (data.type === 'single' ? <Joke category={category} joke={joke}></Joke>
-            : <TwoPartJoke category={category} setup={setup} delivery={delivery}></TwoPartJoke>) : (data.error !== undefined ? <Joke category={"Error"} joke={"Could not find a joke that matches these specifications"}></Joke> : "")}
+            : <TwoPartJoke category={category} setup={setup} delivery={delivery}></TwoPartJoke>) : (data.error !== undefined ? <Joke category={"Error"} joke={`Could not find a joke that matches these specifications. Make sure to use at least one category.`}></Joke> : "")}
           {/* first we check if we received a response from the api by checking the data.error property
           if its false, this means we received a successful response. so now we check if the type of the response is "single" or "twoPart" and render the output component accordingly.
           if data.error !== false then it could mean two things:

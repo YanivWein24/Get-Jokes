@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 
 const Menu = (props) => {
@@ -35,10 +35,11 @@ const Menu = (props) => {
     // if the users apply blackList flags or change the joke type, then instead of "?contains=" we will need to use "&contains="
 
     // Add / Remove a category from the array 
-    const handleCategoryChange = (event) => {
+    const handleCategoryChange = async (event) => {
         const { id, checked } = event.target
         // we could also use the property "value" instead of "checked", but it returns "true"/"false" as strings
         if (checked) {
+            setAny(false)
             setCategories((prevCategories) => {
                 return [...prevCategories, id]
             })
@@ -50,6 +51,13 @@ const Menu = (props) => {
             })
         }
     }
+
+    // whenever the categories array is empty, we set "Any" to true.
+    // if we try to do the same thing inside "handleCategoryChange" method, this wont work because "setCategories" is async,
+    // and we will end up using an outdated value of the categories array 
+    useEffect(() => {
+        categories[0] === undefined && setAny(true)
+    }, [categories])
 
     // Create a valid string from the "categories" array to be used in the url 
     const categoriesString = () => {
@@ -159,21 +167,21 @@ const Menu = (props) => {
                         <span>
                             <Row className="catSelectMulti">
                                 <input type="checkbox" id="Dark" value={dark} checked={dark} onChange={
-                                    async (e) => { await setAny(false); await setDark(!dark); handleCategoryChange(e) }} /><label for="Dark">Dark</label>
+                                    async (e) => { await setDark(!dark); handleCategoryChange(e) }} /><label htmlFor="Dark">Dark</label>
                                 <input type="checkbox" id="Misc" value={misc} checked={misc} onChange={
-                                    async (e) => { await setAny(false); await setMisc(!misc); handleCategoryChange(e) }} /><label for="Misc">Misc</label>
+                                    async (e) => { await setMisc(!misc); handleCategoryChange(e) }} /><label htmlFor="Misc">Misc</label>
                                 <input type="checkbox" id="Programming" value={programming} checked={programming} onChange={
-                                    async (e) => { await setAny(false); await setProgramming(!programming); handleCategoryChange(e) }
+                                    async (e) => { await setProgramming(!programming); handleCategoryChange(e) }
                                 } />
-                                <label for="Programming">Programming</label>
+                                <label htmlFor="Programming">Programming</label>
                             </Row>
                             <Row className="catSelectMulti">
                                 <input type="checkbox" id="Pun" value={pun} checked={pun} onChange={
-                                    async (e) => { await setAny(false); await setPun(!pun); handleCategoryChange(e) }} /><label for="Pun">Pun</label>
+                                    async (e) => { await setPun(!pun); handleCategoryChange(e) }} /><label htmlFor="Pun">Pun</label>
                                 <input type="checkbox" id="Spooky" value={spooky} checked={spooky} onChange={
-                                    async (e) => { await setAny(false); await setSpooky(!spooky); handleCategoryChange(e) }} /><label for="Spooky">Spooky</label>
+                                    async (e) => { await setSpooky(!spooky); handleCategoryChange(e) }} /><label htmlFor="Spooky">Spooky</label>
                                 <input type="checkbox" id="Christmas" value={christmas} checked={christmas} onChange={
-                                    async (e) => { await setAny(false); await setChristmas(!christmas); handleCategoryChange(e) }} /><label for="Christmas">Christmas</label>
+                                    async (e) => { await setChristmas(!christmas); handleCategoryChange(e) }} /><label htmlFor="Christmas">Christmas</label>
                             </Row>
                         </span>
                     </Row>
@@ -188,24 +196,24 @@ const Menu = (props) => {
                     <Row>
                         <input type="checkbox" id="nsfw" value={nsfw} checked={nsfw} onChange={
                             async (e) => { await setNsfw(!nsfw); handleBlackListChange(e) }} />
-                        <label for="nsfw">NSFW</label>
+                        <label htmlFor="nsfw">NSFW</label>
                         <input type="checkbox" id="religious" value={religious} checked={religious} onChange={
                             async (e) => { await setReligious(!religious); handleBlackListChange(e) }} />
-                        <label for="religious">Religious</label>
+                        <label htmlFor="religious">Religious</label>
                         <input type="checkbox" id="political" value={political} checked={political} onChange={
                             async (e) => { await setPolitical(!political); handleBlackListChange(e) }} />
-                        <label for="political">Political</label>
+                        <label htmlFor="political">Political</label>
                     </Row>
                     <Row>
                         <input type="checkbox" id="racist" value={racist} checked={racist} onChange={
                             async (e) => { await setRacist(!racist); handleBlackListChange(e) }} />
-                        <label for="racist">Racist</label>
+                        <label htmlFor="racist">Racist</label>
                         <input type="checkbox" id="sexist" value={sexist} checked={sexist} onChange={
                             async (e) => { await setSexist(!sexist); handleBlackListChange(e) }} />
-                        <label for="sexist">Sexist</label>
+                        <label htmlFor="sexist">Sexist</label>
                         <input type="checkbox" id="explicit" value={explicit} checked={explicit} onChange={
                             async (e) => { await setExplicit(!explicit); handleBlackListChange(e) }} />
-                        <label for="explicit">Explicit</label>
+                        <label htmlFor="explicit">Explicit</label>
                     </Row>
                 </Col>
             </Row>
@@ -227,9 +235,9 @@ const Menu = (props) => {
                 </Col>
                 <Col className="jokeType">
                     <input type="checkbox" id="single" value={single} checked={single} onChange={
-                        () => { setSingle(!single); }} /><label for="single">Single Part</label>
+                        () => { setSingle(!single); }} /><label htmlFor="single">Single Part</label>
                     <input type="checkbox" id="twoPart" value={twoPart} checked={twoPart} onChange={
-                        () => { setTwoPart(!twoPart); }} /><label for="twoPart">Two Part</label>
+                        () => { setTwoPart(!twoPart); }} /><label htmlFor="twoPart">Two Part</label>
                 </Col>
             </Row>
             <Row className="reset">
