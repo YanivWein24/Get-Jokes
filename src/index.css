@@ -1,5 +1,6 @@
 @import "./bootstrap.min.css";
 
+
 :root {
   --color-white: #fff;
   --color-black: #000;
@@ -175,9 +176,8 @@ label {
 .about {
   width: 100%;
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.15;
   margin-top: 2.9rem;
-
 }
 
 .about h1 {
@@ -200,7 +200,17 @@ label {
   font-size: 1rem;
 }
 
-/* The bolded text in the about screen */
+.joke-api {
+  color: var(--color-grey-4);
+  font-weight: 750;
+}
+
+/* heart icon */
+.about span span {
+  color: red;
+}
+
+/* bolded text in the about screen */
 p span {
   font-weight: 800;
 }
