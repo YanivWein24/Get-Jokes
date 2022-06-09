@@ -128,15 +128,12 @@ label {
 
 .jokeCategory {
   margin-bottom: 0.5rem;
+  text-decoration: underline;
 }
 
 .jokeType {
   display: flex;
   align-items: center;
-}
-
-.underline {
-  text-decoration: underline;
 }
 
 footer {
