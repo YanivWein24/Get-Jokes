@@ -14,6 +14,9 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto"> {/*margin-left: auto - push the links to the right*/}
+                            <LinkContainer to="/">
+                                <Nav.Link>Home</Nav.Link>
+                            </LinkContainer>
                             <LinkContainer to="/About">
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>

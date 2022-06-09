@@ -38,10 +38,8 @@ const HomeScreen = () => {
         }
     }
 
-
-
     return (
-        <main>
+        <main className="fade-in">
             <Container> {/* center the content */}
                 <div className="Search">
                     <Menu getUrl={getUrl} findJoke={findJoke} />

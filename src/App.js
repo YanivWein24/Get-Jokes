@@ -12,7 +12,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomeScreen />} />
-        <Route path="/About" element={<About />} />
+        <Route path="/About" element={<About className="tilt-in-fwd-tr" />} />
       </Routes>
       <Footer />
     </Router>
