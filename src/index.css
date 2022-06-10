@@ -11,6 +11,7 @@
   --color-grey-2: rgba(0, 0, 0, 0.2);
   --color-grey-3: rgba(0, 0, 0, 0.3);
   --color-grey-4: rgba(0, 0, 0, 0.4);
+  --color-grey-5: rgba(0, 0, 0, 0.7);
   --color-green-success: rgba(75, 191, 115, 1);
 }
 
@@ -106,9 +107,10 @@ label {
   cursor: pointer;
 }
 
-.searchString {
+.searchString,
+select {
   text-align: center;
-  color: var(--color-white);
+  color: var(--color-grey-5);
   font-weight: 500;
   background-color: transparent;
   border-radius: 10px;
@@ -202,7 +204,8 @@ label {
 
 .joke-api {
   color: var(--color-grey-4);
-  font-weight: 750;
+  font-weight: 800;
+  font-size: 1rem;
 }
 
 /* heart icon */
@@ -264,6 +267,11 @@ input[type="checkbox"]:focus {
 
   .options {
     margin-bottom: 0.65rem;
+  }
+
+  select {
+    display: inline-block;
+    width: 100%;
   }
 
   .searchString {

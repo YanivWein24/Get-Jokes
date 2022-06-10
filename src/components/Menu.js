@@ -20,18 +20,21 @@ const Menu = (props) => {
     const [sexist, setSexist] = useState(false)
     const [explicit, setExplicit] = useState(false)
 
+    // Picked Language 
+    const [language, setLanguage] = useState("")
+    const pickedLanguage = language !== "" ? `?lang=${language}` : ""
+
     // Arrays of categories and blacklists flags
     const [categories, setCategories] = useState([])
     const [blackList, setBlackList] = useState([])
-
     // Joke Format
     const [single, setSingle] = useState(true)
     const [twoPart, setTwoPart] = useState(true)
-    const jokeType = (single && twoPart ? "" : (single ? (blackList[0] === undefined ? "?type=Single" : "&type=Single") : (blackList[0] === undefined ? "?type=TwoPart" : "&type=TwoPart")))
+    const jokeType = (single && twoPart ? "" : (single ? (blackList[0] === undefined && language === "" ? "?type=Single" : "&type=Single") : (blackList[0] === undefined && language === "" ? "?type=TwoPart" : "&type=TwoPart")))
 
     // Search Joke String
     const [searchString, setSearchString] = useState("")
-    const searchStringFormatted = searchString && (blackList[0] === undefined && jokeType === "" ? `?contains=${searchString}` : `&contains=${searchString}`)
+    const searchStringFormatted = searchString && (blackList[0] === undefined && jokeType === "" && language === "" ? `?contains=${searchString}` : `&contains=${searchString}`)
     // if the users apply blackList flags or change the joke type, then instead of "?contains=" we will need to use "&contains="
 
     // Add / Remove a category from the array 
@@ -96,7 +99,7 @@ const Menu = (props) => {
         let flags = ""
         blackList.forEach((flag, index) => {
             if (flag === blackList[0]) {
-                flags += `?blacklistFlags=${flag}`
+                (language === "" ? flags += `?blacklistFlags=${flag}` : flags += `&blacklistFlags=${flag}`)
             } else if (flag === blackList[blackList.length]) {
                 flags += `${flag}`
             } else {
@@ -110,7 +113,7 @@ const Menu = (props) => {
 
     const blackListFlags = blackListString()
     const category = any ? "/Any" : categoriesString()
-    const url = `https://v2.jokeapi.dev/joke${category}${blackListFlags}${jokeType}${searchStringFormatted}`
+    const url = `https://v2.jokeapi.dev/joke${category}${pickedLanguage}${blackListFlags}${jokeType}${searchStringFormatted}`
 
     const anyCategory = () => {
         setAny(true)
@@ -138,6 +141,7 @@ const Menu = (props) => {
 
     const reset = () => {
         anyCategory() // this method resets all the categories
+        setLanguage("")
         setNsfw(false)
         setReligious(false)
         setPolitical(false)
@@ -185,6 +189,20 @@ const Menu = (props) => {
                             </Row>
                         </span>
                     </Row>
+                </Col>
+            </Row>
+            <hr />
+            <Row>
+                <Col md={6} sm={12} className="options">Select Language</Col>
+                <Col>
+                    <select name="Language" value={language} onChange={(e) => setLanguage(e.target.value)}>
+                        <option value="">English</option>
+                        <option value="cs">Czech</option>
+                        <option value="de">German</option>
+                        <option value="fr">French</option>
+                        <option value="es">Spanish</option>
+                        <option value="pt">Portuguese</option>
+                    </select>
                 </Col>
             </Row>
             <hr />

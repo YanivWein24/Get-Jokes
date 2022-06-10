@@ -7,8 +7,9 @@ const About = () => {
             <div class="about joke fade-in">
                 <h1>About this project:</h1>
                 <p>This is a joke Generator web app!</p>
-                <p>Access a huge database and explore exclusive jokes ordered by categories and blacklists.<br />
-                    Make it even better by searching for jokes that include specific words you desire!<br /></p>
+                <p>Access a huge database and explore exclusive jokes, ordered by categories and blacklists.<br />
+                    Make it even better by searching for jokes that include specific words you desire!<br />
+                    This generator contains over 1000 jokes in 6 different languages!</p>
 
                 <h2>On the technical side:</h2>
                 <p>This is a front-end project, and its built mainly using <span>React</span> and <span>Bootstrap</span>. </p>
