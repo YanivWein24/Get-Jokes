@@ -172,16 +172,17 @@ const Menu = (props) => {
                             <Row className="catSelectMulti">
                                 <input type="checkbox" id="Dark" value={dark} checked={dark} onChange={
                                     (e) => { setDark(!dark); handleCategoryChange(e) }} /><label htmlFor="Dark">Dark</label>
-                                <input type="checkbox" id="Misc" value={misc} checked={misc} onChange={
-                                    (e) => { setMisc(!misc); handleCategoryChange(e) }} /><label htmlFor="Misc">Misc</label>
+                                <input type="checkbox" id="Pun" value={pun} checked={pun} onChange={
+                                    (e) => { setPun(!pun); handleCategoryChange(e) }} /><label htmlFor="Pun">Pun</label>
+
                                 <input type="checkbox" id="Programming" value={programming} checked={programming} onChange={
                                     (e) => { setProgramming(!programming); handleCategoryChange(e) }
                                 } />
                                 <label htmlFor="Programming">Programming</label>
                             </Row>
                             <Row className="catSelectMulti">
-                                <input type="checkbox" id="Pun" value={pun} checked={pun} onChange={
-                                    (e) => { setPun(!pun); handleCategoryChange(e) }} /><label htmlFor="Pun">Pun</label>
+                                <input type="checkbox" id="Misc" value={misc} checked={misc} onChange={
+                                    (e) => { setMisc(!misc); handleCategoryChange(e) }} /><label htmlFor="Misc">Misc</label>
                                 <input type="checkbox" id="Spooky" value={spooky} checked={spooky} onChange={
                                     (e) => { setSpooky(!spooky); handleCategoryChange(e) }} /><label htmlFor="Spooky">Spooky</label>
                                 <input type="checkbox" id="Christmas" value={christmas} checked={christmas} onChange={
