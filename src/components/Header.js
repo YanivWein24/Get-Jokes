@@ -18,7 +18,7 @@ const Header = (props) => {
                     <LinkContainer to="/">
                         <Navbar.Brand >Get Jokes</Navbar.Brand>
                     </LinkContainer>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-button" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto"> {/*margin-left: auto - push the links to the right*/}
                             <LinkContainer to="/">
