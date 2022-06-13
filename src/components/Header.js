@@ -1,12 +1,14 @@
 import React from 'react'
+import Switch from 'react-switch'
 import { Navbar, Nav, Container } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 
-const Header = () => {
+const Header = (props) => {
+    const { theme, toggleTheme } = props
     return (
         <header>
             {/* from react-bootstrap */}
-            <Navbar bg="success" variant="dark" expand="lg" className="py-2" collapseOnSelect>
+            <Navbar variant="dark" expand="lg" className="py-2 navbar" collapseOnSelect>
                 <Container> {/*The container helps to make the navbar a bit more centered */}
                     <LinkContainer to="/">
                         <Navbar.Brand >Get Jokes</Navbar.Brand>
@@ -20,6 +22,10 @@ const Header = () => {
                             <LinkContainer to="/About">
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>
+                            <div className="themeSwitch">
+                                <Switch height={24} onChange={toggleTheme} checked={theme === "dark"} onColor={"#222"} offColor={"#ddd"} />
+                                <p>{theme === "light" ? "Light Mode" : "Dark Mode"}</p>
+                            </div>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

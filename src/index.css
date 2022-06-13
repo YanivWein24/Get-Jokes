@@ -49,14 +49,81 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--color-grey);
   background-color: var(--color-grey);
   background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
 }
 
+.themeSwitch {
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.themeSwitch p {
+  margin: auto 0.2rem;
+  color: var(--color-grey)
+}
+
+#light {
+  background-color: var(--color-grey);
+  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
+}
+
+#light .navbar {
+  background-color: var(--color-green-success);
+}
+
+#dark {
+  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#dark label {
+  color: var(--color-grey);
+}
+
+#dark select {
+  color: var(--color-grey);
+}
+
+#dark .searchString {
+  color: var(--color-grey);
+}
+
+#dark .search,
+#dark .joke {
+  background-color: var(--color-grey-4);
+}
+
+#dark h1,
+#dark h2 {
+  color: var(--color-white);
+}
+
+#dark .about p {
+  color: #ccc;
+}
+
+#dark .about a {
+  color: var(--color-white);
+}
+
+#dark hr {
+  border-color: var(--color-grey-00)
+}
+
+#dark .navbar {
+  background-color: var(--color-grey-5);
+}
+
+#dark footer {
+  color: var(--color-grey-0);
+}
+
+
 main {
   min-height: 75vh;
-  margin: 3% auto;
+  margin: 3% auto 1%;
   width: 100%;
   display: flex;
   text-align: center;
@@ -76,7 +143,7 @@ span a {
   font-weight: 600;
 }
 
-.Search {
+.search {
   background-color: var(--color-grey-2);
   border-radius: 35px;
   padding: 1rem;
