@@ -42,7 +42,7 @@ const HomeScreen = () => {
         <main className="fade-in">
             <Container> {/* center the content */}
                 <div className="search">
-                    <Menu getUrl={getUrl} findJoke={findJoke} />
+                    <Menu getUrl={getUrl} findJoke={findJoke} setData={setData} />
                     <p className="url">API Request: {url}</p>
                 </div>
                 {data.error === false ? (data.type === 'single' ? <Joke category={category} joke={joke}></Joke>

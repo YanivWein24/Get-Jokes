@@ -140,6 +140,7 @@ const Menu = (props) => {
     }
 
     const reset = () => {
+        props.setData({}) // setting data to {} - removes the joke being displayed
         anyCategory() // this method resets all the categories
         setLanguage("")
         setNsfw(false)

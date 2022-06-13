@@ -11,6 +11,7 @@
   --color-grey-3: rgba(0, 0, 0, 0.3);
   --color-grey-4: rgba(0, 0, 0, 0.4);
   --color-grey-5: rgba(0, 0, 0, 0.7);
+  --color-grey-6: rgba(0, 0, 0, 0.85);
   --color-green-success: rgba(75, 191, 115, 1);
 }
 
@@ -49,77 +50,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-grey);
-  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
 }
-
-.themeSwitch {
-  display: flex;
-  justify-content: center;
-  align-items: center
-}
-
-.themeSwitch p {
-  margin: auto 0.2rem;
-  color: var(--color-grey)
-}
-
-#light {
-  background-color: var(--color-grey);
-  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
-}
-
-#light .navbar {
-  background-color: var(--color-green-success);
-}
-
-#dark {
-  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-#dark label {
-  color: var(--color-grey);
-}
-
-#dark select {
-  color: var(--color-grey);
-}
-
-#dark .searchString {
-  color: var(--color-grey);
-}
-
-#dark .search,
-#dark .joke {
-  background-color: var(--color-grey-4);
-}
-
-#dark h1,
-#dark h2 {
-  color: var(--color-white);
-}
-
-#dark .about p {
-  color: #ccc;
-}
-
-#dark .about a {
-  color: var(--color-white);
-}
-
-#dark hr {
-  border-color: var(--color-grey-00)
-}
-
-#dark .navbar {
-  background-color: var(--color-grey-5);
-}
-
-#dark footer {
-  color: var(--color-grey-0);
-}
-
 
 main {
   min-height: 75vh;
@@ -322,6 +253,8 @@ p span {
 }
 
 footer {
+  padding: 2.5rem 0 1rem;
+  /* ^^ removes the white space at the bottom  */
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--color-grey-4);
@@ -368,6 +301,67 @@ input[type="checkbox"]:active {
 }
 
 /* https://moderncss.dev/pure-css-custom-checkbox-style/#custom-checkbox-style */
+
+/* Themes - start  */
+.themeSwitch {
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.themeSwitch p {
+  margin: auto 0.2rem;
+  color: var(--color-grey)
+}
+
+#light {
+  background-color: var(--color-grey);
+  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
+}
+
+#light .navbar {
+  background-color: var(--color-green-success);
+}
+
+#dark {
+  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#dark,
+#dark .url,
+#dark .about a,
+#dark footer {
+  color: var(--color-white);
+}
+
+#dark select,
+#dark .searchString {
+  color: var(--color-grey);
+}
+
+#dark .search,
+#dark .joke {
+  background-color: var(--color-grey-4);
+}
+
+#dark .about p {
+  color: #ccc;
+}
+
+#dark .about span {
+  font-weight: 550;
+}
+
+#dark hr {
+  border-color: var(--color-grey-00)
+}
+
+#dark .navbar {
+  background-color: var(--color-grey-6);
+}
+
+/* Themes - end  */
 
 @media only screen and (max-width: 420px) {
 
@@ -439,7 +433,7 @@ input[type="checkbox"]:active {
   }
 
   label:active {
-    transform: scale(1.08);
+    transform: scale(1.1);
     font-weight: 725;
   }
 
@@ -455,4 +449,7 @@ input[type="checkbox"]:active {
     transform: scale(1.1);
   }
 
+  footer {
+    padding: .75rem 0 0.1rem;
+  }
 }
