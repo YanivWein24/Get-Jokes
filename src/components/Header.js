@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Switch from 'react-switch'
 import { Navbar, Nav, Container } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 
 const Header = (props) => {
     const { theme, toggleTheme } = props
+
+    useEffect(() => {
+        localStorage.setItem('theme', JSON.stringify(theme))
+    })
+
     return (
         <header>
             {/* from react-bootstrap */}

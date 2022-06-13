@@ -7,9 +7,15 @@ import About from "./screens/About"
 
 export const themeContext = createContext(null)
 
+const getLocalStorage = () => {
+  let theme = localStorage.getItem('theme')
+  return theme ? JSON.parse(theme) : "light"
+  // if there is a theme saved in local storage. use it. otherwise, use the default - "light"
+}
+
 function App() {
 
-  const [theme, setTheme] = useState("light")
+  const [theme, setTheme] = useState(getLocalStorage)
   const toggleTheme = () => {
     setTheme((currTheme) => (currTheme === "light" ? "dark" : "light"))
   }
