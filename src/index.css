@@ -304,19 +304,20 @@ input[type="checkbox"]:active {
 
 /* Themes - start  */
 .themeSwitch {
+  margin-left: 1rem;
   display: flex;
   justify-content: center;
   align-items: center
 }
 
 .themeSwitch p {
-  margin: auto 0.2rem;
+  margin: auto 0.25rem;
   color: var(--color-grey)
 }
 
 #light {
-  background-color: var(--color-grey);
-  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
+  background-color: var(--color-grey-0);
+  background-image: url("https://www.transparenttextures.com/patterns/pw-pattern.png");
 }
 
 #light .navbar {
@@ -324,8 +325,8 @@ input[type="checkbox"]:active {
 }
 
 #dark {
-  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
-  background-color: rgba(0, 0, 0, 0.7);
+  background-image: url("https://www.transparenttextures.com/patterns/pw-pattern.png");
+  background-color: var(--color-grey-6);
 }
 
 #dark,
@@ -364,6 +365,10 @@ input[type="checkbox"]:active {
 /* Themes - end  */
 
 @media only screen and (max-width: 420px) {
+
+  .themeSwitch {
+    margin: 0;
+  }
 
   .options {
     margin-bottom: 0.65rem;
