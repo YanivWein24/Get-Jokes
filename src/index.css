@@ -230,6 +230,7 @@ select:hover {
 .about p {
   font-size: 1.2rem;
   color: var(--color-grey-4);
+  transition: all .5s ease-in-out;
 }
 
 .about span {
@@ -240,6 +241,7 @@ select:hover {
   color: var(--color-grey-4);
   font-weight: 800;
   font-size: 1rem;
+  transition: all .5s ease-in-out;
 }
 
 /* heart icon */
@@ -258,6 +260,7 @@ footer {
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--color-grey-4);
+  transition: all .5s ease-in-out;
 }
 
 /* https://moderncss.dev/pure-css-custom-checkbox-style/#custom-checkbox-style */
@@ -311,12 +314,14 @@ input[type="checkbox"]:active {
 }
 
 .themeSwitch p {
-  margin: auto 0.25rem;
+  margin: auto 0.35rem;
   color: var(--color-grey)
 }
 
 #light {
   background-color: var(--color-grey-0);
+  transition: all .2s ease-in-out;
+
   background-image: url("https://www.transparenttextures.com/patterns/pw-pattern.png");
 }
 
@@ -325,6 +330,7 @@ input[type="checkbox"]:active {
 }
 
 #dark {
+  transition: all .2s ease-in-out;
   background-image: url("https://www.transparenttextures.com/patterns/pw-pattern.png");
   background-color: var(--color-grey-6);
 }
