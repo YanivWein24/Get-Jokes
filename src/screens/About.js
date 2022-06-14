@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap"
 const About = () => {
     return (
         <Container>
-            <div class="about joke fade-in">
+            <div className="about joke fade-in">
                 <h1>About this project:</h1>
                 <p>This is a joke Generator web app!</p>
                 <p>Access a huge database and explore exclusive jokes, ordered by categories and blacklists.<br />

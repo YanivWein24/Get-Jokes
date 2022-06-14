@@ -73,7 +73,6 @@ const Menu = (props) => {
                 catString += `/${category}`
             } else {
                 catString += `,${category}`
-                console.log(categories.length)
             }
         }
         )
@@ -107,7 +106,6 @@ const Menu = (props) => {
                 flags += `${flag}`
             } else {
                 flags += `,${flag}`
-                console.log(blackList.length)
             }
         }
         )
@@ -117,6 +115,15 @@ const Menu = (props) => {
     const blackListFlags = blackListString()
     const category = any ? "/Any" : categoriesString()
     const url = `https://v2.jokeapi.dev/joke${category}${pickedLanguage}${blackListFlags}${jokeType}${searchStringFormatted}`
+
+    const sendUrl = () => {
+        props.getUrl(url)
+    }
+
+    useEffect(() => {
+        sendUrl()
+    }, [sendUrl])
+    // call the function and send the url whenever the page loads / the url changes
 
     const anyCategory = () => {
         setAny(true)
@@ -128,17 +135,10 @@ const Menu = (props) => {
         setChristmas(false)
     }
 
-    const sendUrl = () => {
-        props.getUrl(url)
-    }
-    sendUrl()
-    // call the function to actually send the url to App.js
-
     const searchJoke = (event) => {
         // call the findJoke method only if the user presses "Enter" on the search field, or if the user presses the search button
         if (event.key === 'Enter' || event.target.type === 'button') {
             props.findJoke(url)
-            // setSearchString("")
         }
     }
 

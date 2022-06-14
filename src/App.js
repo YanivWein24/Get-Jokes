@@ -15,7 +15,7 @@ const getLocalStorage = () => {
 
 function App() {
 
-  const [theme, setTheme] = useState(getLocalStorage)
+  const [theme, setTheme] = useState(getLocalStorage ? getLocalStorage : "light")
   const toggleTheme = () => {
     setTheme((currTheme) => (currTheme === "light" ? "dark" : "light"))
   }
