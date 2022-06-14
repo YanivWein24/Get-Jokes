@@ -16,7 +16,7 @@
   --color-green-success: rgba(75, 191, 115, 1);
   --color-green-dark: rgb(67, 165, 101);
   --color-green-light: rgb(63, 235, 123);
-  --color-blue-light: rgba(0, 91, 196, 1);
+  --color-blue-light: rgba(26, 130, 174, 1);
   --color-blue-dark: rgba(5, 43, 87, 1);
   --color-blue-very-light: rgba(36, 184, 205, 1);
 }
@@ -110,6 +110,10 @@ main {
   color: var(--color-grey);
 }
 
+#dark .deleteButton {
+  width: 5rem;
+}
+
 #dark .search,
 #dark .joke {
   background-color: var(--color-grey-4);
@@ -119,7 +123,6 @@ main {
 #dark select {
   border: 2px solid var(--color-grey-0);
   box-shadow: rgb(38, 57, 77) 0px 20px 15px -10px;
-
 }
 
 #dark .searchString:hover,
@@ -131,6 +134,11 @@ main {
 #dark option {
   background-color: var(--color-grey-6);
   font-weight: 500;
+}
+
+#dark ::placeholder {
+  /* for the 'searchString' input tag */
+  color: var(--color-white);
 }
 
 #dark .about p {
@@ -206,6 +214,7 @@ hr {
   border-top: 8px dotted var(--color-grey-3);
   padding: .3em;
   margin: 2rem auto;
+  transition: all 0.6s ease-in-out;
 }
 
 .options {
@@ -303,16 +312,36 @@ option {
   font-weight: 500;
 }
 
+::placeholder {
+  /* for the 'searchString' input tag */
+  transition: all 0.6s ease-in-out;
+  color: var(--color-black);
+}
+
 .deleteButton {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 40%;
+  width: 5rem;
+  padding: 0 0;
+  border-radius: 6px;
+  transition: all .2s ease-in-out;
+}
+
+.resetButton {
+  width: 10rem;
+  height: 2.7rem;
+  padding: 0 0;
+}
+
+.searchButton {
+  width: 15rem;
+  height: 3rem;
 }
 
 .resetButton,
-.searchButton,
-.deleteButton {
+.searchButton {
   border-radius: 8px;
   transition: all .2s ease-in-out;
 }
@@ -461,6 +490,7 @@ footer {
     bottom: auto;
     left: 3%;
     width: 25%;
+    height: 1.75rem;
   }
 
   .url {

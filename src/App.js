@@ -25,7 +25,7 @@ function App() {
         <div id={theme}>
           <Header theme={theme} toggleTheme={toggleTheme} />
           <Routes>
-            <Route path="/" element={<HomeScreen />} />
+            <Route path="/" element={<HomeScreen theme={theme} />} />
             <Route path="/About" element={<About />} />
           </Routes>
           <Footer />

@@ -3,6 +3,9 @@ import { Row, Col, Button } from 'react-bootstrap'
 
 const Menu = (props) => {
 
+    // check the current theme to apply different bootstrap button colors
+    const isLightTheme = props.theme === 'light'
+
     // Categories:
     const [any, setAny] = useState(true)
     const [dark, setDark] = useState(false)
@@ -246,7 +249,7 @@ const Menu = (props) => {
                 <Col>
                     <input type="text" className="searchString" placeholder="(optional)" onKeyPress={searchJoke}
                         value={searchString} onChange={(e) => setSearchString(e.target.value)} />
-                    <Button variant="danger" className="deleteButton btn-sm" placeholder="Delete" onClick={() => setSearchString("")}>Delete</Button>
+                    <Button variant={isLightTheme ? "danger" : "outline-danger"} className="deleteButton" placeholder="Delete" onClick={() => setSearchString("")}>Delete</Button>
                 </Col>
             </Row>
             <hr />
@@ -262,10 +265,10 @@ const Menu = (props) => {
                 </Col>
             </Row>
             <Row className="resetRow">
-                <Button variant="outline-success" className="resetButton m-auto btn-sm" onClick={reset}>Reset</Button>
+                <Button variant={isLightTheme ? "outline-success" : "outline-info"} className="resetButton m-auto" onClick={reset}>Reset</Button>
                 {/* className => rounded, margin auto */}
             </Row>
-            <Button variant="success" className="searchButton mx-auto my-2" type="button" onClick={searchJoke}>Search</Button>
+            <Button variant={isLightTheme ? "success" : "info"} className="searchButton mx-auto my-2" type="button" onClick={searchJoke}>Search</Button>
             {/* className => rounded, margin auto on x axis, margin 16px on y axis */}
         </div>
     )
