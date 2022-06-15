@@ -101,6 +101,18 @@ main {
   color: var(--color-white);
 }
 
+#dark .navbar {
+  background-color: var(--color-grey-6);
+}
+
+#dark .nav-link:hover {
+  background-color: var(--color-grey-11);
+}
+
+#dark .active-link {
+  border-bottom: 0.3rem solid var(--color-blue-dark);
+}
+
 #dark input[type="checkbox"]::before {
   box-shadow: inset 1em 1em var(--color-blue-light);
 }
@@ -157,14 +169,6 @@ main {
   border-color: var(--color-grey-00)
 }
 
-#dark .navbar {
-  background-color: var(--color-grey-6);
-}
-
-#dark .nav-link:hover {
-  background-color: var(--color-grey-11);
-}
-
 /* Themes - end  */
 
 .navbar {
@@ -183,6 +187,20 @@ main {
 
 .nav-link:active {
   transform: scale(1.3);
+}
+
+.active-link {
+  border-bottom: 0.3rem solid var(--color-white);
+  border-radius: 5px 5px 0 0;
+}
+
+#dark .active-link {
+  padding-bottom: 0.1rem;
+}
+
+#light .active-link {
+  padding-bottom: 0.1rem;
+  color: var(--color-white);
 }
 
 .navbar-button {
@@ -466,7 +484,15 @@ footer {
 
 
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 500px) {
+
+  .active-link {
+    width: 13%;
+    padding-bottom: 0;
+    margin-bottom: 1rem;
+    /* we are shortening the border bottom, and removing the bottom padding to make it look like an underline.
+    because we removed 1rem of padding, we need to replace it with 1 rem of margin in order to position the links the same.*/
+  }
 
   .themeSwitch {
     margin: 0;
@@ -551,6 +577,11 @@ footer {
   }
 
   /* undo the color change when pressing a nav link  */
+
+  .nav-link:active {
+    transform: scale(1);
+  }
+
   .nav-link:hover {
     background-color: var(--color-green-success);
   }
