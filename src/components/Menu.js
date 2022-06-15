@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 
-const Menu = (props) => {
+const Menu = ({ theme, getUrl, findJoke, setData }) => {
 
     // check the current theme to apply different bootstrap button colors
-    const isLightTheme = props.theme === 'light'
+    const isLightTheme = theme === 'light'
 
     // Categories:
     const [any, setAny] = useState(true)
@@ -117,7 +117,7 @@ const Menu = (props) => {
     const url = `https://v2.jokeapi.dev/joke${category}${pickedLanguage}${blackListFlags}${jokeType}${searchStringFormatted}`
 
     const sendUrl = () => {
-        props.getUrl(url)
+        getUrl(url)
     }
 
     useEffect(() => {
@@ -138,12 +138,12 @@ const Menu = (props) => {
     const searchJoke = (event) => {
         // call the findJoke method only if the user presses "Enter" on the search field, or if the user presses the search button
         if (event.key === 'Enter' || event.target.type === 'button') {
-            props.findJoke(url)
+            findJoke(url)
         }
     }
 
     const reset = () => {
-        props.setData({}) // setting data to {} - removes the joke being displayed
+        setData({}) // setting data to {} - removes the joke being displayed
         anyCategory() // this method resets all the categories
         setLanguage("")
         setNsfw(false)

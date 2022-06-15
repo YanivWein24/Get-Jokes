@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap"
 import Menu from "../components/Menu"
 import Joke, { TwoPartJoke } from "../components/Joke"
 
-const HomeScreen = (props) => {
+const HomeScreen = ({ theme }) => {
 
     // sent to the Menu component as a prop, to receive the url for the GET request
     const [url, setUrl] = useState("")
@@ -42,7 +42,7 @@ const HomeScreen = (props) => {
         <main className="fade-in">
             <Container> {/* center the content */}
                 <div className="search">
-                    <Menu getUrl={getUrl} findJoke={findJoke} setData={setData} theme={props.theme} />
+                    <Menu getUrl={getUrl} findJoke={findJoke} setData={setData} theme={theme} />
                     <p className="url">API Request: {url}</p>
                 </div>
                 {data.error === false ? (data.type === 'single' ? <Joke category={category} joke={joke}></Joke>

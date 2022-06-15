@@ -3,8 +3,7 @@ import Switch from 'react-switch'
 import { Navbar, Nav, Container } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 
-const Header = (props) => {
-    const { theme, toggleTheme } = props
+const Header = ({ theme, toggleTheme }) => {
 
     useEffect(() => {
         localStorage.setItem('theme', JSON.stringify(theme))

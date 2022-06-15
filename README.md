@@ -25,7 +25,7 @@ all rights reserved
 * Animations:  
   - Hover & click animations for every button / input / label / navbar-link tags.
   - When switching between different Screens.
-  - When swithcing between light / dark modes.
+  - When switching between light / dark modes.
   
   
 ## Screenshots:

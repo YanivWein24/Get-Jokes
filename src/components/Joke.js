@@ -1,20 +1,20 @@
 import React from 'react'
 
-const Joke = (props) => {
+const Joke = ({ category, joke }) => {
     return (
         <div className="joke fade-in">
-            <div className="jokeCategory">Category: {props.category}</div>
-            <div>{props.joke}</div>
+            <div className="jokeCategory">Category: {category}</div>
+            <div>{joke}</div>
         </div>
     )
 }
 
-const TwoPartJoke = (props) => {
+const TwoPartJoke = ({ category, setup, delivery }) => {
     return (
         <div className="joke fade-in">
-            <div className="jokeCategory underline">Category: {props.category}</div>
-            <div> {props.setup}</div>
-            <div> {props.delivery}</div>
+            <div className="jokeCategory underline">Category: {category}</div>
+            <div> {setup}</div>
+            <div> {delivery}</div>
         </div>
     )
 }
