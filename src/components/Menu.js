@@ -173,18 +173,17 @@ const Menu = (props) => {
                     </Row>
                     <Row>
                         <span>
-                            <Row className="catSelectMulti">
+                            <Row className="catSelect">
                                 <input type="checkbox" id="Dark" value={dark} checked={dark} onChange={
                                     (e) => { setDark(!dark); handleCategoryChange(e) }} /><label htmlFor="Dark">Dark</label>
                                 <input type="checkbox" id="Pun" value={pun} checked={pun} onChange={
                                     (e) => { setPun(!pun); handleCategoryChange(e) }} /><label htmlFor="Pun">Pun</label>
-
                                 <input type="checkbox" id="Programming" value={programming} checked={programming} onChange={
                                     (e) => { setProgramming(!programming); handleCategoryChange(e) }
                                 } />
                                 <label htmlFor="Programming">Programming</label>
                             </Row>
-                            <Row className="catSelectMulti">
+                            <Row className="catSelect">
                                 <input type="checkbox" id="Misc" value={misc} checked={misc} onChange={
                                     (e) => { setMisc(!misc); handleCategoryChange(e) }} /><label htmlFor="Misc">Misc</label>
                                 <input type="checkbox" id="Spooky" value={spooky} checked={spooky} onChange={
@@ -216,7 +215,7 @@ const Menu = (props) => {
                     Select flags to blacklist (optional):
                 </Col>
                 <Col >
-                    <Row>
+                    <Row className="flagSelect">
                         <input type="checkbox" id="nsfw" value={nsfw} checked={nsfw} onChange={
                             (e) => { setNsfw(!nsfw); handleBlackListChange(e) }} />
                         <label htmlFor="nsfw">NSFW</label>
@@ -227,7 +226,7 @@ const Menu = (props) => {
                             (e) => { setPolitical(!political); handleBlackListChange(e) }} />
                         <label htmlFor="political">Political</label>
                     </Row>
-                    <Row>
+                    <Row className="flagSelect">
                         <input type="checkbox" id="racist" value={racist} checked={racist} onChange={
                             (e) => { setRacist(!racist); handleBlackListChange(e) }} />
                         <label htmlFor="racist">Racist</label>

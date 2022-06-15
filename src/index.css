@@ -330,18 +330,20 @@ option {
   width: 5rem;
   padding: 0 0;
   border-radius: 6px;
-  transition: all .2s ease-in-out;
+  transition: all .25s ease-in-out;
 }
 
 .resetButton {
   width: 10rem;
   height: 2.7rem;
   padding: 0 0;
+  font-size: .8rem;
 }
 
 .searchButton {
   width: 15rem;
   height: 3rem;
+  font-size: 1rem;
 }
 
 .resetButton,
@@ -353,13 +355,13 @@ option {
 .resetButton:hover,
 .searchButton:hover,
 .deleteButton:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .resetButton:active,
 .searchButton:active,
 .deleteButton:active {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
 .resetRow {
@@ -375,8 +377,9 @@ option {
   background-color: var(--color-grey-1);
   border-radius: 1rem;
   width: 60%;
-  word-wrap: break-word
-    /* prevents the text from overflowing the parent div */
+  word-wrap: break-word;
+  transition: all .8s ease-in-out;
+  /* prevents the text from overflowing the parent div */
 }
 
 .joke {
@@ -421,7 +424,7 @@ option {
 
 .about p {
   font-size: 1.2rem;
-  color: var(--color-grey-4);
+  color: var(--color-grey-5);
   transition: all .7s ease-in-out;
 }
 
@@ -430,11 +433,17 @@ option {
 }
 
 .about-links {
-  color: var(--color-grey-4);
+  color: var(--color-grey-6);
   font-weight: 800;
   font-size: 1rem;
   transition: all .7s ease-in-out;
 }
+
+.catSelect,
+.flagSelect {
+  padding-top: 0.5rem;
+}
+
 
 .about span span {
   /* heart icon */
@@ -481,7 +490,7 @@ footer {
   select {
     border: 2px solid var(--color-grey-0);
     box-shadow: rgb(38, 57, 77) 0px 20px 15px -10px;
-
+    margin-bottom: 1rem;
   }
 
   #dark .searchString,
