@@ -10,12 +10,24 @@ all rights reserved
 
 ## Features:  
 * Access a variety of over 1000 jokes!
-* Supports 6 languages: English, Czech, German, French, Spanish and portuguese.
+* Supports 6 languages: English, Czech, German, French, Spanish and Portuguese.
 * 6 categories to choose from, including: Programming, Dark, Punctuation, Spooky, Christmas and Miscellaneous.
 * Black Flags - To filter out any jokes that might be offensive to the user.
 * Input a string and search for specific jokes that contains that string.
-* There are 2 Types of jokes to choose - 'Single' and 'Two Part'.
+* There are 2 Types of jokes to choose - 'Single' and 'Two Part'.  
 
+## Newly Added:
+* Dark Mode:
+  - A fully customized dark mode.
+  - Toggle on and off using 'react-switch' on the navigation bar.
+  - The theme preference is being saved in the user's local storage, for the next time they visit!
+  
+* Animations:  
+  - Hover & click animations for every button / input / label / navbar-link tags.
+  - When switching between different Screens.
+  - When swithcing between light / dark modes.
+  
+  
 ## Screenshots:
 On PC:  
 <p align="center">
