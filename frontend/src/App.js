@@ -5,6 +5,7 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 import HomeScreen from "./screens/HomeScreen"
 import About from "./screens/About"
+import Register from "./screens/Register"
 
 export const themeContext = createContext(null)
 
@@ -40,6 +41,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeScreen theme={theme} />} />
             <Route path="/About" element={<About />} />
+            <Route path="/Register" element={<Register />} />
           </Routes>
           <Footer />
         </div>
