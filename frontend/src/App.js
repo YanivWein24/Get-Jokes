@@ -1,11 +1,12 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import axios from "axios"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import HomeScreen from "./screens/HomeScreen"
 import About from "./screens/About"
 import Register from "./screens/Register"
+import User from "./screens/User"
+import LogIn from './screens/Login';
 
 export const themeContext = createContext(null)
 
@@ -16,17 +17,6 @@ const getLocalStorage = () => {
 }
 
 function App() {
-
-  const [data, setData] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get('/api/data')
-      setData(response.data)
-      console.log(response.data)
-    }
-    fetchData()
-  }, [])
 
   const [theme, setTheme] = useState(getLocalStorage ? getLocalStorage : "light")
   const toggleTheme = () => {
@@ -41,7 +31,9 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeScreen theme={theme} />} />
             <Route path="/About" element={<About />} />
+            <Route path="/User" element={<User />} />
             <Route path="/Register" element={<Register />} />
+            <Route path="/Login" element={<LogIn />} />
           </Routes>
           <Footer />
         </div>

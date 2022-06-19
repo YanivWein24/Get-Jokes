@@ -2,16 +2,16 @@ import React from 'react'
 import { Container, Card, Row, Col, form, FormGroup, Button } from "react-bootstrap"
 
 
-function Register() {
+function LogIn() {
     return (
         <Container className="mt-5">
-            <h1>Register</h1>
+            <h1>Log In</h1>
             <Row>
                 <Col className="sm-8">
                     <Card>
                         <div className="card-body">
-                            {/* Makes POST request to /Register route */}
-                            <form action="/Register" method="POST">
+                            {/* Makes POST request to /LogIn route */}
+                            <form action="/LogIn" method="POST">
                                 <FormGroup>
                                     <label for="email">Email</label>
                                     <input type="email" className="form-control" name="email" />
@@ -20,7 +20,7 @@ function Register() {
                                     <label for="password">Password</label>
                                     <input type="password" className="form-control" name="password" />
                                 </FormGroup>
-                                <Button type="submit" className="btn-dark">Register</Button>
+                                <Button type="submit" className="btn-dark">Log In</Button>
                             </form>
                         </div>
                     </Card>
@@ -31,7 +31,7 @@ function Register() {
                         <div className="card-body">
                             <a className="btn btn-block btn-social btn-google" href="/auth/google" role="button">
                                 <i className="fab fa-google"></i>
-                                Sign Up With Google
+                                Sign In With Google
                             </a>
                         </div>
                     </div>
@@ -39,7 +39,7 @@ function Register() {
                         <div className="card-body">
                             <a className="btn btn-block btn-social btn-facebook" href="/auth/facebook" role="button">
                                 <i className="fab fa-facebook"></i>
-                                Sign Up With Facebook
+                                Sign In With Facebook
                             </a>
                         </div>
                     </Card>
@@ -50,4 +50,4 @@ function Register() {
     )
 }
 
-export default Register
+export default LogIn
