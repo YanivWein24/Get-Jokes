@@ -1,8 +1,7 @@
 //  npm i express body-parser
-const express = require('express');
-const bodyParser = require('body-parser');
-const data = require('./data/data')
-
+import express from 'express'
+import bodyParser from "body-parser"
+import data from './data/data.js'
 
 const app = express();
 
