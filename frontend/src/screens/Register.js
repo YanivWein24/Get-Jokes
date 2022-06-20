@@ -4,21 +4,21 @@ import { Container, Card, Row, Col, form, FormGroup, Button } from "react-bootst
 
 
 function Register() {
-    const [registeredEmail, setRegisteredEmail] = useState("")
-    const [registeredPassword, setRegisteredPassword] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
 
-    const sendRegister = () => {
-        axios({
-            method: "POST",
-            data: {
-                email: registeredEmail,
-                password: registeredPassword
-            },
-            credentials: true,
-            url: "http://localhost:5000/register"
-        })
-            .then(res => console.log(res))
-    }
+    // const sendRegister = () => {
+    //     axios({
+    //         method: "POST",
+    //         data: {
+    //             email: registeredEmail,
+    //             password: registeredPassword
+    //         },
+    //         credentials: true,
+    //         url: "http://localhost:5000/register"
+    //     })
+    //     // .then(res => console.log(res))
+    // }
 
 
     return (
@@ -31,15 +31,24 @@ function Register() {
                         <div className="card-body">
                             {/* Makes POST request to /Register route */}
                             <form action="/Register" method="POST">
+                                <h3>Welcome {firstName} {lastName}!</h3>
+                                <FormGroup>
+                                    <label for="fname">First Name</label>
+                                    <input type="text" className="form-control" name="firstName" placeholder="First" required="true" onChange={(e) => setFirstName(e.target.value)} />
+                                </FormGroup>
+                                <FormGroup>
+                                    <label for="lname">Last Name</label>
+                                    <input type="text" className="form-control" name="lastName" placeholder="Last" required="true" onChange={(e) => setLastName(e.target.value)} />
+                                </FormGroup>
                                 <FormGroup>
                                     <label for="email">Email</label>
-                                    <input type="email" className="form-control" name="email" placeholder="Email" onChange={(e) => setRegisteredEmail(e.target.value)} />
+                                    <input type="email" className="form-control" name="email" placeholder="Email" required="true" />
                                 </FormGroup>
                                 <FormGroup>
                                     <label for="password">Password</label>
-                                    <input type="password" className="form-control" name="password" placeholder="Password" onChange={(e) => setRegisteredPassword(e.target.value)} />
+                                    <input type="password" className="form-control" name="password" placeholder="Password" required="true" />
                                 </FormGroup>
-                                <Button type="submit" className="btn-dark my-3" onClick={sendRegister}>Register</Button>
+                                <Button type="submit" className="btn-dark my-3">Register</Button>
                             </form>
                         </div>
                     </Card>

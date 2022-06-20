@@ -71,28 +71,46 @@ app.get('/', function (req, res) {
 // });
 
 app.post('/Register', (req, res) => {
-    const { email, password } = req.body
-    // res.send(req.body.password);
+    const { firstName, lastName, email, password } = req.body
+    console.log("Data from registration form:", firstName, lastName, email, password)
     const newUser = new User({
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         password: password
     });
-    newUser.save((err) => {
-        if (User.findOne({ email: email })) {
-            // res.send("This Email is already registered!");
-            console.log(User.findOne({ email: email }))
-        }
-        else if (err) {
-            console.log(err)
-            res.redirect("/Register")
-        }
+    User.findOne({ email: email }, async (err, foundUser) => {
+        if (err) throw err
+        if (foundUser) res.send("User Already Exists")
         else {
-            console.log("Added new user!")
-            console.log(email)
-            console.log(password)
-            res.redirect("/User")
+            await newUser.save()
+            console.log("User Added Successfully!")
+            res.redirect('/user')
         }
     })
+    // const { email, password } = req.body
+    // res.send(req.body.password);
+
+    // const newUser = new User({
+    //     email: email,
+    //     password: password
+    // });
+    // newUser.save((err) => {
+    //     if (User.findOne({ email: email })) {
+    //         // res.send("This Email is already registered!");
+    //         console.log(User.findOne({ email: email }))
+    //     }
+    //     else if (err) {
+    //         console.log(err)
+    //         res.redirect("/Register")
+    //     }
+    //     else {
+    //         console.log("Added new user!")
+    //         console.log(email)
+    //         console.log(password)
+    //         res.redirect("/User")
+    //     }
+    // })
 
     // User.register({ email: req.body.email, username: req.body.email, password: req.body.password }, function (err, user) {
     //     if (err) {
