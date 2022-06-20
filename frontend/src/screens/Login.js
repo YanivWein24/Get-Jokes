@@ -4,7 +4,7 @@ import { Container, Card, Row, Col, form, FormGroup, Button } from "react-bootst
 
 function LogIn() {
     return (
-        <Container className="mt-5">
+        <Container className="fade-in mt-5">
             <h1>Log In</h1>
             <Row>
                 <Col className="sm-8">
@@ -14,13 +14,13 @@ function LogIn() {
                             <form action="/LogIn" method="POST">
                                 <FormGroup>
                                     <label for="email">Email</label>
-                                    <input type="email" className="form-control" name="email" />
+                                    <input type="email" className="form-control" name="email" placeholder="Email" />
                                 </FormGroup>
                                 <FormGroup>
                                     <label for="password">Password</label>
-                                    <input type="password" className="form-control" name="password" />
+                                    <input type="password" className="form-control" name="password" placeholder="Password" />
                                 </FormGroup>
-                                <Button type="submit" className="btn-dark">Log In</Button>
+                                <Button type="submit" className="btn-dark my-3">Log In</Button>
                             </form>
                         </div>
                     </Card>

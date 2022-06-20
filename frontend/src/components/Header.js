@@ -28,6 +28,14 @@ const Header = ({ theme, toggleTheme }) => {
                                 {/* add the className only when the link is active*/}
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>
+                            <LinkContainer to="/Login" activeClassName='active-link'>
+                                {/* add the className only when the link is active*/}
+                                <Nav.Link>Login</Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to="/Register" activeClassName='active-link'>
+                                {/* add the className only when the link is active*/}
+                                <Nav.Link>Register</Nav.Link>
+                            </LinkContainer>
                             <div className="themeSwitch">
                                 <Switch height={24} onChange={toggleTheme} checked={theme === "dark"} onColor={"#222"} offColor={"#ddd"} />
                                 <p>{theme === "light" ? "Light Mode" : "Dark Mode"}</p>

@@ -1,11 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
 import { Container, Card, Row, Col, form, FormGroup, Button } from "react-bootstrap"
 
 
 function Register() {
+    const [registeredEmail, setRegisteredEmail] = useState("")
+    const [registeredPassword, setRegisteredPassword] = useState("")
+
+    const sendRegister = () => {
+        axios({
+            method: "POST",
+            data: {
+                email: registeredEmail,
+                password: registeredPassword
+            },
+            credentials: true,
+            url: "http://localhost:5000/register"
+        })
+            .then(res => console.log(res))
+    }
+
+
     return (
-        <Container className="mt-5">
+        <Container className="fade-in mt-5">
             <h1>Register</h1>
+            <p>Create a free account to be able to save all your favorite jokes!</p>
             <Row>
                 <Col className="sm-8">
                     <Card>
@@ -14,13 +33,13 @@ function Register() {
                             <form action="/Register" method="POST">
                                 <FormGroup>
                                     <label for="email">Email</label>
-                                    <input type="email" className="form-control" name="email" />
+                                    <input type="email" className="form-control" name="email" placeholder="Email" onChange={(e) => setRegisteredEmail(e.target.value)} />
                                 </FormGroup>
                                 <FormGroup>
                                     <label for="password">Password</label>
-                                    <input type="password" className="form-control" name="password" />
+                                    <input type="password" className="form-control" name="password" placeholder="Password" onChange={(e) => setRegisteredPassword(e.target.value)} />
                                 </FormGroup>
-                                <Button type="submit" className="btn-dark">Register</Button>
+                                <Button type="submit" className="btn-dark my-3" onClick={sendRegister}>Register</Button>
                             </form>
                         </div>
                     </Card>
