@@ -59,7 +59,11 @@ app.get('/', function (req, res) {
 });
 
 app.get('/user', function (req, res) {
-    res.send(req.user);
+    if (req.isAuthenticated()) {
+        res.send(req.user)
+    } else {
+        res.redirect('/Login')
+    }
 });
 
 // app.get('/api/:user', function (req, res) {
@@ -90,7 +94,7 @@ app.post('/Register', async (req, res) => {
         else {
             await newUser.save()
             console.log("User Added Successfully!")
-            res.redirect('/user')
+            res.redirect('/Login')
         }
     })
     // const { email, password } = req.body
@@ -161,12 +165,17 @@ app.post("/login", function (req, res) {
     })(req, res)
 })
 
-app.get('/Logout', function (req, res) {
-    console.log(req.user)
-    req.session.destroy(function (err) {
-        res.redirect('/')
-    })
-})
+// app.get('/Logout', function (req, res) {
+//     console.log(req.user)
+//     req.session.destroy(function (err) {
+//         res.redirect('/')
+//     })
+// })
+
+app.get("/Logout", function (req, res) {
+    req.logout();  // passport.js method
+    res.redirect("/");
+});
 
 // app.post('/Login', passport.authenticate('local', { failureRedirect: '/' }))
 

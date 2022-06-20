@@ -28,12 +28,12 @@ function LogIn() {
                             {/* Makes POST request to /LogIn route */}
                             <form action="/Login" method="POST">
                                 <FormGroup>
-                                    <label for="email">Email</label>
-                                    <input type="email" className="form-control" name="email" placeholder="Email" onChange={e => setEmail(e.target.value)} />
+                                    <label htmlFor="email">Email</label>
+                                    <input type="email" className="form-control" name="email" required={true} placeholder="Email" onChange={e => setEmail(e.target.value)} />
                                 </FormGroup>
                                 <FormGroup>
-                                    <label for="password">Password</label>
-                                    <input type="password" className="form-control" name="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+                                    <label htmlFor="password">Password</label>
+                                    <input type="password" className="form-control" name="password" required={true} placeholder="Password" onChange={e => setPassword(e.target.value)} />
                                 </FormGroup>
                                 <Button type="submit" className="btn-dark my-3">Log In</Button>
                             </form>
