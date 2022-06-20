@@ -1,8 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
 import { Container, Card, Row, Col, form, FormGroup, Button } from "react-bootstrap"
 
 
 function LogIn() {
+
+    const [data, setData] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+
+    // const getUser = () => {
+    //     axios({
+    //         method: "POST",
+    //         withCredentials: true,
+    //         url: "http://localhost:5000/user"
+    //     }).then((res) => setData(res))
+    // }
+
     return (
         <Container className="fade-in mt-5">
             <h1>Log In</h1>
@@ -11,14 +26,14 @@ function LogIn() {
                     <Card>
                         <div className="card-body">
                             {/* Makes POST request to /LogIn route */}
-                            <form action="/LogIn" method="POST">
+                            <form action="/Login" method="POST">
                                 <FormGroup>
                                     <label for="email">Email</label>
-                                    <input type="email" className="form-control" name="email" placeholder="Email" />
+                                    <input type="email" className="form-control" name="email" placeholder="Email" onChange={e => setEmail(e.target.value)} />
                                 </FormGroup>
                                 <FormGroup>
                                     <label for="password">Password</label>
-                                    <input type="password" className="form-control" name="password" placeholder="Password" />
+                                    <input type="password" className="form-control" name="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                                 </FormGroup>
                                 <Button type="submit" className="btn-dark my-3">Log In</Button>
                             </form>

@@ -10,6 +10,7 @@ import bcrypt from 'bcrypt'
 import cors from 'cors'
 import connectDB from './config/db.js'
 import userSchema from './config/userSchema.js'
+import passportConfig from './config/passportConfig.js'
 
 dotenv.config();
 passportLocal.Strategy
@@ -31,31 +32,34 @@ app.use(session({    //? using express-session
     secret: 'A long string which is the secret key.', // just set as a long string
     resave: false, // default
     saveUninitialized: true,  // default
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // equals to 1 day
+    }
 }));
 
 app.use(cookieParser('A long string which is the secret key.'));
+app.use(passport.initialize());
+app.use(passport.session());
+passportConfig(passport)
+
+app.use((req, res, next) => {
+    console.log(req.session)
+    console.log(req.user)
+    next()
+})
 
 // userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model('User', userSchema);
 
 // passport.use(User.createStrategy());
 
-// passport.serializeUser(function (user, done) {
-//     done(null, user.id);
-// });
-
-// passport.deserializeUser(function (id, done) {
-//     User.findById(id, function (err, user) {
-//         done(null, user);
-//     });
-// });
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-
 //? Routes:
 app.get('/', function (req, res) {
     res.send('API is running...');
+});
+
+app.get('/user', function (req, res) {
+    res.send(req.user);
 });
 
 // app.get('/api/:user', function (req, res) {
@@ -70,14 +74,15 @@ app.get('/', function (req, res) {
 //     });
 // });
 
-app.post('/Register', (req, res) => {
+app.post('/Register', async (req, res) => {
     const { firstName, lastName, email, password } = req.body
     console.log("Data from registration form:", firstName, lastName, email, password)
+    const hashedPassword = await bcrypt.hash(password, 15) // 15 salting rounds
     const newUser = new User({
         firstName: firstName,
         lastName: lastName,
         email: email,
-        password: password
+        password: hashedPassword
     });
     User.findOne({ email: email }, async (err, foundUser) => {
         if (err) throw err
@@ -131,21 +136,39 @@ app.post('/Register', (req, res) => {
 })
 
 app.post("/login", function (req, res) {
-    const user = new User({
-        email: req.body.email,
-        password: req.body.password
-    });
-    req.login(user, function (err) {  // passport.js method
+    console.log("Test")
+    // const user = new User({
+    //     email: req.body.email,
+    //     password: req.body.password
+    // });
+    passport.authenticate("local", (err, user, info) => {
         if (err) {
-            console.log(err);
-        } else {
-            passport.authenticate("local")(req, res, function () {
-                res.redirect("/User")
-            });
+            console.log(err)
+            res.redirect("/")
         }
-    });
-});
+        // else if (!user) res.send("User Not Found")
+        else {
+            req.login(user, (err) => {  // passport.js method
+                if (err) {
+                    console.log(err)
+                    res.redirect("/")
+                }
+                console.log('successfully logged in!')
+                console.log(req.user)
+                res.redirect("/User")
+            })
+        }
+    })(req, res)
+})
 
+app.get('/Logout', function (req, res) {
+    console.log(req.user)
+    req.session.destroy(function (err) {
+        res.redirect('/')
+    })
+})
+
+// app.post('/Login', passport.authenticate('local', { failureRedirect: '/' }))
 
 const PORT = process.env.PORT || 5000;
 

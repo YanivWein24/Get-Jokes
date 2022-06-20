@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     jokes: {
         type: Array,
         required: false,
-        default: []
+        default: [{ title: "joke1", value: "haha" }, { title: "joke2", value: "hahaha" }]
     }
 })
 
