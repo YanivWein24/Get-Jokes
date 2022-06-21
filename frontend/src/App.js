@@ -8,6 +8,7 @@ import About from "./screens/About"
 import Register from "./screens/Register"
 import User from "./screens/User"
 import LogIn from './screens/Login';
+import Logout from './components/Logout';
 
 export const themeContext = createContext(null)
 
@@ -41,6 +42,7 @@ function App() {
       const { _id, email, firstName, lastName, jokes } = res.data
       setData({ id: _id, email: email, firstName: firstName, lastName: lastName, jokes: jokes })
     })
+      .catch((err) => console.log("Received no data from the server"))
   }
 
   useEffect(() => {
@@ -56,9 +58,10 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeScreen theme={theme} />} />
             <Route path="/About" element={<About />} />
-            {data.id && <Route path="/User" element={<User data={data} />} />}
+            {data.id ? <Route path="/User" element={<User data={data} />} /> : <Route path="/User" element={<HomeScreen theme={theme} />} />}
             <Route path="/Register" element={<Register />} />
             <Route path="/Login" element={<LogIn />} />
+            {data.id ? <Route path="/Logout" element={<Logout />} /> : <Route path="/Logout" element={<HomeScreen />} />}
           </Routes>
           <Footer />
         </div>

@@ -48,10 +48,8 @@ app.use((req, res, next) => {
     next()
 })
 
-// userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model('User', userSchema);
 
-// passport.use(User.createStrategy());
 
 //? Routes:
 app.get('/', function (req, res) {
@@ -65,18 +63,6 @@ app.get('/user', function (req, res) {
         res.redirect('/Login')
     }
 });
-
-// app.get('/api/:user', function (req, res) {
-//     User.findById(req.user._id, (err, foundUser) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             if (foundUser) {
-//                 res.render("User", { User: foundUser })
-//             }
-//         }
-//     });
-// });
 
 app.post('/Register', async (req, res) => {
     const { firstName, lastName, email, password } = req.body
@@ -97,68 +83,19 @@ app.post('/Register', async (req, res) => {
             res.redirect('/Login')
         }
     })
-    // const { email, password } = req.body
-    // res.send(req.body.password);
-
-    // const newUser = new User({
-    //     email: email,
-    //     password: password
-    // });
-    // newUser.save((err) => {
-    //     if (User.findOne({ email: email })) {
-    //         // res.send("This Email is already registered!");
-    //         console.log(User.findOne({ email: email }))
-    //     }
-    //     else if (err) {
-    //         console.log(err)
-    //         res.redirect("/Register")
-    //     }
-    //     else {
-    //         console.log("Added new user!")
-    //         console.log(email)
-    //         console.log(password)
-    //         res.redirect("/User")
-    //     }
-    // })
-
-    // User.register({ email: req.body.email, username: req.body.email, password: req.body.password }, function (err, user) {
-    //     if (err) {
-    //         console.log(err)
-    //         console.log(req.body.email)
-    //         console.log(req.body.password)
-    //         res.redirect("/Register")
-    //     }
-    //     else {
-    //         console.log("Added new user!")
-    //         console.log(req.body.email)
-    //         console.log(req.body.password)
-    //         passport.authenticate("local")(req, res, function () {
-    //             res.redirect("/User")
-    //         });
-    //     }
-    // })
 })
 
 app.post("/login", function (req, res) {
-    console.log("Test")
-    // const user = new User({
-    //     email: req.body.email,
-    //     password: req.body.password
-    // });
     passport.authenticate("local", (err, user, info) => {
         if (err) {
             console.log(err)
             res.redirect("/login")
         }
-        // else if (!user) res.send("User Not Found")
+        // if (!user) res.send("User Not Found")
         else {
             req.login(user, (err) => {  // passport.js method
-                if (err) {
-                    console.log(err)
-                    res.redirect("/")
-                }
+                if (err) throw (err)
                 console.log('successfully logged in!')
-                console.log(req.user)
                 res.redirect("/User")
             })
         }
@@ -173,11 +110,13 @@ app.post("/login", function (req, res) {
 // })
 
 app.get("/Logout", function (req, res) {
-    req.logout();  // passport.js method
-    res.redirect("/");
+    req.logout((err) => {
+        if (err) console.log(err)
+        else res.redirect("/")
+    })  // passport.js method
+    // res.json({ message: "Successfully logged out" });
 });
 
-// app.post('/Login', passport.authenticate('local', { failureRedirect: '/' }))
 
 const PORT = process.env.PORT || 5000;
 

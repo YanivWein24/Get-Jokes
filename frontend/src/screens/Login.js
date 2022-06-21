@@ -1,22 +1,8 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import { Container, Card, Row, Col, form, FormGroup, Button } from "react-bootstrap"
+import React from 'react'
+import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
 
 
 function LogIn() {
-
-    const [data, setData] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-
-
-    // const getUser = () => {
-    //     axios({
-    //         method: "POST",
-    //         withCredentials: true,
-    //         url: "http://localhost:5000/user"
-    //     }).then((res) => setData(res))
-    // }
 
     return (
         <Container className="fade-in mt-5">
@@ -29,11 +15,11 @@ function LogIn() {
                             <form action="/Login" method="POST">
                                 <FormGroup>
                                     <label htmlFor="email">Email</label>
-                                    <input type="email" className="form-control" name="email" required={true} placeholder="Email" onChange={e => setEmail(e.target.value)} />
+                                    <input type="email" className="form-control" name="email" required={true} placeholder="Email" />
                                 </FormGroup>
                                 <FormGroup>
                                     <label htmlFor="password">Password</label>
-                                    <input type="password" className="form-control" name="password" required={true} placeholder="Password" onChange={e => setPassword(e.target.value)} />
+                                    <input type="password" className="form-control" name="password" required={true} placeholder="Password" />
                                 </FormGroup>
                                 <Button type="submit" className="btn-dark my-3">Log In</Button>
                             </form>

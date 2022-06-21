@@ -20,7 +20,6 @@ const Header = ({ theme, toggleTheme, data }) => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-button" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto"> {/*margin-left: auto - push the links to the right*/}
-                            <p>{data.email ? data.email : "Not signed in"}</p>
                             <LinkContainer to="/" activeClassName='active-link'>
                                 {/* add the className only when the link is active*/}
                                 <Nav.Link>Home</Nav.Link>

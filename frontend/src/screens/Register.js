@@ -1,24 +1,11 @@
 import React, { useState } from 'react'
-// import axios from 'axios'
-import { Container, Card, Row, Col, form, FormGroup, Button } from "react-bootstrap"
+import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
 
 
 function Register() {
+
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
-
-    // const sendRegister = () => {
-    //     axios({
-    //         method: "POST",
-    //         data: {
-    //             email: registeredEmail,
-    //             password: registeredPassword
-    //         },
-    //         credentials: true,
-    //         url: "http://localhost:5000/register"
-    //     })
-    //     // .then(res => console.log(res))
-    // }
 
 
     return (
@@ -49,7 +36,7 @@ function Register() {
                                     <input type="password" className="form-control" name="password" placeholder="Password" required={true} />
                                 </FormGroup>
                                 <Button type="submit" className="btn-dark my-3">Register</Button>
-                                <p>Have an account already? <a href="/Login">Sign In</a></p>
+                                <p>Already a member? <a href="/Login">Sign In</a></p>
                             </form>
                         </div>
                     </Card>
@@ -74,7 +61,7 @@ function Register() {
                     </Card>
                 </div>
             </Row>
-        </Container>
+        </Container >
 
     )
 }
