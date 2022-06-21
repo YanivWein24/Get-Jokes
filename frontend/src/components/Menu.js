@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 
-const Menu = ({ isLightTheme, getUrl, findJoke, setData }) => {
+const Menu = ({ isLightTheme, getUrl, findJoke, setJokeData }) => {
 
     // check the current theme to apply different bootstrap button colors
 
@@ -142,7 +142,7 @@ const Menu = ({ isLightTheme, getUrl, findJoke, setData }) => {
     }
 
     const reset = () => {
-        setData({}) // setting data to {} - removes the joke being displayed
+        setJokeData({}) // setting data to {} - removes the joke being displayed
         anyCategory() // this method resets all the categories
         setLanguage("")
         setNsfw(false)

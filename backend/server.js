@@ -10,6 +10,7 @@ import bcrypt from 'bcrypt'
 import cors from 'cors'
 import connectDB from './config/db.js'
 import userSchema from './config/userSchema.js'
+import jokeSchema from './config/jokeSchema.js'
 import passportConfig from './config/passportConfig.js'
 
 dotenv.config();
@@ -44,20 +45,19 @@ passportConfig(passport)
 
 //? Use this to check out updates in the session:
 // app.use((req, res, next) => {
-//     console.log(req.session)
-//     console.log(req.user)
-//     next()
+// console.log(req.session)
+// console.log(req.user)
+// next()
 // })
 
 //? creating the User model with userSchema
 const User = mongoose.model('User', userSchema);
+const Joke = mongoose.model('Joke', jokeSchema);
 
 
 //? ----------------------------------- Routes: -----------------------------------
 
-app.get('/', function (req, res) {
-    res.send('API is running...')
-})
+app.get('/', (req, res) => res.send('API is running...'))
 
 app.post('/Register', async (req, res) => {
     const { firstName, lastName, email, password } = req.body
@@ -80,7 +80,7 @@ app.post('/Register', async (req, res) => {
     })
 })
 
-app.post("/login", function (req, res) {
+app.post("/login", (req, res) => {
     passport.authenticate("local", (err, user, info) => {
         if (err) {
             console.log(err)
@@ -97,7 +97,7 @@ app.post("/login", function (req, res) {
     })(req, res)
 })
 
-app.get("/Logout", function (req, res) {
+app.get("/Logout", (req, res) => {
     if (req.isAuthenticated() !== true) res.redirect("/")
     else {
         req.logout((err) => {
@@ -107,7 +107,7 @@ app.get("/Logout", function (req, res) {
     }
 })
 
-app.get('/user', function (req, res) {
+app.get('/User', (req, res) => {
     if (req.isAuthenticated()) {
         res.send(req.user)
     } else {
@@ -115,9 +115,31 @@ app.get('/user', function (req, res) {
     }
 })
 
+app.post('/Like', (req, res) => {
+    console.log(req.body)
+    const newJoke = new Joke({
+        category: req.body.category,
+        type: req.body.type,
+        joke: req.body.joke
+        //? switch to req.body? 
+    })
+
+    User.findOne({ email: req.user.email }, (err, foundUser) => {
+        if (foundUser) {
+            foundUser.jokes.push(newJoke)
+            foundUser.save()
+            console.log(newJoke)
+            // console.log(foundUser.jokes)
+        } else {
+            console.log("Failed to find the correct user..")
+        }
+    })
+})
+
+
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, function () {
+app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
