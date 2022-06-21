@@ -37,6 +37,7 @@ function LogIn() {
                                 </FormGroup>
                                 <Button type="submit" className="btn-dark my-3">Log In</Button>
                             </form>
+                            <p>Don't have an account? <a href="/Register">Sign Up</a></p>
                         </div>
                     </Card>
                 </Col>

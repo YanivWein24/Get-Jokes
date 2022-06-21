@@ -1,5 +1,6 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import axios from "axios"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import HomeScreen from "./screens/HomeScreen"
@@ -23,15 +24,39 @@ function App() {
     setTheme((currTheme) => (currTheme === "light" ? "dark" : "light"))
   }
 
+  const [data, setData] = useState({
+    id: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    jokes: []
+  })
+
+  const getUserData = () => {
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: "/user"
+    }).then((res) => {
+      const { _id, email, firstName, lastName, jokes } = res.data
+      setData({ id: _id, email: email, firstName: firstName, lastName: lastName, jokes: jokes })
+    })
+  }
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    getUserData()
+  }, []);
+
   return (
     <Router>
       <themeContext.Provider value={{ theme, toggleTheme }}>
         <div id={theme}>
-          <Header theme={theme} toggleTheme={toggleTheme} />
+          <Header theme={theme} toggleTheme={toggleTheme} data={data} />
           <Routes>
             <Route path="/" element={<HomeScreen theme={theme} />} />
             <Route path="/About" element={<About />} />
-            <Route path="/User" element={<User />} />
+            {data.id && <Route path="/User" element={<User data={data} />} />}
             <Route path="/Register" element={<Register />} />
             <Route path="/Login" element={<LogIn />} />
           </Routes>

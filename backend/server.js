@@ -148,7 +148,7 @@ app.post("/login", function (req, res) {
     passport.authenticate("local", (err, user, info) => {
         if (err) {
             console.log(err)
-            res.redirect("/")
+            res.redirect("/login")
         }
         // else if (!user) res.send("User Not Found")
         else {

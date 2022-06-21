@@ -49,6 +49,7 @@ function Register() {
                                     <input type="password" className="form-control" name="password" placeholder="Password" required={true} />
                                 </FormGroup>
                                 <Button type="submit" className="btn-dark my-3">Register</Button>
+                                <p>Have an account already? <a href="/Login">Sign In</a></p>
                             </form>
                         </div>
                     </Card>

@@ -3,7 +3,7 @@ import Switch from 'react-switch'
 import { Navbar, Nav, Container } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 
-const Header = ({ theme, toggleTheme }) => {
+const Header = ({ theme, toggleTheme, data }) => {
 
     useEffect(() => {
         localStorage.setItem('theme', JSON.stringify(theme))
@@ -20,26 +20,28 @@ const Header = ({ theme, toggleTheme }) => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-button" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto"> {/*margin-left: auto - push the links to the right*/}
+                            <p>{data.email ? data.email : "Not signed in"}</p>
                             <LinkContainer to="/" activeClassName='active-link'>
                                 {/* add the className only when the link is active*/}
                                 <Nav.Link>Home</Nav.Link>
                             </LinkContainer>
                             <LinkContainer to="/About" activeClassName='active-link'>
-                                {/* add the className only when the link is active*/}
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to="/Login" activeClassName='active-link'>
-                                {/* add the className only when the link is active*/}
-                                <Nav.Link>Login</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/Register" activeClassName='active-link'>
-                                {/* add the className only when the link is active*/}
-                                <Nav.Link>Register</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/Logout" activeClassName='active-link'>
-                                {/* add the className only when the link is active*/}
+                            {!data.email &&
+                                <LinkContainer to="/Login" activeClassName='active-link'>
+                                    <Nav.Link>Login</Nav.Link>
+                                </LinkContainer>}
+                            {!data.email &&
+                                <LinkContainer to="/Register" activeClassName='active-link'>
+                                    <Nav.Link>Register</Nav.Link>
+                                </LinkContainer>}
+                            {data.email && <LinkContainer to="/User" activeClassName='active-link'>
+                                <Nav.Link>{data.firstName}</Nav.Link>
+                            </LinkContainer>}
+                            {data.email && <LinkContainer to="/Logout" activeClassName='active-link'>
                                 <Nav.Link>Logout</Nav.Link>
-                            </LinkContainer>
+                            </LinkContainer>}
                             <div className="themeSwitch">
                                 <Switch height={24} onChange={toggleTheme} checked={theme === "dark"} onColor={"#222"} offColor={"#ddd"} />
                                 <p>{theme === "light" ? "Light Mode" : "Dark Mode"}</p>
