@@ -22,8 +22,21 @@ const HomeScreen = ({ isLightTheme, userData }) => {
     }
 
     const addToLikes = () => {
-        axios.post('/Like', likedJoke)
-            .then(() => console.log("Added new joke!"))
+        axios({
+            method: 'post',
+            url: '/Like',
+            data: {
+                category: "jokeData.category",
+                type: "jokeData.type",
+                joke: "jokeData.joke"
+            }
+        })
+            // axios.post('/Like',{
+            //     category: jokeData.category,
+            //     type: jokeData.type,
+            //     joke: jokeData.joke
+            // })
+            // .then(() => console.log("Added new joke!"))
             .catch((err) => console.log(err))
     }
 
@@ -44,8 +57,11 @@ const HomeScreen = ({ isLightTheme, userData }) => {
                     <Menu getUrl={getUrl} findJoke={findJoke} setJokeData={setJokeData} isLightTheme={isLightTheme} />
                     <p className="url">API Request: {url}</p>
                 </div>
-                {jokeData.error === false ? (jokeData.type === 'single' ? <Joke category={jokeData.category} joke={jokeData.joke} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></Joke>
-                    : <TwoPartJoke category={jokeData.category} setup={jokeData.setup} delivery={jokeData.delivery} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></TwoPartJoke>) : (jokeData.error !== undefined ? <Joke category={"Error"} joke={`Could not find a joke that matches these specifications.`}></Joke> : "")}
+                {jokeData.error === false ? (jokeData.type === 'single' ?
+                    <Joke category={jokeData.category} joke={jokeData.joke} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></Joke>
+                    : <TwoPartJoke category={jokeData.category} setup={jokeData.setup} delivery={jokeData.delivery} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></TwoPartJoke>)
+                    : (jokeData.error !== undefined ? <Joke category={"Error"} joke={`Could not find a joke that matches these specifications.`}></Joke>
+                        : "")}
                 {/* first we check if we received a response from the api by checking the data.error property
           if its false, this means we received a successful response. so now we check if the type of the response is "single" or "twoPart" and render the output component accordingly.
           if data.error !== false then it could mean two things:

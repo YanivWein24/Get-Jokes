@@ -15,7 +15,8 @@ const passportConfig = (passport) => {
             (email, password, done) => {
                 User.findOne({ email: email.toLowerCase() }, (err, user) => {
                     if (err) throw err
-                    if (!user) return done("No user found", false) // null for errors, false for returned user
+                    const errorMessage = "There is no user data associated with the provided email address."
+                    if (!user) return done(errorMessage, false) // null for errors, false for returned user
                     const isPasswordValid = bcrypt.compare(password, user.password)
                     if (!isPasswordValid) return done("Email or password are not valid", null)
                     return done(null, user) // null for errors, user for the returned user

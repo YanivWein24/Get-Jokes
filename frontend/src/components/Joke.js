@@ -8,7 +8,7 @@ const Joke = ({ category, joke, isLightTheme, addToLikes, userData }) => {
             <div className="jokeCategory">Category: {category}</div>
             <div>{joke}</div>
             {userData.email !== "" &&
-                <Button className="my-1 btn-sm" onClick={addToLikes} variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-heart"></i> Like</Button>
+                <Button className="likeButton my-1 btn-sm" onClick={addToLikes} variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-heart"></i> Like</Button>
             }
         </div>
     )
@@ -21,7 +21,7 @@ const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, user
             <div> {setup}</div>
             <div> {delivery}</div>
             {userData.email !== "" &&
-                <Button className="my-2 rounded btn-sm" onClick={addToLikes} variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-heart"></i> Like</Button>
+                <Button className="likeButton my-2 rounded btn-sm" onClick={addToLikes} variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-heart"></i> Like</Button>
             }
         </div>
     )
@@ -30,12 +30,21 @@ const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, user
 const UserJoke = ({ category, joke, isLightTheme }) => {
     return (
         <div className="joke fade-in">
-            <div className="jokeCategory">Category: {category}</div>
+            <div className="jokeCategory"> {category}</div>
             <div>{joke}</div>
             <Button className="my-1 btn-sm" variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-trash-can"></i> Delete</Button>
         </div>
     )
 }
 
+const EmptyUserJoke = ({ category, joke, isLightTheme }) => {
+    return (
+        <div className="joke fade-in">
+            <div className="jokeCategory"> {category}</div>
+            <div>{joke}</div>
+        </div>
+    )
+}
+
 export default Joke
-export { TwoPartJoke, UserJoke }
+export { TwoPartJoke, UserJoke, EmptyUserJoke }

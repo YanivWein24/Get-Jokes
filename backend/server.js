@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import express from 'express'
 import bodyParser from "body-parser"
 import mongoose from 'mongoose'
+import _ from 'lodash' // enables _.capitalize()
 import session from 'express-session'
 import passport from 'passport'
 import passportLocal from 'passport-local'
@@ -44,11 +45,11 @@ app.use(passport.session());
 passportConfig(passport)
 
 //? Use this to check out updates in the session:
-// app.use((req, res, next) => {
-// console.log(req.session)
-// console.log(req.user)
-// next()
-// })
+app.use((req, res, next) => {
+    console.log(req.session.passport)
+    // console.log(req.user)
+    next()
+})
 
 //? creating the User model with userSchema
 const User = mongoose.model('User', userSchema);
@@ -64,8 +65,8 @@ app.post('/Register', async (req, res) => {
     console.log("Data from registration form:", firstName, lastName, email, password)
     const hashedPassword = await bcrypt.hash(password, 15) // 15 salting rounds
     const newUser = new User({
-        firstName: firstName,
-        lastName: lastName,
+        firstName: _.capitalize(firstName),
+        lastName: _.capitalize(lastName),
         email: email.toLowerCase(),
         password: hashedPassword
     });
@@ -82,11 +83,7 @@ app.post('/Register', async (req, res) => {
 
 app.post("/login", (req, res) => {
     passport.authenticate("local", (err, user, info) => {
-        if (err) {
-            console.log(err)
-            res.redirect("/login")
-        }
-        // if (!user) res.send("User Not Found")
+        if (err) res.send(err)
         else {
             req.login(user, (err) => {  // passport.js method
                 if (err) throw (err)
@@ -117,19 +114,21 @@ app.get('/User', (req, res) => {
 
 app.post('/Like', (req, res) => {
     console.log(req.body)
+    console.log(req.params)
+    console.log(req.data)
     const newJoke = new Joke({
-        category: req.body.category,
-        type: req.body.type,
-        joke: req.body.joke
-        //? switch to req.body? 
+        category: "req.params.category",
+        type: "req.params.type",
+        joke: "req.params.joke"
     })
 
     User.findOne({ email: req.user.email }, (err, foundUser) => {
         if (foundUser) {
             foundUser.jokes.push(newJoke)
-            foundUser.save()
-            console.log(newJoke)
-            // console.log(foundUser.jokes)
+            foundUser.save((err) => {
+                if (err) console.log(err)
+                else console.log("Added new joke!!!!")
+            })
         } else {
             console.log("Failed to find the correct user..")
         }

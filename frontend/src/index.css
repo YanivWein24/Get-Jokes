@@ -372,13 +372,15 @@ option {
 
 .resetButton:hover,
 .searchButton:hover,
-.deleteButton:hover {
+.deleteButton:hover,
+.likeButton:hover {
   transform: scale(1.08);
 }
 
 .resetButton:active,
 .searchButton:active,
-.deleteButton:active {
+.deleteButton:active,
+.likeButton:active {
   transform: scale(1.15);
 }
 
@@ -421,6 +423,10 @@ option {
   align-items: center;
 }
 
+.likeButton {
+  transition: all .2s ease-in-out
+}
+
 .fa-heart,
 .fa-trash-can {
   color: red;
@@ -430,6 +436,8 @@ option {
 #dark .fa-trash-can {
   color: white;
 }
+
+
 
 /* About Screen */
 .about {
@@ -554,6 +562,14 @@ footer {
 
   .joke {
     font-size: 1.2rem;
+  }
+
+  .likeButton:hover {
+    transform: scale(1);
+  }
+
+  .likeButton:active {
+    transform: scale(1.15);
   }
 
   .about {
