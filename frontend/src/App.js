@@ -58,10 +58,10 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeScreen theme={theme} />} />
             <Route path="/About" element={<About />} />
-            {data.id ? <Route path="/User" element={<User data={data} />} /> : <Route path="/User" element={<HomeScreen theme={theme} />} />}
+            <Route path="/User" element={<User data={data} />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/Login" element={<LogIn />} />
-            <Route path="/Logout" element={<Logout data={data} />} />
+            <Route path="/Logout" element={<Logout data={data} theme={theme} />} />
           </Routes>
           <Footer />
         </div>

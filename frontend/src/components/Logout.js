@@ -3,13 +3,10 @@ import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import axios from 'axios'
 
-function Logout({ data }) {
+function Logout({ data, theme }) {
 
-    // const history = useHistory();
-
-    // function handleClick(path) {
-    //     history.push(path);
-    // }
+    // check the current theme to apply different bootstrap button colors
+    const isLightTheme = theme === 'light'
 
     useEffect(() => {
         axios({
@@ -23,14 +20,14 @@ function Logout({ data }) {
     }, []);
 
     return (
-        <>
+        <center className="fade-in">
             {data.id && <h1>processing...</h1>}
 
-            {!data.id && <h2>You are now logged out.</h2>}
-            {!data.id && <h2>Press this button to return to the home page</h2>}
-            {!data.id && <Link to="/"><Button>Home Page</Button></Link>}
+            {!data.id && <h1>You are now logged out.</h1>}
+            {!data.id && <h1>Press this button to return to the home page</h1>}
+            {!data.id && <Link to="/"><Button className="my-3" variant={isLightTheme ? "success" : "info"}>Home Page</Button></Link>}
 
-        </>
+        </center>
     )
 }
 

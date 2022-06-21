@@ -13,7 +13,7 @@ const passportConfig = (passport) => {
                 usernameField: 'email'
             },
             (email, password, done) => {
-                User.findOne({ email: email }, (err, user) => {
+                User.findOne({ email: email.toLowerCase() }, (err, user) => {
                     if (err) throw err
                     if (!user) return done("No user found", false) // null for errors, false for returned user
                     const isPasswordValid = bcrypt.compare(password, user.password)

@@ -42,28 +42,22 @@ app.use(passport.initialize());
 app.use(passport.session());
 passportConfig(passport)
 
-// Use this to check out updates in the session:
+//? Use this to check out updates in the session:
 // app.use((req, res, next) => {
 //     console.log(req.session)
 //     console.log(req.user)
 //     next()
 // })
 
+//? creating the User model with userSchema
 const User = mongoose.model('User', userSchema);
 
 
-//? Routes:
-app.get('/', function (req, res) {
-    res.send('API is running...');
-});
+//? ----------------------------------- Routes: -----------------------------------
 
-app.get('/user', function (req, res) {
-    if (req.isAuthenticated()) {
-        res.send(req.user)
-    } else {
-        res.redirect('/Login')
-    }
-});
+app.get('/', function (req, res) {
+    res.send('API is running...')
+})
 
 app.post('/Register', async (req, res) => {
     const { firstName, lastName, email, password } = req.body
@@ -103,13 +97,6 @@ app.post("/login", function (req, res) {
     })(req, res)
 })
 
-// app.get('/Logout', function (req, res) {
-//     console.log(req.user)
-//     req.session.destroy(function (err) {
-//         res.redirect('/')
-//     })
-// })
-
 app.get("/Logout", function (req, res) {
     if (req.isAuthenticated() !== true) res.redirect("/")
     else {
@@ -117,8 +104,15 @@ app.get("/Logout", function (req, res) {
             if (err) console.log(err)
             else res.redirect("/")
         })
-    }  // passport.js method
-    // res.json({ message: "Successfully logged out" });
+    }
+})
+
+app.get('/user', function (req, res) {
+    if (req.isAuthenticated()) {
+        res.send(req.user)
+    } else {
+        res.redirect('/Login')
+    }
 })
 
 
