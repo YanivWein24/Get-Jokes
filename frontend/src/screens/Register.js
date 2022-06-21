@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
 
 
-function Register() {
+function Register({ isLightTheme }) {
 
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -35,7 +35,7 @@ function Register() {
                                     <label htmlFor="password">Password</label>
                                     <input type="password" className="form-control" name="password" placeholder="Password" required={true} />
                                 </FormGroup>
-                                <Button type="submit" className="btn-dark my-3">Register</Button>
+                                <Button type="submit" className="my-3" variant={isLightTheme ? "success" : "info"}>Register</Button>
                                 <p>Already a member? <a href="/Login">Sign In</a></p>
                             </form>
                         </div>

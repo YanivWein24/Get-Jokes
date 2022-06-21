@@ -25,6 +25,8 @@ function App() {
     setTheme((currTheme) => (currTheme === "light" ? "dark" : "light"))
   }
 
+  const isLightTheme = theme === 'light'
+
   const [data, setData] = useState({
     id: "",
     email: "",
@@ -56,11 +58,11 @@ function App() {
         <div id={theme}>
           <Header theme={theme} toggleTheme={toggleTheme} data={data} />
           <Routes>
-            <Route path="/" element={<HomeScreen theme={theme} />} />
+            <Route path="/" element={<HomeScreen isLightTheme={isLightTheme} />} />
             <Route path="/About" element={<About />} />
             <Route path="/User" element={<User data={data} />} />
-            <Route path="/Register" element={<Register />} />
-            <Route path="/Login" element={<LogIn />} />
+            <Route path="/Register" element={<Register isLightTheme={isLightTheme} />} />
+            <Route path="/Login" element={<LogIn isLightTheme={isLightTheme} />} />
             <Route path="/Logout" element={<Logout data={data} theme={theme} />} />
           </Routes>
           <Footer />

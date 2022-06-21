@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 
-const Menu = ({ theme, getUrl, findJoke, setData }) => {
+const Menu = ({ isLightTheme, getUrl, findJoke, setData }) => {
 
     // check the current theme to apply different bootstrap button colors
-    const isLightTheme = theme === 'light'
 
     // Categories:
     const [any, setAny] = useState(true)
