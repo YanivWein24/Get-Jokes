@@ -42,11 +42,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 passportConfig(passport)
 
-app.use((req, res, next) => {
-    console.log(req.session)
-    console.log(req.user)
-    next()
-})
+// Use this to check out updates in the session:
+// app.use((req, res, next) => {
+//     console.log(req.session)
+//     console.log(req.user)
+//     next()
+// })
 
 const User = mongoose.model('User', userSchema);
 
@@ -71,11 +72,11 @@ app.post('/Register', async (req, res) => {
     const newUser = new User({
         firstName: firstName,
         lastName: lastName,
-        email: email,
+        email: email.toLowerCase(),
         password: hashedPassword
     });
-    User.findOne({ email: email }, async (err, foundUser) => {
-        if (err) throw err
+    User.findOne({ email: email.toLowerCase() }, async (err, foundUser) => {
+        if (err) console.log(err)
         if (foundUser) res.send("User Already Exists")
         else {
             await newUser.save()
@@ -110,12 +111,15 @@ app.post("/login", function (req, res) {
 // })
 
 app.get("/Logout", function (req, res) {
-    req.logout((err) => {
-        if (err) console.log(err)
-        else res.redirect("/")
-    })  // passport.js method
+    if (req.isAuthenticated() !== true) res.redirect("/")
+    else {
+        req.logout((err) => {
+            if (err) console.log(err)
+            else res.redirect("/")
+        })
+    }  // passport.js method
     // res.json({ message: "Successfully logged out" });
-});
+})
 
 
 const PORT = process.env.PORT || 5000;
