@@ -60,7 +60,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeScreen isLightTheme={isLightTheme} />} />
             <Route path="/About" element={<About />} />
-            <Route path="/User" element={<User data={data} />} />
+            <Route path="/User" element={<User data={data} isLightTheme={isLightTheme} />} />
             <Route path="/Register" element={<Register isLightTheme={isLightTheme} />} />
             <Route path="/Login" element={<LogIn isLightTheme={isLightTheme} />} />
             <Route path="/Logout" element={<Logout data={data} theme={theme} />} />

@@ -1,13 +1,12 @@
 import React from 'react'
-import Joke from '../components/Joke'
+import { UserJoke } from '../components/Joke'
 
-function User({ data }) {
-
+function User({ data, isLightTheme }) {
     return (
         <center className="fade-in">
             <h1>Welcome back {data.firstName}!</h1>
             {data.jokes[0] ? data.jokes.map(joke => (
-                <Joke key={joke.id} category={joke.category} joke={joke.joke}></Joke>
+                <UserJoke key={joke.id} category={joke.category} joke={joke.joke} isLightTheme={isLightTheme}></UserJoke>
             ))
                 : <h1>No Jokes Here</h1>}
         </center>

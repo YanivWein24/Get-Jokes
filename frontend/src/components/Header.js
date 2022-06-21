@@ -29,11 +29,11 @@ const Header = ({ theme, toggleTheme, data }) => {
                             </LinkContainer>
                             {!data.email &&
                                 <LinkContainer to="/Login" activeClassName='active-link'>
-                                    <Nav.Link>Login</Nav.Link>
+                                    <Nav.Link><i class="fa-solid fa-right-to-bracket"></i> Login</Nav.Link>
                                 </LinkContainer>}
                             {!data.email &&
                                 <LinkContainer to="/Register" activeClassName='active-link'>
-                                    <Nav.Link>Register</Nav.Link>
+                                    <Nav.Link><i class="fa-solid fa-user-plus"></i> Register</Nav.Link>
                                 </LinkContainer>}
                             {data.email && <LinkContainer to="/User" activeClassName='active-link'>
                                 <Nav.Link>{data.firstName}</Nav.Link>

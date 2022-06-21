@@ -421,6 +421,16 @@ option {
   align-items: center;
 }
 
+.fa-heart,
+.fa-trash-can {
+  color: red;
+  transition: all .3s ease-in-out;
+}
+
+#dark .fa-trash-can {
+  color: white;
+}
+
 /* About Screen */
 .about {
   width: 100%;
