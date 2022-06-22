@@ -63,7 +63,7 @@ app.get('/', (req, res) => res.send('API is running...'))
 app.post('/Register', async (req, res) => {
     const { firstName, lastName, email, password } = req.body
     console.log("Data from registration form:", firstName, lastName, email, password)
-    const hashedPassword = await bcrypt.hash(password, 15) // 15 salting rounds
+    const hashedPassword = await bcrypt.hash(password, 10) // 10 salting rounds
     const newUser = new User({
         firstName: _.capitalize(firstName),
         lastName: _.capitalize(lastName),
