@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap"
 import Menu from "../components/Menu"
 import Joke, { TwoPartJoke } from "../components/Joke"
 
-const HomeScreen = ({ isLightTheme, userData }) => {
+const HomeScreen = ({ isLightTheme, userData, getUserData }) => {
 
     // sent to the Menu component as a prop, to receive the url for the GET request
     const [url, setUrl] = useState("")
@@ -14,12 +14,6 @@ const HomeScreen = ({ isLightTheme, userData }) => {
 
     //  Full response from the API
     const [jokeData, setJokeData] = useState({})
-
-    const likedJoke = {
-        category: jokeData.category,
-        type: jokeData.type,
-        joke: jokeData.joke
-    }
 
     const addToLikes = async () => {
         await axios({
@@ -59,8 +53,8 @@ const HomeScreen = ({ isLightTheme, userData }) => {
                     <p className="url">API Request: {url}</p>
                 </div>
                 {jokeData.error === false ? (jokeData.type === 'single' ?
-                    <Joke category={jokeData.category} joke={jokeData.joke} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></Joke>
-                    : <TwoPartJoke category={jokeData.category} setup={jokeData.setup} delivery={jokeData.delivery} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></TwoPartJoke>)
+                    <Joke category={jokeData.category} joke={jokeData.joke} isLightTheme={isLightTheme} addToLikes={addToLikes} getUserData={getUserData} userData={userData}></Joke>
+                    : <TwoPartJoke category={jokeData.category} setup={jokeData.setup} delivery={jokeData.delivery} isLightTheme={isLightTheme} addToLikes={addToLikes} getUserData={getUserData} userData={userData}></TwoPartJoke>)
                     : (jokeData.error !== undefined ? <Joke category={"Error"} joke={`Could not find a joke that matches these specifications.`}></Joke>
                         : "")}
                 {/* first we check if we received a response from the api by checking the data.error property

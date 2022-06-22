@@ -3,28 +3,28 @@ import { Button } from 'react-bootstrap'
 import axios from 'axios'
 
 
-const Joke = ({ category, joke, isLightTheme, addToLikes, userData }) => {
+const Joke = ({ category, joke, isLightTheme, addToLikes, getUserData, userData }) => {
     return (
         <div className="joke fade-in">
             <div className="jokeCategory">Category: {category}</div>
             <div>{joke}</div>
             {userData.email !== "" &&
-                <Button className="likeButton my-1 btn-sm" onClick={addToLikes} variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-heart"></i> Like</Button>
+                <Button className="likeButton my-1 btn-sm" onClick={() => { addToLikes(); getUserData(); }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
-        </div>
+        </div >
     )
 }
 
-const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, userData }) => {
+const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, getUserData, userData }) => {
     return (
         <div className="joke fade-in">
             <div className="jokeCategory underline">Category: {category}</div>
             <div> {setup}</div>
             <div> {delivery}</div>
             {userData.email !== "" &&
-                <Button className="likeButton my-2 rounded btn-sm" onClick={addToLikes} variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-heart"></i> Like</Button>
+                <Button className="likeButton my-2 rounded btn-sm" onClick={() => { addToLikes(); getUserData(); }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
-        </div>
+        </div >
     )
 }
 
@@ -45,13 +45,12 @@ const UserJoke = ({ category, joke, isLightTheme, userData, setUserData }) => {
         <div className="joke fade-in">
             <div className="jokeCategory"> {category}</div>
             <div>{joke}</div>
-            <Button onClick={() => deleteJoke()} className="my-1 btn-sm" variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-trash-can"></i> Delete</Button>
+            <Button onClick={() => deleteJoke()} className="my-1 btn-sm" variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-trash-can"></i> Delete</Button>
         </div>
     )
 }
 
-
-const TwoPartUserJoke = ({ jokeId, category, setup, delivery, isLightTheme }) => {
+const TwoPartUserJoke = ({ category, setup, delivery, isLightTheme }) => {
     const deleteJoke = async () => {
         await axios({
             method: 'post',
@@ -69,7 +68,7 @@ const TwoPartUserJoke = ({ jokeId, category, setup, delivery, isLightTheme }) =>
             <div className="jokeCategory"> {category}</div>
             <div>{setup}</div>
             <div>{delivery}</div>
-            <Button onClick={() => deleteJoke()} className="my-1 btn-sm" variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-trash-can"></i> Delete</Button>
+            <Button onClick={() => deleteJoke()} className="my-1 btn-sm" variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-trash-can"></i> Delete</Button>
         </div>
     )
 }

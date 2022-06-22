@@ -43,6 +43,7 @@ function App() {
     }).then((res) => {
       const { _id, email, firstName, lastName, jokes } = res.data
       setUserData({ id: _id, email: email, firstName: firstName, lastName: lastName, jokes: jokes })
+      console.log(res.data)
     })
       .catch((err) => console.log("Received no data from the server"))
   }
@@ -58,7 +59,7 @@ function App() {
         <div id={theme}>
           <Header theme={theme} toggleTheme={toggleTheme} userData={userData} />
           <Routes>
-            <Route path="/" element={<HomeScreen isLightTheme={isLightTheme} userData={userData} />} />
+            <Route path="/" element={<HomeScreen isLightTheme={isLightTheme} userData={userData} getUserData={getUserData} />} />
             <Route path="/About" element={<About />} />
             <Route path="/User" element={<User userData={userData} setUserData={setUserData} isLightTheme={isLightTheme} />} />
             <Route path="/Register" element={<Register isLightTheme={isLightTheme} />} />

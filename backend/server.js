@@ -111,7 +111,6 @@ app.get('/User', (req, res) => {
 
 app.post('/user/delete', (req, res) => {
     console.log("Received request to delete joke")
-    console.log(req.body)
     req.body.joke ?
         // handle the request for a single part joke:
         User.findOneAndUpdate({ email: req.user.email }, { $pull: { jokes: { joke: req.body.joke } } }, function (err, foundList, item) {
@@ -126,11 +125,9 @@ app.post('/user/delete', (req, res) => {
             if (!err) console.log(`Deleted joke from ${req.user.firstName} ${req.user.lastName}'s collection`)
             else console.log(err)
         })
-
 })
 
 app.post('/Like', (req, res) => {
-    console.log(req.body)
     const newJoke = req.body.joke !== undefined ?
         new Joke({
             category: req.body.category,
@@ -151,6 +148,17 @@ app.post('/Like', (req, res) => {
                 else {
                     const { firstName, lastName } = req.user
                     console.log(`Added new joke to ${firstName} ${lastName}'s collection !`)
+
+                    // passport.authenticate("local", (err, user, info) => {
+                    //     if (err) res.send(err)
+                    //     else {
+                    //         req.login(user, (err) => {  // passport.js method
+                    //             if (err) throw (err)
+                    //             console.log('successfully logged in!')
+                    //             res.redirect("/User")
+                    //         })
+                    //     }
+                    // })(req, res)
                 }
             })
         } else {

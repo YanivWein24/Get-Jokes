@@ -29,17 +29,17 @@ const Header = ({ theme, toggleTheme, userData }) => {
                             </LinkContainer>
                             {!userData.email &&
                                 <LinkContainer to="/Login" activeClassName='active-link'>
-                                    <Nav.Link><i class="fa-solid fa-right-to-bracket"></i> Login</Nav.Link>
+                                    <Nav.Link><i className="fa-solid fa-right-to-bracket"></i> Login</Nav.Link>
                                 </LinkContainer>}
                             {!userData.email &&
                                 <LinkContainer to="/Register" activeClassName='active-link'>
-                                    <Nav.Link><i class="fa-solid fa-user-plus"></i> Register</Nav.Link>
+                                    <Nav.Link><i className="fa-solid fa-user-plus"></i> Register</Nav.Link>
                                 </LinkContainer>}
                             {userData.email && <LinkContainer to="/User" activeClassName='active-link'>
-                                <Nav.Link><i class="fa-solid fa-user"></i> {userData.firstName}</Nav.Link>
+                                <Nav.Link><i className="fa-solid fa-user"></i> {userData.firstName}</Nav.Link>
                             </LinkContainer>}
                             {userData.email && <LinkContainer to="/Logout" activeClassName='active-link'>
-                                <Nav.Link><i class="fa-solid fa-right-from-bracket"></i> Logout</Nav.Link>
+                                <Nav.Link><i className="fa-solid fa-right-from-bracket"></i> Logout</Nav.Link>
                             </LinkContainer>}
                             <div className="themeSwitch">
                                 <Switch height={24} onChange={toggleTheme} checked={theme === "dark"} onColor={"#222"} offColor={"#ddd"} />
