@@ -21,23 +21,32 @@ const HomeScreen = ({ isLightTheme, userData }) => {
         joke: jokeData.joke
     }
 
-    const addToLikes = () => {
-        axios({
+    const addToLikes = async () => {
+        await axios({
             method: 'post',
             url: '/Like',
-            data: {
-                category: "jokeData.category",
-                type: "jokeData.type",
-                joke: "jokeData.joke"
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: jokeData.joke ? {
+                category: jokeData.category,
+                type: jokeData.type,
+                joke: jokeData.joke
+            } : {
+                category: jokeData.category,
+                type: jokeData.type,
+                setup: jokeData.setup,
+                delivery: jokeData.delivery
             }
+
         })
-            // axios.post('/Like',{
-            //     category: jokeData.category,
-            //     type: jokeData.type,
-            //     joke: jokeData.joke
-            // })
-            // .then(() => console.log("Added new joke!"))
-            .catch((err) => console.log(err))
+        // axios.post('/Like',{
+        //     category: jokeData.category,
+        //     type: jokeData.type,
+        //     joke: jokeData.joke
+        // })
+        // .then(() => console.log("Added new joke!"))
+        // .catch((err) => console.log(err))
     }
 
     // send a request to "joke api" and handle the response appropriately

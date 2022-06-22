@@ -6,12 +6,11 @@ import _ from 'lodash' // enables _.capitalize()
 import session from 'express-session'
 import passport from 'passport'
 import passportLocal from 'passport-local'
-import cookieParser from 'cookie-parser'
 import bcrypt from 'bcrypt'
-import cors from 'cors'
 import connectDB from './config/db.js'
 import userSchema from './config/userSchema.js'
 import jokeSchema from './config/jokeSchema.js'
+import twoPartJokeSchema from './config/twoPartJokeSchema.js'
 import passportConfig from './config/passportConfig.js'
 
 dotenv.config();
@@ -21,14 +20,10 @@ connectDB()
 
 const app = express();
 
-//? Middleware:
+//? ----------------------------------- Middleware: -----------------------------------
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(cors({
-    origin: "http://localhost:3000", // <-- location of the react app were connecting
-    credentials: true
-}))
 
 app.use(session({    //? using express-session
     secret: 'A long string which is the secret key.', // just set as a long string
@@ -39,21 +34,24 @@ app.use(session({    //? using express-session
     }
 }));
 
-app.use(cookieParser('A long string which is the secret key.'));
+app.use(express.json()) // needed to allow the server accept data from axios requests
 app.use(passport.initialize());
 app.use(passport.session());
 passportConfig(passport)
+//? -------------------------------- end of Middleware: --------------------------------
 
 //? Use this to check out updates in the session:
-app.use((req, res, next) => {
-    console.log(req.session.passport)
-    // console.log(req.user)
-    next()
-})
+// app.use((req, res, next) => {
+// console.log(req.session.passport)
+// console.log(req.user)
+// next()
+// })
+
 
 //? creating the User model with userSchema
 const User = mongoose.model('User', userSchema);
 const Joke = mongoose.model('Joke', jokeSchema);
+const TwoPartJoke = mongoose.model('TwoPartJoke', twoPartJokeSchema);
 
 
 //? ----------------------------------- Routes: -----------------------------------
@@ -112,22 +110,39 @@ app.get('/User', (req, res) => {
     }
 })
 
+app.post('/user/delete', (req, res) => {
+    console.log("Received request to delete joke")
+    console.log(req.body)
+    User.findOneAndUpdate({ email: req.user.email }, { $pull: { jokes: { _id: '62b30c898a2b4cd67554a67f' } } }, function (err, foundList, item) {
+        // we use the $pull method to remove items from an array in our collection
+        if (!err) console.log(`Deleted joke from ${req.user.firstName} ${req.user.lastName}'s collection`)
+        else console.log(err)
+    })
+})
+
 app.post('/Like', (req, res) => {
     console.log(req.body)
-    console.log(req.params)
-    console.log(req.data)
-    const newJoke = new Joke({
-        category: "req.params.category",
-        type: "req.params.type",
-        joke: "req.params.joke"
-    })
-
+    const newJoke = req.body.joke !== undefined ?
+        new Joke({
+            category: req.body.category,
+            type: req.body.type,
+            joke: req.body.joke
+        }) :
+        new TwoPartJoke({
+            category: req.body.category,
+            type: req.body.type,
+            setup: req.body.setup,
+            delivery: req.body.delivery
+        })
     User.findOne({ email: req.user.email }, (err, foundUser) => {
         if (foundUser) {
             foundUser.jokes.push(newJoke)
             foundUser.save((err) => {
                 if (err) console.log(err)
-                else console.log("Added new joke!!!!")
+                else {
+                    const { firstName, lastName } = req.user
+                    console.log(`Added new joke to ${firstName} ${lastName}'s collection !`)
+                }
             })
         } else {
             console.log("Failed to find the correct user..")
