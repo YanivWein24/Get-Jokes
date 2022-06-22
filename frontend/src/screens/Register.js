@@ -35,7 +35,7 @@ function Register({ isLightTheme }) {
                                     <label htmlFor="password">Password</label>
                                     <input type="password" className="form-control" name="password" placeholder="Password" required={true} />
                                 </FormGroup>
-                                <Button type="submit" className="my-3" variant={isLightTheme ? "success" : "info"}>Register</Button>
+                                <Button type="submit" className="my-3 registerButton" variant={isLightTheme ? "success" : "info"}>Register</Button>
                                 <p>Already a member? <a href="/Login">Sign In</a></p>
                             </form>
                         </div>

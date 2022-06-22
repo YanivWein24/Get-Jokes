@@ -25,7 +25,7 @@ function Logout({ userData, theme }) {
 
             {!userData.id && <h1>You are now logged out.</h1>}
             {!userData.id && <h1>Press this button to return to the home page</h1>}
-            {!userData.id && <Link to="/"><Button className="my-3" variant={isLightTheme ? "success" : "info"}>Home Page</Button></Link>}
+            {!userData.id && <Link to="/"><Button className="my-3 returnHomeButton" variant={isLightTheme ? "success" : "info"}>Home Page</Button></Link>}
 
         </center>
     )

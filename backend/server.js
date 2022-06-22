@@ -95,6 +95,7 @@ app.get("/Logout", (req, res) => {
     if (req.isAuthenticated() !== true) res.redirect("/")
     else {
         req.logout((err) => {
+            console.log("User requesting to log out")
             if (err) console.log(err)
             else res.redirect("/")
         })

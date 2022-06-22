@@ -21,7 +21,7 @@ function LogIn({ isLightTheme }) {
                                     <label htmlFor="password">Password</label>
                                     <input type="password" className="form-control" name="password" required={true} placeholder="Password" />
                                 </FormGroup>
-                                <Button type="submit" className="my-3" variant={isLightTheme ? "success" : "info"}>Log In</Button>
+                                <Button type="submit" className="my-3 loginButton" variant={isLightTheme ? "success" : "info"}>Log In</Button>
                             </form>
                             <p>Don't have an account? <a href="/Register">Sign Up</a></p>
                         </div>

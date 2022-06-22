@@ -131,6 +131,16 @@ main {
   background-color: var(--color-grey-4);
 }
 
+#dark .fa-trash-can {
+  color: white;
+}
+
+#dark .likeMessage,
+#dark .deleteMessage {
+  border-radius: 10px;
+  background-color: var(--color-grey-1);
+}
+
 #dark .searchString,
 #dark select {
   border: 2px solid var(--color-grey-0);
@@ -373,15 +383,26 @@ option {
 .resetButton:hover,
 .searchButton:hover,
 .deleteButton:hover,
-.likeButton:hover {
+.likeButton:hover,
+.deleteJokeButton:hover,
+.returnHomeButton:hover,
+.loginButton:hover,
+.registerButton:hover {
   transform: scale(1.08);
 }
 
 .resetButton:active,
 .searchButton:active,
-.deleteButton:active,
-.likeButton:active {
+.deleteButton:active {
   transform: scale(1.15);
+}
+
+.likeButton:active,
+.deleteJokeButton:active,
+.returnHomeButton:active,
+.loginButton:active,
+.registerButton:active {
+  transform: scale(1.25);
 }
 
 .resetRow {
@@ -423,8 +444,10 @@ option {
   align-items: center;
 }
 
-.likeButton {
-  transition: all .2s ease-in-out
+.likeButton,
+.deleteJokeButton {
+  transition: all .2s ease-in-out;
+  border-radius: 20px;
 }
 
 .fa-heart,
@@ -433,11 +456,20 @@ option {
   transition: all .3s ease-in-out;
 }
 
-#dark .fa-trash-can {
-  color: white;
+.likeMessage,
+.deleteMessage {
+  transition: all .1s ease-in-out;
+  font-size: .75rem;
+  border-radius: 10px;
+  background-color: var(--color-grey-00);
+  width: 25%;
+  margin: 0.15rem auto 0;
 }
 
-
+.deleteMessage {
+  width: 12%;
+  font-size: .75rem;
+}
 
 /* About Screen */
 .about {
@@ -480,7 +512,6 @@ option {
   padding-top: 0.5rem;
 }
 
-
 .about span span {
   /* heart icon */
   color: red;
@@ -491,6 +522,13 @@ p span {
   font-weight: 800;
 }
 
+.returnHomeButton,
+.loginButton,
+.registerButton {
+  border-radius: 25px;
+  transition: all .2s ease-in-out;
+}
+
 footer {
   padding: 2.5rem 0 1rem;
   /* ^^ removes the white space at the bottom  */
@@ -499,7 +537,6 @@ footer {
   color: var(--color-grey-4);
   transition: all .5s ease-in-out;
 }
-
 
 
 @media only screen and (max-width: 500px) {
@@ -564,12 +601,13 @@ footer {
     font-size: 1.2rem;
   }
 
-  .likeButton:hover {
-    transform: scale(1);
+
+  .likeMessage {
+    width: 70%;
   }
 
-  .likeButton:active {
-    transform: scale(1.15);
+  .deleteMessage {
+    width: 40%;
   }
 
   .about {
@@ -627,9 +665,17 @@ footer {
     font-weight: 700;
   }
 
+
+  .likeButton:active,
+  .deleteJokeButton:active {
+    transform: scale(1.15);
+  }
+
   .resetButton:hover,
   .searchButton:hover,
-  .deleteButton:hover {
+  .deleteButton:hover,
+  .likeButton:hover,
+  .deleteJokeButton:hover {
     transform: scale(1);
   }
 
