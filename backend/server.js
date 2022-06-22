@@ -38,7 +38,7 @@ app.use(express.json()) // needed to allow the server accept data from axios req
 app.use(passport.initialize());
 app.use(passport.session());
 passportConfig(passport)
-//? -------------------------------- end of Middleware: --------------------------------
+//? -------------------------------- End Of Middleware: --------------------------------
 
 //? Use this to check out updates in the session:
 // app.use((req, res, next) => {
@@ -55,7 +55,6 @@ const TwoPartJoke = mongoose.model('TwoPartJoke', twoPartJokeSchema);
 
 
 //? ----------------------------------- Routes: -----------------------------------
-
 app.get('/', (req, res) => res.send('API is running...'))
 
 app.post('/Register', async (req, res) => {
@@ -113,11 +112,21 @@ app.get('/User', (req, res) => {
 app.post('/user/delete', (req, res) => {
     console.log("Received request to delete joke")
     console.log(req.body)
-    User.findOneAndUpdate({ email: req.user.email }, { $pull: { jokes: { _id: '62b30c898a2b4cd67554a67f' } } }, function (err, foundList, item) {
-        // we use the $pull method to remove items from an array in our collection
-        if (!err) console.log(`Deleted joke from ${req.user.firstName} ${req.user.lastName}'s collection`)
-        else console.log(err)
-    })
+    req.body.joke ?
+        // handle the request for a single part joke:
+        User.findOneAndUpdate({ email: req.user.email }, { $pull: { jokes: { joke: req.body.joke } } }, function (err, foundList, item) {
+            // we use the $pull method to remove items from an array in our collection
+            if (!err) console.log(`Deleted joke from ${req.user.firstName} ${req.user.lastName}'s collection`)
+            else console.log(err)
+        })
+        :
+        // handle the request for a two part joke:
+        User.findOneAndUpdate({ email: req.user.email }, { $pull: { jokes: { setup: req.body.setup } } }, function (err, foundList, item) {
+            // we use the $pull method to remove items from an array in our collection
+            if (!err) console.log(`Deleted joke from ${req.user.firstName} ${req.user.lastName}'s collection`)
+            else console.log(err)
+        })
+
 })
 
 app.post('/Like', (req, res) => {
@@ -150,7 +159,7 @@ app.post('/Like', (req, res) => {
     })
 })
 
-
+//? -------------------------------- End Of Routes: --------------------------------
 
 const PORT = process.env.PORT || 5000;
 

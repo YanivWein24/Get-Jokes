@@ -38,18 +38,10 @@ const HomeScreen = ({ isLightTheme, userData }) => {
                 setup: jokeData.setup,
                 delivery: jokeData.delivery
             }
-
         })
-        // axios.post('/Like',{
-        //     category: jokeData.category,
-        //     type: jokeData.type,
-        //     joke: jokeData.joke
-        // })
-        // .then(() => console.log("Added new joke!"))
-        // .catch((err) => console.log(err))
     }
 
-    // send a request to "joke api" and handle the response appropriately
+    // send a request to "joke api" and handle the response
     const findJoke = async (event) => {
         try {
             const response = await axios.get(url)

@@ -28,23 +28,16 @@ const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, user
     )
 }
 
-const UserJoke = ({ jokeId, category, joke, isLightTheme, userData, setUserData }) => {
-    const deleteJoke = async (jokeId) => {
-        // axios.post(`/user/delete`, null, {
-        //     params: {
-        //         id: jokeId,
-        //     }
-        // })
-        //     .then(console.log("Sent post request to delete joke"))
-        // .then(setUserData(userData.jokes.filter(joke => joke._id !== "62b30c898a2b4cd67554a67f")))
+const UserJoke = ({ category, joke, isLightTheme, userData, setUserData }) => {
+    const deleteJoke = async () => {
         await axios({
             method: 'post',
             url: '/user/delete',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: {
-                id: jokeId
+            data: {
+                joke: joke
             }
         })
     }
@@ -52,19 +45,31 @@ const UserJoke = ({ jokeId, category, joke, isLightTheme, userData, setUserData 
         <div className="joke fade-in">
             <div className="jokeCategory"> {category}</div>
             <div>{joke}</div>
-            <Button onClick={() => deleteJoke(jokeId)} className="my-1 btn-sm" variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-trash-can"></i> Delete</Button>
+            <Button onClick={() => deleteJoke()} className="my-1 btn-sm" variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-trash-can"></i> Delete</Button>
         </div>
     )
 }
 
 
 const TwoPartUserJoke = ({ jokeId, category, setup, delivery, isLightTheme }) => {
+    const deleteJoke = async () => {
+        await axios({
+            method: 'post',
+            url: '/user/delete',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: {
+                setup: setup
+            }
+        })
+    }
     return (
         <div className="joke fade-in">
             <div className="jokeCategory"> {category}</div>
             <div>{setup}</div>
             <div>{delivery}</div>
-            <Button className="my-1 btn-sm" variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-trash-can"></i> Delete</Button>
+            <Button onClick={() => deleteJoke()} className="my-1 btn-sm" variant={isLightTheme ? "secondary" : "info"}><i class="fa-solid fa-trash-can"></i> Delete</Button>
         </div>
     )
 }
