@@ -8,7 +8,7 @@ import About from "./screens/About"
 import Register from "./screens/Register"
 import User from "./screens/User"
 import LogIn from './screens/Login';
-import Logout from './components/Logout';
+import Logout from './screens/Logout';
 
 export const themeContext = createContext(null)
 
