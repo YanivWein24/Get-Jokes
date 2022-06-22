@@ -123,8 +123,12 @@ app.post('/user/delete', (req, res) => {
         // handle the request for a two part joke:
         User.findOneAndUpdate({ email: req.user.email }, { $pull: { jokes: { setup: req.body.setup } } }, function (err, foundList, item) {
             // we use the $pull method to remove items from an array in our collection
-            if (!err) console.log(`Deleted joke from ${req.user.firstName} ${req.user.lastName}'s collection`)
-            else console.log(err)
+            if (err) console.log(err)
+            else {
+                console.log(`Deleted joke from ${req.user.firstName} ${req.user.lastName}'s collection`)
+                res.sendStatus(200)
+            }
+
         })
 })
 
@@ -149,6 +153,7 @@ app.post('/Like', (req, res) => {
                 else {
                     const { firstName, lastName } = req.user
                     console.log(`Added new joke to ${firstName} ${lastName}'s collection !`)
+                    res.sendStatus(200)
 
                     // passport.authenticate("local", (err, user, info) => {
                     //     if (err) res.send(err)

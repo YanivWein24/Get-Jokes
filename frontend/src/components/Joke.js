@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Container } from 'react-bootstrap'
 import axios from 'axios'
 
 
-const Joke = ({ category, joke, isLightTheme, addToLikes, getUserData, userData }) => {
+const Joke = ({ category, joke, isLightTheme, addToLikes, userData }) => {
     const [like, setLike] = useState(false)
 
     const addedLikeMessage = () => {
@@ -17,7 +17,7 @@ const Joke = ({ category, joke, isLightTheme, addToLikes, getUserData, userData 
             <div className="jokeCategory">Category: {category}</div>
             <div>{joke}</div>
             {userData.email !== "" &&
-                <Button className="likeButton my-1 btn-sm" onClick={() => { addToLikes(); getUserData(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
+                <Button className="likeButton my-1 btn-sm" onClick={() => { addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
             {userData.email !== "" && like === true &&
                 <p className="likeMessage fade-in">Added to the collection!</p>
@@ -26,7 +26,7 @@ const Joke = ({ category, joke, isLightTheme, addToLikes, getUserData, userData 
     )
 }
 
-const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, getUserData, userData }) => {
+const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, userData }) => {
     const [like, setLike] = useState(false)
     const addedLikeMessage = () => {
         setLike(true)
@@ -40,7 +40,7 @@ const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, getU
             <div> {setup}</div>
             <div> {delivery}</div>
             {userData.email !== "" &&
-                <Button className="likeButton my-2 btn-sm" onClick={() => { addToLikes(); getUserData(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
+                <Button className="likeButton my-2 btn-sm" onClick={() => { addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
             {userData.email !== "" && like === true &&
                 <p className="likeMessage fade-in" >Added to the collection!</p>
@@ -49,7 +49,7 @@ const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, getU
     )
 }
 
-const UserJoke = ({ category, joke, isLightTheme, userData, setUserData }) => {
+const UserJoke = ({ category, joke, isLightTheme, index }) => {
     const deleteJoke = async () => {
         await axios({
             method: 'post',
@@ -71,6 +71,7 @@ const UserJoke = ({ category, joke, isLightTheme, userData, setUserData }) => {
     }
     return (
         <div className="joke fade-in">
+            <p>{index + 1}</p>
             <div className="jokeCategory"> {category}</div>
             <div>{joke}</div>
             <Button onClick={() => { deleteJoke(); deleteJokeMessage() }} className="my-1 btn-sm deleteJokeButton" variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-trash-can"></i> Delete</Button>
@@ -81,7 +82,7 @@ const UserJoke = ({ category, joke, isLightTheme, userData, setUserData }) => {
     )
 }
 
-const TwoPartUserJoke = ({ category, setup, delivery, isLightTheme }) => {
+const TwoPartUserJoke = ({ category, setup, delivery, isLightTheme, index }) => {
     const deleteJoke = async () => {
         await axios({
             method: 'post',
@@ -106,6 +107,7 @@ const TwoPartUserJoke = ({ category, setup, delivery, isLightTheme }) => {
 
     return (
         <div className="joke fade-in">
+            <p>{index + 1}</p>
             <div className="jokeCategory"> {category}</div>
             <div>{setup}</div>
             <div>{delivery}</div>
@@ -119,10 +121,10 @@ const TwoPartUserJoke = ({ category, setup, delivery, isLightTheme }) => {
 
 const EmptyUserJoke = ({ category, joke, isLightTheme }) => {
     return (
-        <div className="joke fade-in">
+        <Container className="joke fade-in">
             <div className="jokeCategory"> {category}</div>
             <div>{joke}</div>
-        </div>
+        </Container>
     )
 }
 
