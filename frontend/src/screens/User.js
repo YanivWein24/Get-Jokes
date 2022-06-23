@@ -4,8 +4,8 @@ import { UserJoke, TwoPartUserJoke, EmptyUserJoke } from '../components/Joke'
 
 function User({ userData, setUserData, isLightTheme }) {
 
-    const emptyListCategory = <h1 style={{ fontSize: "1.5rem" }}>This place is not funny yet...</h1>
-    const emptyListJoke = <h1 style={{ fontSize: "1.3rem" }}>To add a joke to your collection press on the '<i className="fa-solid fa-heart"></i>Like' button beneath the joke!</h1>
+    const emptyListCategory = <h1 style={{ fontSize: "1.5rem" }}>Its not funny here...</h1>
+    const emptyListJoke = <h1 style={{ fontSize: "1.3rem" }}>To add a joke to your collection press on the '<i className="fa-solid fa-heart"></i>Like' button beneath a joke</h1>
 
     return (
         <Container>

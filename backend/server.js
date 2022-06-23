@@ -152,7 +152,7 @@ app.post('/Like', (req, res) => {
                 if (err) console.log(err)
                 else {
                     const { firstName, lastName } = req.user
-                    console.log(`Added new joke to ${firstName} ${lastName}'s collection !`)
+                    console.log(`Added new joke to ${firstName} ${lastName}'s collection!`)
                     res.sendStatus(200)
 
                     // passport.authenticate("local", (err, user, info) => {

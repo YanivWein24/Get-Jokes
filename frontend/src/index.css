@@ -375,7 +375,10 @@ option {
 }
 
 .resetButton,
-.searchButton {
+.searchButton,
+.returnHomeButton,
+.loginButton,
+.registerButton {
   border-radius: 8px;
   transition: all .2s ease-in-out;
 }
@@ -469,6 +472,8 @@ option {
 .deleteMessage {
   width: 12%;
   font-size: .75rem;
+  margin-top: .5rem;
+  ;
 }
 
 /* About Screen */
@@ -520,13 +525,6 @@ option {
 p span {
   /* bolded text in the about screen */
   font-weight: 800;
-}
-
-.returnHomeButton,
-.loginButton,
-.registerButton {
-  border-radius: 25px;
-  transition: all .2s ease-in-out;
 }
 
 footer {
@@ -681,7 +679,7 @@ footer {
 
   .resetButton:active,
   .searchButton:active,
-  .deleteButton:active {
-    transform: scale(1.1);
+  .deleteJokeButton:active {
+    transform: scale(1.15);
   }
 }

@@ -71,13 +71,16 @@ const UserJoke = ({ category, joke, isLightTheme, index }) => {
     }
     return (
         <div className="joke fade-in">
-            <p>{index + 1}</p>
             <div className="jokeCategory"> {category}</div>
             <div>{joke}</div>
-            <Button onClick={() => { deleteJoke(); deleteJokeMessage() }} className="my-1 btn-sm deleteJokeButton" variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-trash-can"></i> Delete</Button>
+            <Button onClick={() => { deleteJoke(); deleteJokeMessage() }}
+                className="btn-sm deleteJokeButton" variant={isLightTheme ? "secondary" : "info"}
+                style={{ margin: "1.5rem auto 0" }}>
+                <i className="fa-solid fa-trash-can"></i> Delete</Button>
             {deleteMessage === true &&
                 <p className="deleteMessage fade-in" >Joke Deleted</p>
             }
+            <p style={{ fontSize: "1rem", margin: ".5rem auto 0" }}>{index + 1}</p>
         </div>
     )
 }
@@ -107,14 +110,17 @@ const TwoPartUserJoke = ({ category, setup, delivery, isLightTheme, index }) => 
 
     return (
         <div className="joke fade-in">
-            <p>{index + 1}</p>
             <div className="jokeCategory"> {category}</div>
             <div>{setup}</div>
             <div>{delivery}</div>
-            <Button onClick={() => { deleteJoke(); deleteJokeMessage() }} className="my-1 btn-sm deleteJokeButton" variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-trash-can"></i> Delete</Button>
+            <Button onClick={() => { deleteJoke(); deleteJokeMessage() }}
+                className="btn-sm deleteJokeButton" variant={isLightTheme ? "secondary" : "info"}
+                style={{ margin: "1.5rem auto 0" }}>
+                <i className="fa-solid fa-trash-can"></i> Delete</Button>
             {deleteMessage === true &&
                 <p className="deleteMessage fade-in" >Joke Deleted</p>
             }
+            <p style={{ fontSize: "1rem", margin: ".5rem auto 0" }}>{index + 1}</p>
         </div>
     )
 }
