@@ -7,6 +7,8 @@ import session from 'express-session'
 import passport from 'passport'
 import passportLocal from 'passport-local'
 import bcrypt from 'bcrypt'
+import GoogleStrategy from 'passport-google-oauth20'
+import findOrCreate from 'mongoose-findorcreate'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import connectDB from './config/db.js'
@@ -16,6 +18,7 @@ import twoPartJokeSchema from './config/twoPartJokeSchema.js'
 import passportConfig from './config/passportConfig.js'
 
 dotenv.config();
+GoogleStrategy.Strategy
 passportLocal.Strategy
 
 connectDB()
@@ -37,10 +40,9 @@ app.use(session({    //? using express-session
 }));
 
 app.use(express.json()) // needed to allow the server accept data from axios requests
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.initialize())
+app.use(passport.session())
 passportConfig(passport)
-
 //? -------------------------------- End Of Middleware: --------------------------------
 
 //? Use this to check out updates in the session:
@@ -56,6 +58,23 @@ const User = mongoose.model('User', userSchema);
 const Joke = mongoose.model('Joke', jokeSchema);
 const TwoPartJoke = mongoose.model('TwoPartJoke', twoPartJokeSchema);
 
+
+// https://www.passportjs.org/packages/passport-google-oauth20/ 
+passport.use(new GoogleStrategy({
+    clientID: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+    clientSecret: process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:5000/auth/google/redirect",
+},
+    function (accessToken, refreshToken, profile, cb) {
+        User.findOrCreate({ googleID: profile.id, email: "g-" + profile.emails[0].value, firstName: profile.name.givenName, lastName: profile.name.familyName }, function (err, user) {
+            //? "findOrCreate" is not a mongoose function, we need to require it - 'npm i mongoose-findorcreate'
+            //? after requiring, we need to add this function to the userSchema as a plugin (see in userSchema.js)
+            // console.log(profile)
+            if (err) { console.log(err) }
+            return cb(err, user);
+        });
+    }
+));
 
 //? ----------------------------------- Routes: -----------------------------------
 // app.get('/', (req, res) => res.send('API is running...'))
@@ -88,7 +107,7 @@ app.post("/login", (req, res) => {
             req.login(user, (err) => {  // passport.js method
                 if (err) throw (err)
                 console.log('successfully logged in!')
-                res.redirect("/user")
+                res.redirect("/")
             })
         }
     })(req, res)
@@ -165,6 +184,16 @@ app.post('/Like', (req, res) => {
     })
 })
 
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+// redirect from google login:
+app.get('/auth/google/redirect',
+    passport.authenticate('google', { failureRedirect: '/login' }), // redirect to "/login" if not successful
+    function (req, res) {
+        // Successful authentication, redirect to "secrets".
+        res.redirect('/');
+    });
 
 // When in production:
 const __filename = fileURLToPath(import.meta.url);

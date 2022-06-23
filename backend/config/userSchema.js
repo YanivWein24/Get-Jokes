@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import findOrCreate from 'mongoose-findorcreate'
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -17,13 +18,19 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        // required: true
     },
     jokes: {
         type: Array,
         required: false,
         default: []
+    },
+    googleID: {
+        type: String,
+        required: false
     }
 })
+
+userSchema.plugin(findOrCreate) //enables userSchema to use the 'findOrCreate' method
 
 export default userSchema

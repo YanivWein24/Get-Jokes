@@ -17,7 +17,7 @@ const Joke = ({ category, joke, isLightTheme, addToLikes, userData, }) => {
         <div className="joke fade-in">
             <div className="jokeCategory">Category: {category}</div>
             <div>{joke}</div>
-            {userData.email !== "" &&
+            {userData.email !== "" && userData.email !== undefined &&
                 <Button className="likeButton my-1 btn-sm" onClick={async () => { await addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
             {userData.email !== "" && like === true &&
@@ -41,7 +41,7 @@ const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, user
             <div className="jokeCategory underline">Category: {category}</div>
             <div> {setup}</div>
             <div> {delivery}</div>
-            {userData.email !== "" &&
+            {userData.email !== "" && userData.email !== undefined &&
                 <Button className="likeButton my-2 btn-sm" onClick={async () => { await addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
             {userData.email !== "" && like === true &&
