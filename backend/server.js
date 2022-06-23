@@ -38,6 +38,7 @@ app.use(express.json()) // needed to allow the server accept data from axios req
 app.use(passport.initialize());
 app.use(passport.session());
 passportConfig(passport)
+
 //? -------------------------------- End Of Middleware: --------------------------------
 
 //? Use this to check out updates in the session:
@@ -128,45 +129,28 @@ app.post('/user/delete', (req, res) => {
                 console.log(`Deleted joke from ${req.user.firstName} ${req.user.lastName}'s collection`)
                 res.sendStatus(200)
             }
-
         })
 })
 
 app.post('/Like', (req, res) => {
-    const newJoke = req.body.joke !== undefined ?
+    const { category, type, joke, setup, delivery } = req.body
+    const newJoke = joke !== undefined ?
         new Joke({
-            category: req.body.category,
-            type: req.body.type,
-            joke: req.body.joke
+            category: category,
+            type: type,
+            joke: joke
         }) :
         new TwoPartJoke({
-            category: req.body.category,
-            type: req.body.type,
-            setup: req.body.setup,
-            delivery: req.body.delivery
+            category: category,
+            type: type,
+            setup: setup,
+            delivery: delivery
         })
     User.findOne({ email: req.user.email }, (err, foundUser) => {
         if (foundUser) {
             foundUser.jokes.push(newJoke)
-            foundUser.save((err) => {
-                if (err) console.log(err)
-                else {
-                    const { firstName, lastName } = req.user
-                    console.log(`Added new joke to ${firstName} ${lastName}'s collection!`)
-                    res.sendStatus(200)
-
-                    // passport.authenticate("local", (err, user, info) => {
-                    //     if (err) res.send(err)
-                    //     else {
-                    //         req.login(user, (err) => {  // passport.js method
-                    //             if (err) throw (err)
-                    //             console.log('successfully logged in!')
-                    //             res.redirect("/User")
-                    //         })
-                    //     }
-                    // })(req, res)
-                }
-            })
+            foundUser.save()
+                .then(console.log(`Added new joke to ${req.user.firstName} ${req.user.lastName}'s collection`))
         } else {
             console.log("Failed to find the correct user..")
         }

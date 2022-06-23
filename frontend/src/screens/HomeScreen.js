@@ -15,8 +15,8 @@ const HomeScreen = ({ isLightTheme, userData, getUserData }) => {
     //  Full response from the API
     const [jokeData, setJokeData] = useState({})
 
-    const addToLikes = async () => {
-        await axios({
+    const addToLikes = () => {
+        axios({
             method: 'post',
             url: '/Like',
             headers: {
@@ -36,7 +36,7 @@ const HomeScreen = ({ isLightTheme, userData, getUserData }) => {
     }
 
     // send a request to "joke api" and handle the response
-    const findJoke = async (event) => {
+    const findJoke = async () => {
         try {
             const response = await axios.get(url)
             setJokeData(response.data)

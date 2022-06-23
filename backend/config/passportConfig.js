@@ -34,8 +34,13 @@ const passportConfig = (passport) => {
         done(null, user);
     });
 
-    passport.deserializeUser((user, done) => {
-        done(null, user);
+    passport.deserializeUser(async function (user, done) {
+        try {
+            const account = await User.findOne({ email: user.email });
+            done(null, account);
+        } catch (error) {
+            done(error, null)
+        }
     });
 }
 

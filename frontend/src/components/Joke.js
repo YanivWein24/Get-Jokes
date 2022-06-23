@@ -3,21 +3,22 @@ import { Button, Container } from 'react-bootstrap'
 import axios from 'axios'
 
 
-const Joke = ({ category, joke, isLightTheme, addToLikes, userData }) => {
+const Joke = ({ category, joke, isLightTheme, addToLikes, userData, }) => {
     const [like, setLike] = useState(false)
 
     const addedLikeMessage = () => {
         setLike(true)
         setTimeout(() => {
             setLike(false)
-        }, 2000);
+            window.location.reload()
+        }, 1000);
     }
     return (
         <div className="joke fade-in">
             <div className="jokeCategory">Category: {category}</div>
             <div>{joke}</div>
             {userData.email !== "" &&
-                <Button className="likeButton my-1 btn-sm" onClick={() => { addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
+                <Button className="likeButton my-1 btn-sm" onClick={async () => { await addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
             {userData.email !== "" && like === true &&
                 <p className="likeMessage fade-in">Added to the collection!</p>
@@ -26,13 +27,14 @@ const Joke = ({ category, joke, isLightTheme, addToLikes, userData }) => {
     )
 }
 
-const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, userData }) => {
+const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, userData, }) => {
     const [like, setLike] = useState(false)
     const addedLikeMessage = () => {
         setLike(true)
         setTimeout(() => {
             setLike(false)
-        }, 2000);
+            window.location.reload()
+        }, 1000);
     }
     return (
         <div className="joke fade-in">
@@ -40,7 +42,7 @@ const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, user
             <div> {setup}</div>
             <div> {delivery}</div>
             {userData.email !== "" &&
-                <Button className="likeButton my-2 btn-sm" onClick={() => { addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
+                <Button className="likeButton my-2 btn-sm" onClick={async () => { await addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
             {userData.email !== "" && like === true &&
                 <p className="likeMessage fade-in" >Added to the collection!</p>
@@ -67,7 +69,8 @@ const UserJoke = ({ category, joke, isLightTheme, index }) => {
         setDeleteMessage(true)
         setTimeout(() => {
             setDeleteMessage(false)
-        }, 2000);
+            window.location.reload()
+        }, 1000);
     }
     return (
         <div className="joke fade-in">
@@ -105,7 +108,8 @@ const TwoPartUserJoke = ({ category, setup, delivery, isLightTheme, index }) => 
         setDeleteMessage(true)
         setTimeout(() => {
             setDeleteMessage(false)
-        }, 2000);
+            window.location.reload()
+        }, 1000);
     }
 
     return (
