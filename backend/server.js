@@ -7,6 +7,8 @@ import session from 'express-session'
 import passport from 'passport'
 import passportLocal from 'passport-local'
 import bcrypt from 'bcrypt'
+import path from 'path';
+import { fileURLToPath } from 'url';
 import connectDB from './config/db.js'
 import userSchema from './config/userSchema.js'
 import jokeSchema from './config/jokeSchema.js'
@@ -56,7 +58,7 @@ const TwoPartJoke = mongoose.model('TwoPartJoke', twoPartJokeSchema);
 
 
 //? ----------------------------------- Routes: -----------------------------------
-app.get('/', (req, res) => res.send('API is running...'))
+// app.get('/', (req, res) => res.send('API is running...'))
 
 app.post('/Register', async (req, res) => {
     const { firstName, lastName, email, password } = req.body
@@ -86,7 +88,7 @@ app.post("/login", (req, res) => {
             req.login(user, (err) => {  // passport.js method
                 if (err) throw (err)
                 console.log('successfully logged in!')
-                res.redirect("/User")
+                res.redirect("/user")
             })
         }
     })(req, res)
@@ -102,6 +104,12 @@ app.get("/Logout", (req, res) => {
         })
     }
 })
+
+// app.get('/User', (req, res) => {
+//     if (!req.isAuthenticated()) {
+//         res.redirect('/Login')
+//     }
+// })
 
 app.get('/User', (req, res) => {
     if (req.isAuthenticated()) {
@@ -156,6 +164,18 @@ app.post('/Like', (req, res) => {
         }
     })
 })
+
+
+// When in production:
+const __filename = fileURLToPath(import.meta.url);
+
+// 👇️ "C:\Users\yaniv\Desktop\programming\javascript\react\Get Jokes\"
+const __dirname = path.dirname(__filename + '\..').slice(0, -7)
+
+app.use(express.static(path.join(__dirname, '/frontend/build')))
+// '*' - any route that is not declared in the api routes
+console.log(__dirname)
+app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')))
 
 //? -------------------------------- End Of Routes: --------------------------------
 
