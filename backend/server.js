@@ -8,6 +8,7 @@ import passport from 'passport'
 import passportLocal from 'passport-local'
 import bcrypt from 'bcrypt'
 import GoogleStrategy from 'passport-google-oauth20'
+import FacebookStrategy from 'passport-facebook'
 import findOrCreate from 'mongoose-findorcreate'
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -19,6 +20,7 @@ import passportConfig from './config/passportConfig.js'
 
 dotenv.config();
 GoogleStrategy.Strategy
+FacebookStrategy.Strategy
 passportLocal.Strategy
 
 connectDB()
@@ -66,10 +68,31 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:5000/auth/google/redirect",
 },
     function (accessToken, refreshToken, profile, cb) {
-        User.findOrCreate({ googleID: profile.id, email: "g-" + profile.emails[0].value, firstName: profile.name.givenName, lastName: profile.name.familyName }, function (err, user) {
+        User.findOrCreate({
+            googleID: profile.id, email: "g-" + profile.emails[0].value,
+            firstName: profile.name.givenName, lastName: profile.name.familyName
+        }, function (err, user) {
             //? "findOrCreate" is not a mongoose function, we need to require it - 'npm i mongoose-findorcreate'
             //? after requiring, we need to add this function to the userSchema as a plugin (see in userSchema.js)
             // console.log(profile)
+            if (err) { console.log(err) }
+            return cb(err, user);
+        });
+    }
+));
+
+// https://www.passportjs.org/packages/passport-facebook/
+passport.use(new FacebookStrategy({
+    clientID: process.env.REACT_APP_FACEBOOK_APP_ID,
+    clientSecret: process.env.REACT_APP_FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:5000/auth/facebook/redirect",
+    profileFields: ['id', 'emails', 'name']
+},
+    function (accessToken, refreshToken, profile, cb) {
+        User.findOrCreate({
+            facebookID: profile.id, email: "f-" + profile.emails[0].value,
+            firstName: profile.name.givenName, lastName: profile.name.familyName
+        }, function (err, user) {
             if (err) { console.log(err) }
             return cb(err, user);
         });
@@ -100,6 +123,10 @@ app.post('/Register', async (req, res) => {
     })
 })
 
+// app.get("/login", (req, res) => {
+//     if (req.isAuthenticated()) res.redirect('/userScreen')
+// })
+
 app.post("/login", (req, res) => {
     passport.authenticate("local", (err, user, info) => {
         if (err) res.send(err)
@@ -113,7 +140,7 @@ app.post("/login", (req, res) => {
     })(req, res)
 })
 
-app.get("/Logout", (req, res) => {
+app.get("/logout", (req, res) => {
     if (req.isAuthenticated() !== true) res.redirect("/")
     else {
         req.logout((err) => {
@@ -124,22 +151,17 @@ app.get("/Logout", (req, res) => {
     }
 })
 
-// app.get('/User', (req, res) => {
-//     if (!req.isAuthenticated()) {
-//         res.redirect('/Login')
-//     }
-// })
+app.get('/user/:userId', (req, res) => {
+    console.log("requesting user data2")
+    if (!req.isAuthenticated()) res.redirect('/login')
+})
 
-app.get('/User', (req, res) => {
-    if (req.isAuthenticated()) {
-        res.send(req.user)
-    } else {
-        res.redirect('/Login')
-    }
+app.get('/user', (req, res) => {
+    console.log("requesting user data")
+    if (req.isAuthenticated()) res.send(req.user)
 })
 
 app.post('/user/delete', (req, res) => {
-    console.log("Received request to delete joke")
     req.body.joke ?
         // handle the request for a single part joke:
         User.findOneAndUpdate({ email: req.user.email }, { $pull: { jokes: { joke: req.body.joke } } }, function (err, foundList, item) {
@@ -195,18 +217,32 @@ app.get('/auth/google/redirect',
         res.redirect('/');
     });
 
-// When in production:
+app.get('/auth/facebook',
+    passport.authenticate('facebook', { scope: ['public_profile', 'email'] }));
+
+app.get('/auth/facebook/redirect',
+    passport.authenticate('facebook', { failureRedirect: '/login' }), // redirect to "/login" if not successful
+    function (req, res) {
+        // Successful authentication, redirect to "secrets".
+        res.redirect('/');
+    });
+
+
+
+//? -------------------------------- End Of Routes: --------------------------------
+
+//? ----------------------------- While in production: -----------------------------
 const __filename = fileURLToPath(import.meta.url);
 
 // 👇️ "C:\Users\yaniv\Desktop\programming\javascript\react\Get Jokes\"
-const __dirname = path.dirname(__filename + '\..').slice(0, -7)
+const __dirname = path.dirname(__filename).slice(0, -7)
 
 app.use(express.static(path.join(__dirname, '/frontend/build')))
 // '*' - any route that is not declared in the api routes
-console.log(__dirname)
+// console.log(__dirname)
 app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')))
+//? ----------------------------- End - While in production: -----------------------------
 
-//? -------------------------------- End Of Routes: --------------------------------
 
 const PORT = process.env.PORT || 5000;
 

@@ -35,10 +35,10 @@ const Header = ({ theme, toggleTheme, userData }) => {
                                 <LinkContainer to="/Register" activeClassName='active-link'>
                                     <Nav.Link><i className="fa-solid fa-user-plus"></i> Register</Nav.Link>
                                 </LinkContainer>}
-                            {userData.email && <LinkContainer to="/User" activeClassName='active-link'>
+                            {userData.email && <LinkContainer to="/UserScreen" activeClassName='active-link'>
                                 <Nav.Link><i className="fa-solid fa-user"></i> {userData.firstName}</Nav.Link>
                             </LinkContainer>}
-                            {userData.email && <LinkContainer to="/Logout" activeClassName='active-link'>
+                            {userData.email && <LinkContainer to="/logout" activeClassName='active-link'>
                                 <Nav.Link><i className="fa-solid fa-right-from-bracket"></i> Logout</Nav.Link>
                             </LinkContainer>}
                             <div className="themeSwitch">

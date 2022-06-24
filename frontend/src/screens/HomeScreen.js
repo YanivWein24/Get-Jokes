@@ -18,7 +18,7 @@ const HomeScreen = ({ isLightTheme, userData, getUserData }) => {
     const addToLikes = () => {
         axios({
             method: 'post',
-            url: '/Like',
+            url: '/like',
             headers: {
                 'Content-Type': 'application/json',
             },

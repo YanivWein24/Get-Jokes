@@ -12,7 +12,7 @@ function Logout({ userData, theme }) {
         axios({
             method: "GET",
             withCredentials: true,
-            url: "/Logout"
+            url: "/logout"
         })
             .then(() => { userData.id && window.location.reload(false) })
             // reload the page after logging out. (executes ONLY when the user is still logged in, to prevent infinite loop)

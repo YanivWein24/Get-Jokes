@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
     googleID: {
         type: String,
         required: false
+    },
+    facebookID: {
+        type: String,
+        required: false
     }
 })
 

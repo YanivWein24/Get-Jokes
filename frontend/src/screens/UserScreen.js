@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import { UserJoke, TwoPartUserJoke, EmptyUserJoke } from '../components/Joke'
 
-function User({ userData, isLightTheme }) {
+function UserScreen({ userData, isLightTheme }) {
 
     const emptyListCategory = <h1 style={{ fontSize: "1.5rem" }}>Its not funny here...</h1>
     const emptyListJoke = <h1 style={{ fontSize: "1.3rem" }}>To add a joke to your collection press on the '<i className="fa-solid fa-heart"></i>Like' button beneath a joke</h1>
@@ -24,4 +24,4 @@ function User({ userData, isLightTheme }) {
     )
 }
 
-export default User
+export default UserScreen

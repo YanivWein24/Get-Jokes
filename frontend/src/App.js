@@ -6,7 +6,7 @@ import Footer from "./components/Footer"
 import HomeScreen from "./screens/HomeScreen"
 import About from "./screens/About"
 import Register from "./screens/Register"
-import User from "./screens/User"
+import UserScreen from "./screens/UserScreen"
 import LogIn from './screens/Login';
 import Logout from './screens/Logout';
 
@@ -35,16 +35,15 @@ function App() {
     jokes: []
   })
 
-  const getUserData = () => {
-    axios({
+  const getUserData = async () => {
+    const response = await axios({
       method: "GET",
       withCredentials: true,
       url: "/user"
-    }).then((res) => {
-      const { _id, email, firstName, lastName, jokes } = res.data
-      setUserData({ id: _id, email: email, firstName: firstName, lastName: lastName, jokes: jokes })
-      console.log(res.data)
     })
+    console.log(response.data)
+    const { _id, email, firstName, lastName, jokes } = response.data
+    setUserData({ id: _id, email: email, firstName: firstName, lastName: lastName, jokes: jokes })
       .catch((err) => console.log("Received no data from the server"))
   }
 
@@ -61,7 +60,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeScreen isLightTheme={isLightTheme} userData={userData} getUserData={getUserData} />} />
             <Route path="/About" element={<About />} />
-            <Route path="/User" element={<User userData={userData} isLightTheme={isLightTheme} />} />
+            <Route path="/UserScreen" element={<User userData={userData} isLightTheme={isLightTheme} />} />
             <Route path="/Register" element={<Register isLightTheme={isLightTheme} />} />
             <Route path="/Login" element={<LogIn isLightTheme={isLightTheme} />} />
             <Route path="/Logout" element={<Logout userData={userData} theme={theme} />} />
