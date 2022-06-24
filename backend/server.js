@@ -102,7 +102,7 @@ passport.use(new FacebookStrategy({
 //? ----------------------------------- Routes: -----------------------------------
 // app.get('/', (req, res) => res.send('API is running...'))
 
-app.post('/Register', async (req, res) => {
+app.post('/register', async (req, res) => {
     const { firstName, lastName, email, password } = req.body
     console.log("Data from registration form:", firstName, lastName, email, password)
     const hashedPassword = await bcrypt.hash(password, 10) // 10 salting rounds
@@ -123,10 +123,6 @@ app.post('/Register', async (req, res) => {
     })
 })
 
-// app.get("/login", (req, res) => {
-//     if (req.isAuthenticated()) res.redirect('/userScreen')
-// })
-
 app.post("/login", (req, res) => {
     passport.authenticate("local", (err, user, info) => {
         if (err) res.send(err)
@@ -134,7 +130,7 @@ app.post("/login", (req, res) => {
             req.login(user, (err) => {  // passport.js method
                 if (err) throw (err)
                 console.log('successfully logged in!')
-                res.redirect("/")
+                res.redirect("/userScreen")
             })
         }
     })(req, res)
@@ -143,8 +139,8 @@ app.post("/login", (req, res) => {
 app.get("/logout", (req, res) => {
     if (req.isAuthenticated() !== true) res.redirect("/")
     else {
+        console.log(`${req.user.firstName} ${req.user.lastName} is requesting to log out`)
         req.logout((err) => {
-            console.log("User requesting to log out")
             if (err) console.log(err)
             else res.redirect("/")
         })
@@ -181,7 +177,7 @@ app.post('/user/delete', (req, res) => {
         })
 })
 
-app.post('/Like', (req, res) => {
+app.post('/like', (req, res) => {
     const { category, type, joke, setup, delivery } = req.body
     const newJoke = joke !== undefined ?
         new Joke({
@@ -214,7 +210,7 @@ app.get('/auth/google/redirect',
     passport.authenticate('google', { failureRedirect: '/login' }), // redirect to "/login" if not successful
     function (req, res) {
         // Successful authentication, redirect to "secrets".
-        res.redirect('/');
+        res.redirect('/userScreen');
     });
 
 app.get('/auth/facebook',
@@ -224,7 +220,7 @@ app.get('/auth/facebook/redirect',
     passport.authenticate('facebook', { failureRedirect: '/login' }), // redirect to "/login" if not successful
     function (req, res) {
         // Successful authentication, redirect to "secrets".
-        res.redirect('/');
+        res.redirect('/userScreen');
     });
 
 

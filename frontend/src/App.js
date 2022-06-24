@@ -44,7 +44,6 @@ function App() {
     console.log(response.data)
     const { _id, email, firstName, lastName, jokes } = response.data
     setUserData({ id: _id, email: email, firstName: firstName, lastName: lastName, jokes: jokes })
-      .catch((err) => console.log("Received no data from the server"))
   }
 
   useEffect(() => {
@@ -60,7 +59,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeScreen isLightTheme={isLightTheme} userData={userData} getUserData={getUserData} />} />
             <Route path="/About" element={<About />} />
-            <Route path="/UserScreen" element={<User userData={userData} isLightTheme={isLightTheme} />} />
+            <Route path="/UserScreen" element={<UserScreen userData={userData} isLightTheme={isLightTheme} />} />
             <Route path="/Register" element={<Register isLightTheme={isLightTheme} />} />
             <Route path="/Login" element={<LogIn isLightTheme={isLightTheme} />} />
             <Route path="/Logout" element={<Logout userData={userData} theme={theme} />} />

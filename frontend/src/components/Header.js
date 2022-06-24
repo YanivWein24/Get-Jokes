@@ -24,18 +24,18 @@ const Header = ({ theme, toggleTheme, userData }) => {
                                 {/* add the className only when the link is active*/}
                                 <Nav.Link>Home</Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to="/About" activeClassName='active-link'>
+                            <LinkContainer to="/about" activeClassName='active-link'>
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>
                             {!userData.email &&
-                                <LinkContainer to="/Login" activeClassName='active-link'>
+                                <LinkContainer to="/login" activeClassName='active-link'>
                                     <Nav.Link><i className="fa-solid fa-right-to-bracket"></i> Login</Nav.Link>
                                 </LinkContainer>}
                             {!userData.email &&
-                                <LinkContainer to="/Register" activeClassName='active-link'>
+                                <LinkContainer to="/register" activeClassName='active-link'>
                                     <Nav.Link><i className="fa-solid fa-user-plus"></i> Register</Nav.Link>
                                 </LinkContainer>}
-                            {userData.email && <LinkContainer to="/UserScreen" activeClassName='active-link'>
+                            {userData.email && <LinkContainer to="/userScreen" activeClassName='active-link'>
                                 <Nav.Link><i className="fa-solid fa-user"></i> {userData.firstName}</Nav.Link>
                             </LinkContainer>}
                             {userData.email && <LinkContainer to="/logout" activeClassName='active-link'>
