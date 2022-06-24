@@ -1,43 +1,45 @@
 import React from 'react'
+import Google from '../Google.png'
 import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
+
 
 
 function LogIn({ isLightTheme }) {
 
     return (
         <Container className="fade-in mt-5">
-            <h1>Log In</h1>
             <Row>
                 <Col className="sm-8">
-                    <Card>
+                    <Card className="loginForm">
                         <div className="card-body">
                             {/* Makes POST request to /LogIn route */}
                             <form action="/Login" method="POST">
                                 <FormGroup>
-                                    <label htmlFor="email">Email</label>
+                                    <h1 className="login-title">Log In</h1>
+                                    <label htmlFor="email" className="loginEmail">Email:</label>
                                     <input type="email" className="form-control" name="email" required={true} placeholder="Email" />
                                 </FormGroup>
                                 <FormGroup>
-                                    <label htmlFor="password">Password</label>
+                                    <label htmlFor="password" className="loginPassword">Password:</label>
                                     <input type="password" className="form-control" name="password" required={true} placeholder="Password" />
                                 </FormGroup>
-                                <Button type="submit" className="my-3 loginButton" variant={isLightTheme ? "success" : "info"}>Log In</Button>
+                                <Button type="submit" className="loginButton" variant={isLightTheme ? "success" : "info"}>Log In</Button>
                             </form>
-                            <p>Don't have an account? <a href="/Register">Sign Up</a></p>
+                            <p className="sign-in-up-redirect">Don't have an account? <a href="/Register">Sign Up</a></p>
                         </div>
                     </Card>
                 </Col>
 
                 <div className="col-sm-4">
-                    <div className="card">
+                    <Card className="googleLogin">
                         <div className="card-body">
                             <a className="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-                                <i className="fab fa-google"></i>
+                                <img src={Google} style={{ height: "1.5rem", width: "1.5rem" }} />
                                 Sign In With Google
                             </a>
                         </div>
-                    </div>
-                    <Card>
+                    </Card>
+                    <Card className="facebookLogin">
                         <div className="card-body">
                             <a className="btn btn-block btn-social btn-facebook" href="/auth/facebook" role="button">
                                 <i className="fab fa-facebook"></i>

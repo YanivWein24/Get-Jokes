@@ -9,7 +9,6 @@ import passportLocal from 'passport-local'
 import bcrypt from 'bcrypt'
 import GoogleStrategy from 'passport-google-oauth20'
 import FacebookStrategy from 'passport-facebook'
-import findOrCreate from 'mongoose-findorcreate'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import connectDB from './config/db.js'
@@ -147,14 +146,11 @@ app.get("/logout", (req, res) => {
     }
 })
 
-app.get('/user/:userId', (req, res) => {
-    console.log("requesting user data2")
-    if (!req.isAuthenticated()) res.redirect('/login')
-})
-
 app.get('/user', (req, res) => {
-    console.log("requesting user data")
-    if (req.isAuthenticated()) res.send(req.user)
+    if (req.isAuthenticated()) {
+        res.send(req.user)
+        console.log("Sending user data")
+    }
 })
 
 app.post('/user/delete', (req, res) => {
