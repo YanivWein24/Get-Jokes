@@ -5,7 +5,7 @@ import { UserJoke, TwoPartUserJoke, EmptyUserJoke } from '../components/Joke'
 function UserScreen({ userData, isLightTheme }) {
 
     const emptyListCategory = <h1 style={{ fontSize: "1.5rem" }}>Its not funny here...</h1>
-    const emptyListJoke = <h1 style={{ fontSize: "1.3rem" }}>To add a joke to your collection press on the '<i className="fa-solid fa-heart"></i>Like' button beneath a joke</h1>
+    const emptyListJoke = <p style={{ fontSize: "1.3rem" }}>To add a joke to your collection press on the<br />'<i className="fa-solid fa-heart"></i>LIKE' button beneath a joke</p>
 
     return (
         <Container>

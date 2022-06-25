@@ -396,7 +396,9 @@ option {
 
 .resetButton:active,
 .searchButton:active,
-.deleteButton:active {
+.deleteButton:active,
+.facebookLogin:active,
+.googleLogin:active {
   transform: scale(1.15);
 }
 
@@ -404,9 +406,7 @@ option {
 .deleteJokeButton:active,
 .returnHomeButton:active,
 .loginButton:active,
-.registerButton:active,
-.facebookLogin:active,
-.googleLogin:active {
+.registerButton:active {
   transform: scale(1.25);
 }
 
@@ -564,7 +564,7 @@ label form[action="Register"] {
 }
 
 .facebookLogin {
-  background-color: #203cf1;
+  background-color: #1153d9;
 }
 
 .googleLogin {
@@ -626,6 +626,21 @@ label form[action="Register"] {
 
 .about span {
   font-size: 1rem;
+}
+
+span.clientSide,
+span.serverSide {
+  color: var(--color-black);
+  text-decoration: underline;
+  font-weight: 800;
+  font-size: 1.1rem;
+  transition: all .7s ease-in-out;
+}
+
+#dark span.clientSide,
+#dark span.serverSide {
+  color: var(--color-white);
+  font-weight: 800;
 }
 
 .about-links {
@@ -763,6 +778,15 @@ footer {
     font-size: 0.8rem;
   }
 
+  span.clientSide,
+  span.serverSide {
+    font-size: 1rem;
+  }
+
+  .about-links {
+    font-size: .9rem;
+  }
+
   p span {
     font-weight: 1000;
   }
@@ -796,12 +820,6 @@ footer {
     font-weight: 700;
   }
 
-
-  .likeButton:active,
-  .deleteJokeButton:active {
-    transform: scale(1.15);
-  }
-
   .resetButton:hover,
   .searchButton:hover,
   .deleteButton:hover,
@@ -812,6 +830,7 @@ footer {
 
   .resetButton:active,
   .searchButton:active,
+  .likeButton:active,
   .deleteJokeButton:active {
     transform: scale(1.15);
   }
