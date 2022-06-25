@@ -154,48 +154,40 @@ app.get('/user', (req, res) => {
 })
 
 app.post('/user/delete', (req, res) => {
-    req.body.joke ?
+    if (req.body.joke !== undefined) {
         // handle the request for a single part joke:
-        User.findOneAndUpdate({ email: req.user.email }, { $pull: { jokes: { joke: req.body.joke } } }, function (err, foundList, item) {
-            // we use the $pull method to remove items from an array in our collection
-            if (!err) console.log(`Deleted joke from ${req.user.firstName} ${req.user.lastName}'s collection`)
-            else console.log(err)
-        })
-        :
+        req.user.jokes = req.user.jokes.filter(joke => joke.joke !== req.body.joke)
+        req.user.save()
+            .then(console.log(`Removed joke from${req.user.firstName} ${req.user.lastName}'s collection`))
+    } else {
         // handle the request for a two part joke:
-        User.findOneAndUpdate({ email: req.user.email }, { $pull: { jokes: { setup: req.body.setup } } }, function (err, foundList, item) {
-            // we use the $pull method to remove items from an array in our collection
-            if (err) console.log(err)
-            else {
-                console.log(`Deleted joke from ${req.user.firstName} ${req.user.lastName}'s collection`)
-                res.sendStatus(200)
-            }
-        })
+        req.user.jokes = req.user.jokes.filter(joke => joke.setup !== req.body.setup)
+        req.user.save()
+            .then(console.log(`Removed joke from${req.user.firstName} ${req.user.lastName}'s collection`))
+    }
 })
 
 app.post('/like', (req, res) => {
-    const { category, type, joke, setup, delivery } = req.body
-    const newJoke = joke !== undefined ?
-        new Joke({
-            category: category,
-            type: type,
-            joke: joke
-        }) :
-        new TwoPartJoke({
-            category: category,
-            type: type,
-            setup: setup,
-            delivery: delivery
-        })
-    User.findOne({ email: req.user.email }, (err, foundUser) => {
-        if (foundUser) {
-            foundUser.jokes.push(newJoke)
-            foundUser.save()
-                .then(console.log(`Added new joke to ${req.user.firstName} ${req.user.lastName}'s collection`))
-        } else {
-            console.log("Failed to find the correct user..")
-        }
-    })
+    if (req.user) {
+        const { category, type, joke, setup, delivery } = req.body
+        const newJoke = joke !== undefined ?
+            new Joke({
+                category: category,
+                type: type,
+                joke: joke
+            }) :
+            new TwoPartJoke({
+                category: category,
+                type: type,
+                setup: setup,
+                delivery: delivery
+            })
+        req.user.jokes.push(newJoke)
+        req.user.save()
+            .then(console.log(`Added new joke to ${req.user.firstName} ${req.user.lastName}'s collection`))
+    } else {
+        console.log("Failed to find the correct user..")
+    }
 })
 
 app.get('/auth/google',
@@ -223,7 +215,6 @@ app.get('/auth/facebook/redirect',
 //? ----------------------------- While in production: -----------------------------
 const __filename = fileURLToPath(import.meta.url);
 
-// 👇️ "C:\Users\yaniv\Desktop\programming\javascript\react\Get Jokes\"
 const __dirname = path.dirname(__filename).slice(0, -7)
 
 app.use(express.static(path.join(__dirname, '/frontend/build')))
