@@ -3,7 +3,7 @@ import { Button, Container } from 'react-bootstrap'
 import axios from 'axios'
 
 
-const Joke = ({ category, joke, isLightTheme, addToLikes, userData, }) => {
+const Joke = ({ category, joke, isLightTheme, addToLikes, userData }) => {
     const [like, setLike] = useState(false)
 
     const addedLikeMessage = () => {
@@ -27,7 +27,7 @@ const Joke = ({ category, joke, isLightTheme, addToLikes, userData, }) => {
     )
 }
 
-const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, userData, }) => {
+const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, userData }) => {
     const [like, setLike] = useState(false)
     const addedLikeMessage = () => {
         setLike(true)

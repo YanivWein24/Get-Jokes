@@ -218,9 +218,6 @@ app.get('/auth/facebook/redirect',
         // Successful authentication, redirect to "secrets".
         res.redirect('/userScreen');
     });
-
-
-
 //? -------------------------------- End Of Routes: --------------------------------
 
 //? ----------------------------- While in production: -----------------------------

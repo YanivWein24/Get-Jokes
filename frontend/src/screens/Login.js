@@ -34,7 +34,7 @@ function LogIn({ isLightTheme }) {
                     <Card className="googleLogin">
                         <div className="card-body">
                             <a className="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-                                <img src={Google} style={{ height: "1.5rem", width: "1.5rem" }} />
+                                <img src={Google} alt="google" style={{ height: "1.5rem", width: "1.5rem" }} />
                                 Sign In With Google
                             </a>
                         </div>

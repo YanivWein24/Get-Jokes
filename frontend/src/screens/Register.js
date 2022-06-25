@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Google from '../Google.png'
 import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
-import { LinkContainer } from "react-router-bootstrap"
 
 
 function Register({ isLightTheme }) {
@@ -48,7 +47,7 @@ function Register({ isLightTheme }) {
                     <Card className="googleLogin">
                         <div className="card-body">
                             <a className="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-                                <img src={Google} style={{ height: "1.5rem", width: "1.5rem" }} />
+                                <img src={Google} alt="google Img" style={{ height: "1.5rem", width: "1.5rem" }} />
                                 Sign Up With Google
                             </a>
                         </div>

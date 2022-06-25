@@ -53,8 +53,8 @@ const HomeScreen = ({ isLightTheme, userData, getUserData }) => {
                     <p className="url">API Request: {url}</p>
                 </div>
                 {jokeData.error === false ? (jokeData.type === 'single' ?
-                    <Joke category={jokeData.category} joke={jokeData.joke} isLightTheme={isLightTheme} addToLikes={addToLikes} getUserData={getUserData} userData={userData}></Joke>
-                    : <TwoPartJoke category={jokeData.category} setup={jokeData.setup} delivery={jokeData.delivery} isLightTheme={isLightTheme} addToLikes={addToLikes} getUserData={getUserData} userData={userData}></TwoPartJoke>)
+                    <Joke category={jokeData.category} joke={jokeData.joke} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></Joke>
+                    : <TwoPartJoke category={jokeData.category} setup={jokeData.setup} delivery={jokeData.delivery} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></TwoPartJoke>)
                     : (jokeData.error !== undefined ? <Joke category={"Error"} joke={`Could not find a joke that matches these specifications.`}></Joke>
                         : "")}
                 {/* first we check if we received a response from the api by checking the data.error property
