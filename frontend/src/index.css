@@ -687,6 +687,18 @@ footer {
     because we removed 1rem of padding, we need to replace it with 1 rem of margin in order to position the links the same.*/
   }
 
+  .login-navlink.active-link {
+    width: 20%;
+  }
+
+  .register-navlink.active-link {
+    width: 30%;
+  }
+
+  .user-navlink.active-link {
+    width: 23%;
+  }
+
   .themeSwitch {
     margin: 0;
   }

@@ -28,14 +28,14 @@ const Header = ({ theme, toggleTheme, userData }) => {
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>
                             {!userData.email &&
-                                <LinkContainer to="/login" activeClassName='active-link'>
+                                <LinkContainer to="/login" className="login-navlink" activeClassName='active-link'>
                                     <Nav.Link><i className="fa-solid fa-right-to-bracket"></i> Login</Nav.Link>
                                 </LinkContainer>}
                             {!userData.email &&
-                                <LinkContainer to="/register" activeClassName='active-link'>
+                                <LinkContainer to="/register" className="register-navlink" activeClassName='active-link'>
                                     <Nav.Link><i className="fa-solid fa-user-plus"></i> Register</Nav.Link>
                                 </LinkContainer>}
-                            {userData.email && <LinkContainer to="/userScreen" activeClassName='active-link'>
+                            {userData.email && <LinkContainer to="/userScreen" className="user-navlink" activeClassName='active-link'>
                                 <Nav.Link><i className="fa-solid fa-user"></i> {userData.firstName}</Nav.Link>
                             </LinkContainer>}
                             {userData.email && <LinkContainer to="/logout" activeClassName='active-link'>
