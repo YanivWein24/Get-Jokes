@@ -64,7 +64,7 @@ const TwoPartJoke = mongoose.model('TwoPartJoke', twoPartJokeSchema);
 passport.use(new GoogleStrategy({
     clientID: process.env.REACT_APP_GOOGLE_CLIENT_ID,
     clientSecret: process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:5000/auth/google/redirect",
+    callbackURL: "http://get-jokes-gen.herokuapp.com/auth/google/redirect",
 },
     function (accessToken, refreshToken, profile, cb) {
         User.findOrCreate({
@@ -84,7 +84,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.REACT_APP_FACEBOOK_APP_ID,
     clientSecret: process.env.REACT_APP_FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:5000/auth/facebook/redirect",
+    callbackURL: "http://get-jokes-gen.herokuapp.com/auth/facebook/redirect",
     profileFields: ['id', 'emails', 'name']
 },
     function (accessToken, refreshToken, profile, cb) {
