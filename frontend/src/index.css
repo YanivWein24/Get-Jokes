@@ -292,12 +292,11 @@ input[type="checkbox"] {
 
 input[type="checkbox"]::before {
   content: "";
-  width: 0.85em;
-  height: 0.85em;
+  width: 0.8rem;
+  height: 0.8rem;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
   box-shadow: inset 1em 1em var(--color-green-light);
-  margin: auto;
 }
 
 input[type="checkbox"]:checked::before {
@@ -517,12 +516,14 @@ form h3 {
 
 input.showPassword {
   display: inline-flex;
-  /* border-radius: 4px; */
   border-radius: 0.15em;
+  background-color: transparent;
+  border-color: white;
 }
 
 label.showPassword {
   margin-left: 4px;
+  color: var(--color-white);
 }
 
 label.showPassword:active,

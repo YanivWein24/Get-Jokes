@@ -11,6 +11,7 @@ function UserScreen({ userData, isLightTheme }) {
         <Container>
             <center className="fade-in">
                 {userData.email && <h1 style={{ marginTop: "2rem" }}>Welcome back {userData.firstName}!</h1>}
+                {userData.jokes[0] && <h2 style={{ color: "white", fontSize: "1rem" }}>Here are your latest jokes:</h2>}
                 {
                     userData.jokes[0] ? userData.jokes.map((joke, index) => (
                         joke.joke ?
