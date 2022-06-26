@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Google from '../Google.png'
 import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
 
 
 
 function LogIn({ isLightTheme }) {
+
+    const [passwordVisible, setPasswordVisible] = useState(false)
 
     return (
         <Container className="fade-in mt-5">
@@ -21,7 +23,10 @@ function LogIn({ isLightTheme }) {
                                 </FormGroup>
                                 <FormGroup>
                                     <label htmlFor="password" className="loginPassword">Password:</label>
-                                    <input type="password" className="form-control" name="password" required={true} placeholder="Password" />
+                                    <input type={passwordVisible ? "text" : "password"} className="form-control" name="password" required={true} placeholder="Password" />
+                                    <input type="checkbox" className="showPassword" value={passwordVisible} checked={passwordVisible} onChange={() => setPasswordVisible(!passwordVisible)} name="showPassword" />
+                                    <label htmlFor="showPassword" className="showPassword" onClick={() => setPasswordVisible(!passwordVisible)}>Show Password</label>
+                                    {/* <input type="checkbox" className="showPassword" >Show Password</input> */}
                                 </FormGroup>
                                 <Button type="submit" className="loginButton" variant={isLightTheme ? "success" : "info"}>Log In</Button>
                             </form>

@@ -7,6 +7,7 @@ function Register({ isLightTheme }) {
 
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
+    const [passwordVisible, setPasswordVisible] = useState(false)
 
 
     return (
@@ -34,7 +35,9 @@ function Register({ isLightTheme }) {
                                 </FormGroup>
                                 <FormGroup>
                                     <label htmlFor="password" className="registerPassword">Password:</label>
-                                    <input type="password" className="form-control" name="password" placeholder="Password" required={true} />
+                                    <input type={passwordVisible ? "text" : "password"} className="form-control" name="password" placeholder="Password" required={true} />
+                                    <input type="checkbox" className="showPassword" value={passwordVisible} checked={passwordVisible} onChange={() => setPasswordVisible(!passwordVisible)} name="showPassword" />
+                                    <label htmlFor="showPassword" className="showPassword" onClick={() => setPasswordVisible(!passwordVisible)}>Show Password</label>
                                 </FormGroup>
                                 <Button type="submit" className="registerButton" variant={isLightTheme ? "success" : "info"}>Register</Button>
                                 <p className="sign-in-up-redirect">Already a member? <a href="/Login">Sign In</a></p>
