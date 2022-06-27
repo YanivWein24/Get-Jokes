@@ -129,7 +129,7 @@ const TwoPartUserJoke = ({ category, setup, delivery, isLightTheme, index }) => 
     )
 }
 
-const EmptyUserJoke = ({ category, joke, isLightTheme }) => {
+const EmptyUserJoke = ({ category, joke }) => {
     return (
         <Container className="joke fade-in">
             <div className="jokeCategory"> {category}</div>

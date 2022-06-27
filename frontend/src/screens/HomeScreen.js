@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { Container } from "react-bootstrap"
 import Menu from "../components/Menu"
-import Joke, { TwoPartJoke } from "../components/Joke"
+import Joke, { TwoPartJoke, EmptyUserJoke } from "../components/Joke"
 
 
 const HomeScreen = ({ isLightTheme, userData }) => {
@@ -58,7 +58,7 @@ const HomeScreen = ({ isLightTheme, userData }) => {
                 {jokeData.error === false ? (jokeData.type === 'single' ?
                     <Joke category={jokeData.category} joke={jokeData.joke} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></Joke>
                     : <TwoPartJoke category={jokeData.category} setup={jokeData.setup} delivery={jokeData.delivery} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></TwoPartJoke>)
-                    : (jokeData.error !== undefined ? <Joke category={"Error"} joke={`Could not find a joke that matches these specifications.`}></Joke>
+                    : (jokeData.error !== undefined ? <EmptyUserJoke category={"Error"} joke={`Could not find a joke that matches these specifications.`}></EmptyUserJoke>
                         : "")}
                 {/* first we check if we received a response from the api by checking the data.error property
           if its false, this means we received a successful response. so now we check if the type of the response is "single" or "twoPart" and render the output component accordingly.
