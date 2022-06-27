@@ -9,27 +9,27 @@ import passportLocal from 'passport-local'
 import bcrypt from 'bcrypt'
 import GoogleStrategy from 'passport-google-oauth20'
 import FacebookStrategy from 'passport-facebook'
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path'
+import { fileURLToPath } from 'url'
 import connectDB from './config/db.js'
 import userSchema from './config/userSchema.js'
 import jokeSchema from './config/jokeSchema.js'
 import twoPartJokeSchema from './config/twoPartJokeSchema.js'
 import passportConfig from './config/passportConfig.js'
 
-dotenv.config();
+dotenv.config()
 GoogleStrategy.Strategy
 FacebookStrategy.Strategy
 passportLocal.Strategy
 
 connectDB()
 
-const app = express();
+const app = express()
 
 //? ----------------------------------- Middleware: -----------------------------------
 app.use(bodyParser.urlencoded({
     extended: true
-}));
+}))
 
 app.use(session({    //? using express-session
     secret: 'A long string which is the secret key.', // just set as a long string
@@ -38,7 +38,7 @@ app.use(session({    //? using express-session
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 // equals to 1 day
     }
-}));
+}))
 
 app.use(express.json()) // needed to allow the server accept data from axios requests
 app.use(passport.initialize())
@@ -55,9 +55,9 @@ passportConfig(passport)
 
 
 //? creating the User model with userSchema
-const User = mongoose.model('User', userSchema);
-const Joke = mongoose.model('Joke', jokeSchema);
-const TwoPartJoke = mongoose.model('TwoPartJoke', twoPartJokeSchema);
+const User = mongoose.model('User', userSchema)
+const Joke = mongoose.model('Joke', jokeSchema)
+const TwoPartJoke = mongoose.model('TwoPartJoke', twoPartJokeSchema)
 
 
 // https://www.passportjs.org/packages/passport-google-oauth20/ 
@@ -75,10 +75,10 @@ passport.use(new GoogleStrategy({
             //? after requiring, we need to add this function to the userSchema as a plugin (see in userSchema.js)
             // console.log(profile)
             if (err) { console.log(err) }
-            return cb(err, user);
-        });
+            return cb(err, user)
+        })
     }
-));
+))
 
 // https://www.passportjs.org/packages/passport-facebook/
 passport.use(new FacebookStrategy({
@@ -93,10 +93,10 @@ passport.use(new FacebookStrategy({
             firstName: profile.name.givenName, lastName: profile.name.familyName
         }, function (err, user) {
             if (err) { console.log(err) }
-            return cb(err, user);
-        });
+            return cb(err, user)
+        })
     }
-));
+))
 
 //? ----------------------------------- Routes: -----------------------------------
 // app.get('/', (req, res) => res.send('API is running...'))
@@ -110,7 +110,7 @@ app.post('/register', async (req, res) => {
         lastName: _.capitalize(lastName),
         email: email.toLowerCase(),
         password: hashedPassword
-    });
+    })
     User.findOne({ email: email.toLowerCase() }, async (err, foundUser) => {
         if (err) console.log(err)
         if (foundUser) res.send("User Already Exists")
@@ -147,10 +147,7 @@ app.get("/logout", (req, res) => {
 })
 
 app.get('/user', (req, res) => {
-    if (req.isAuthenticated()) {
-        res.send(req.user)
-        console.log("Sending user data")
-    }
+    res.send(req.user)
 })
 
 app.post('/user/delete', (req, res) => {
@@ -191,29 +188,29 @@ app.post('/like', (req, res) => {
 })
 
 app.get('/auth/google',
-    passport.authenticate('google', { scope: ['profile', 'email'] }));
+    passport.authenticate('google', { scope: ['profile', 'email'] }))
 
 // redirect from google login:
 app.get('/auth/google/redirect',
     passport.authenticate('google', { failureRedirect: '/login' }), // redirect to "/login" if not successful
     function (req, res) {
         // Successful authentication, redirect to "secrets".
-        res.redirect('/userScreen');
-    });
+        res.redirect('/userScreen')
+    })
 
 app.get('/auth/facebook',
-    passport.authenticate('facebook', { scope: ['public_profile', 'email'] }));
+    passport.authenticate('facebook', { scope: ['public_profile', 'email'] }))
 
 app.get('/auth/facebook/redirect',
     passport.authenticate('facebook', { failureRedirect: '/login' }), // redirect to "/login" if not successful
     function (req, res) {
         // Successful authentication, redirect to "secrets".
-        res.redirect('/userScreen');
-    });
+        res.redirect('/userScreen')
+    })
 //? -------------------------------- End Of Routes: --------------------------------
 
 //? ----------------------------- While in production: -----------------------------
-const __filename = fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(import.meta.url)
 
 const __dirname = path.dirname(__filename).slice(0, -7)
 
@@ -224,8 +221,8 @@ app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'bui
 //? ----------------------------- End - While in production: -----------------------------
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
-});
+    console.log(`Server started on port ${PORT}`)
+})

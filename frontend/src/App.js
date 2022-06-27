@@ -10,6 +10,7 @@ import UserScreen from "./screens/UserScreen"
 import LogIn from './screens/Login';
 import Logout from './screens/Logout';
 
+
 export const themeContext = createContext(null)
 
 const getLocalStorage = () => {
@@ -25,6 +26,7 @@ function App() {
     setTheme((currTheme) => (currTheme === "light" ? "dark" : "light"))
   }
 
+  // check and apply the current theme in all children components
   const isLightTheme = theme === 'light'
 
   const [userData, setUserData] = useState({
@@ -47,7 +49,6 @@ function App() {
   }
 
   useEffect(() => {
-    // Update the document title using the browser API
     getUserData()
   }, []);
 
@@ -57,7 +58,7 @@ function App() {
         <div id={theme}>
           <Header theme={theme} toggleTheme={toggleTheme} userData={userData} />
           <Routes>
-            <Route path="/" element={<HomeScreen isLightTheme={isLightTheme} userData={userData} getUserData={getUserData} />} />
+            <Route path="/" element={<HomeScreen isLightTheme={isLightTheme} userData={userData} />} />
             <Route path="/About" element={<About />} />
             <Route path="/UserScreen" element={<UserScreen userData={userData} isLightTheme={isLightTheme} />} />
             <Route path="/Register" element={<Register isLightTheme={isLightTheme} />} />

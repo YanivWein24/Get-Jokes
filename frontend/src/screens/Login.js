@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import Google from '../Google.png'
 import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
 
-
-
 function LogIn({ isLightTheme }) {
 
     const [passwordVisible, setPasswordVisible] = useState(false)

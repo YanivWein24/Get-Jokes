@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react'
+import axios from 'axios'
 import { Container } from "react-bootstrap"
 import Menu from "../components/Menu"
 import Joke, { TwoPartJoke } from "../components/Joke"
 
-const HomeScreen = ({ isLightTheme, userData, getUserData }) => {
+
+const HomeScreen = ({ isLightTheme, userData }) => {
 
     // sent to the Menu component as a prop, to receive the url for the GET request
     const [url, setUrl] = useState("")
@@ -15,6 +16,17 @@ const HomeScreen = ({ isLightTheme, userData, getUserData }) => {
     //  Full response from the API
     const [jokeData, setJokeData] = useState({})
 
+    // send a request to "joke api" and handle the response
+    const findJoke = async () => {
+        try {
+            const response = await axios.get(url)
+            setJokeData(response.data)
+        } catch {
+            console.log("error - can't receive response from API")
+        }
+    }
+
+    // Send a request to the backend to add the current joke to the user's array. 
     const addToLikes = () => {
         axios({
             method: 'post',
@@ -22,6 +34,7 @@ const HomeScreen = ({ isLightTheme, userData, getUserData }) => {
             headers: {
                 'Content-Type': 'application/json',
             },
+            // check if the joke is 'single' or 'two part' and send the joke's data accordingly
             data: jokeData.joke ? {
                 category: jokeData.category,
                 type: jokeData.type,
@@ -33,16 +46,6 @@ const HomeScreen = ({ isLightTheme, userData, getUserData }) => {
                 delivery: jokeData.delivery
             }
         })
-    }
-
-    // send a request to "joke api" and handle the response
-    const findJoke = async () => {
-        try {
-            const response = await axios.get(url)
-            setJokeData(response.data)
-        } catch {
-            console.log("error")
-        }
     }
 
     return (

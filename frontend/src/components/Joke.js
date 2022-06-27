@@ -11,7 +11,7 @@ const Joke = ({ category, joke, isLightTheme, addToLikes, userData }) => {
         setTimeout(() => {
             setLike(false)
             window.location.reload()
-        }, 1000);
+        }, 1000)
     }
     return (
         <div className="joke fade-in">
@@ -34,7 +34,7 @@ const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, user
         setTimeout(() => {
             setLike(false)
             window.location.reload()
-        }, 1000);
+        }, 1000)
     }
     return (
         <div className="joke fade-in">
@@ -70,7 +70,7 @@ const UserJoke = ({ category, joke, isLightTheme, index }) => {
         setTimeout(() => {
             setDeleteMessage(false)
             window.location.reload()
-        }, 1000);
+        }, 1000)
     }
     return (
         <div className="joke fade-in">
@@ -109,7 +109,7 @@ const TwoPartUserJoke = ({ category, setup, delivery, isLightTheme, index }) => 
         setTimeout(() => {
             setDeleteMessage(false)
             window.location.reload()
-        }, 1000);
+        }, 1000)
     }
 
     return (

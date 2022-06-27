@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Row, Col } from "react-bootstrap"
 
-const year = new Date().getFullYear();
+const year = new Date().getFullYear()
 
 const Footer = () => {
     return (

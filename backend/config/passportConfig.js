@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import LocalStrategy from 'passport-local'
-import userSchema from "./userSchema.js";
+import userSchema from "./userSchema.js"
 import mongoose from 'mongoose'
 
 
@@ -31,17 +31,17 @@ const passportConfig = (passport) => {
 
 
     passport.serializeUser((user, done) => {
-        done(null, user);
-    });
+        done(null, user)
+    })
 
     passport.deserializeUser(async function (user, done) {
         try {
-            const account = await User.findOne({ email: user.email });
-            done(null, account);
+            const account = await User.findOne({ email: user.email })
+            done(null, account)
         } catch (error) {
             done(error, null)
         }
-    });
+    })
 }
 
 export default passportConfig
