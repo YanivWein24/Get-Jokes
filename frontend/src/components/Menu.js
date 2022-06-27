@@ -168,7 +168,7 @@ const Menu = ({ isLightTheme, getUrl, findJoke, setJokeData }) => {
                     <Row >
                         <div className="AnyCatButton">
                             <input type="checkbox" name="catSelect" value="any" checked={any} onChange={anyCategory} />
-                            <label value="any" onClick={anyCategory}>Any</label>
+                            <label value="any" onClick={anyCategory} style={{ fontSize: "1.2rem" }}>Any</label>
                         </div>
                     </Row>
                     <Row>

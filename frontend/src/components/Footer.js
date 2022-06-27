@@ -8,7 +8,7 @@ const Footer = () => {
         <footer>
             <Container>
                 <Row>
-                    <Col className="text-center py-3"> {/*py-3 = padding on y axis 3 */}
+                    <Col className="text-center py-3 fade-in"> {/*py-3 = padding on y axis 3 */}
                         Copyright &copy; {year} Yaniv Weinshtein
                     </Col>
                 </Row>

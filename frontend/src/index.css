@@ -21,6 +21,12 @@
   --color-blue-very-light: rgb(36, 184, 205);
 }
 
+/* removes bottom white space */
+#light,
+#dark {
+  min-height: 100vh;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
@@ -31,7 +37,6 @@ body {
 }
 
 main {
-  min-height: 75vh;
   margin: 3% auto 1%;
   width: 100%;
   display: flex;
