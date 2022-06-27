@@ -545,11 +545,6 @@ label.showPassword:hover {
   color: var(--color-white);
 }
 
-
-label form[action="Register"] {
-  background-color: red
-}
-
 .loginButton,
 .registerButton {
   display: flex;
@@ -704,7 +699,7 @@ footer {
 
 /*? --------------------------- Media Queries ---------------------------  */
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 575px) {
 
   .active-link {
     width: 13%;
@@ -728,6 +723,12 @@ footer {
 
   .themeSwitch {
     margin: 0;
+  }
+
+  .AnyCatButton,
+  .allCategories,
+  .allBlackLists {
+    margin: auto;
   }
 
   .options {

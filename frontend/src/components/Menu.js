@@ -165,12 +165,14 @@ const Menu = ({ isLightTheme, getUrl, findJoke, setJokeData }) => {
                     Select A Category:
                 </Col>
                 <Col>
-                    <Row>
-                        <input type="checkbox" name="catSelect" value="any" checked={any} onChange={anyCategory} />
-                        <label value="any" onClick={anyCategory}>Any</label>
+                    <Row >
+                        <div className="AnyCatButton">
+                            <input type="checkbox" name="catSelect" value="any" checked={any} onChange={anyCategory} />
+                            <label value="any" onClick={anyCategory}>Any</label>
+                        </div>
                     </Row>
                     <Row>
-                        <span>
+                        <span className="allCategories">
                             <Row className="catSelect">
                                 <input type="checkbox" id="Dark" value={dark} checked={dark} onChange={
                                     (e) => { setDark(!dark); handleCategoryChange(e) }} /><label htmlFor="Dark">Dark</label>
@@ -212,28 +214,32 @@ const Menu = ({ isLightTheme, getUrl, findJoke, setJokeData }) => {
                 <Col md={6} sm={12} className="options">
                     Select flags to blacklist (optional):
                 </Col>
-                <Col >
-                    <Row className="flagSelect">
-                        <input type="checkbox" id="nsfw" value={nsfw} checked={nsfw} onChange={
-                            (e) => { setNsfw(!nsfw); handleBlackListChange(e) }} />
-                        <label htmlFor="nsfw">NSFW</label>
-                        <input type="checkbox" id="religious" value={religious} checked={religious} onChange={
-                            (e) => { setReligious(!religious); handleBlackListChange(e) }} />
-                        <label htmlFor="religious">Religious</label>
-                        <input type="checkbox" id="political" value={political} checked={political} onChange={
-                            (e) => { setPolitical(!political); handleBlackListChange(e) }} />
-                        <label htmlFor="political">Political</label>
-                    </Row>
-                    <Row className="flagSelect">
-                        <input type="checkbox" id="racist" value={racist} checked={racist} onChange={
-                            (e) => { setRacist(!racist); handleBlackListChange(e) }} />
-                        <label htmlFor="racist">Racist</label>
-                        <input type="checkbox" id="sexist" value={sexist} checked={sexist} onChange={
-                            (e) => { setSexist(!sexist); handleBlackListChange(e) }} />
-                        <label htmlFor="sexist">Sexist</label>
-                        <input type="checkbox" id="explicit" value={explicit} checked={explicit} onChange={
-                            (e) => { setExplicit(!explicit); handleBlackListChange(e) }} />
-                        <label htmlFor="explicit">Explicit</label>
+                <Col>
+                    <Row>
+                        <span className="allBlackLists">
+                            <Row className="flagSelect">
+                                <input type="checkbox" id="nsfw" value={nsfw} checked={nsfw} onChange={
+                                    (e) => { setNsfw(!nsfw); handleBlackListChange(e) }} />
+                                <label htmlFor="nsfw">NSFW</label>
+                                <input type="checkbox" id="religious" value={religious} checked={religious} onChange={
+                                    (e) => { setReligious(!religious); handleBlackListChange(e) }} />
+                                <label htmlFor="religious">Religious</label>
+                                <input type="checkbox" id="political" value={political} checked={political} onChange={
+                                    (e) => { setPolitical(!political); handleBlackListChange(e) }} />
+                                <label htmlFor="political">Political</label>
+                            </Row>
+                            <Row className="flagSelect">
+                                <input type="checkbox" id="racist" value={racist} checked={racist} onChange={
+                                    (e) => { setRacist(!racist); handleBlackListChange(e) }} />
+                                <label htmlFor="racist">Racist</label>
+                                <input type="checkbox" id="sexist" value={sexist} checked={sexist} onChange={
+                                    (e) => { setSexist(!sexist); handleBlackListChange(e) }} />
+                                <label htmlFor="sexist">Sexist</label>
+                                <input type="checkbox" id="explicit" value={explicit} checked={explicit} onChange={
+                                    (e) => { setExplicit(!explicit); handleBlackListChange(e) }} />
+                                <label htmlFor="explicit">Explicit</label>
+                            </Row>
+                        </span>
                     </Row>
                 </Col>
             </Row>
