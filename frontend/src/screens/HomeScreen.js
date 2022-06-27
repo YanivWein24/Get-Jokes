@@ -51,7 +51,7 @@ const HomeScreen = ({ isLightTheme, userData }) => {
     return (
         <main className="fade-in">
             <Container> {/* center the content */}
-                <div className="search">
+                <div className="searchJokeMenu">
                     <Menu getUrl={getUrl} findJoke={findJoke} setJokeData={setJokeData} isLightTheme={isLightTheme} />
                     <p className="url">API Request: {url}</p>
                 </div>
