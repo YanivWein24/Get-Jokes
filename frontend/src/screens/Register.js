@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import Google from '../Google.png'
 import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import Google from '../Google.png'
 
 
 function Register({ isLightTheme }) {
@@ -40,7 +41,7 @@ function Register({ isLightTheme }) {
                                     <label htmlFor="showPassword" className="showPassword" onClick={() => setPasswordVisible(!passwordVisible)}>Show Password</label>
                                 </FormGroup>
                                 <Button type="submit" className="registerButton" variant={isLightTheme ? "success" : "info"}>Register</Button>
-                                <p className="sign-in-up-redirect">Already a member? <a href="/Login">Sign In</a></p>
+                                <p className="sign-in-up-redirect">Already a member? <Link to="/Login">Sign In</Link></p>
                             </form>
                         </div>
                     </Card>
@@ -66,7 +67,6 @@ function Register({ isLightTheme }) {
                 </div>
             </Row>
         </Container >
-
     )
 }
 

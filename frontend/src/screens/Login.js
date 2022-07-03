@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import Google from '../Google.png'
 import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import Google from '../Google.png'
+
 
 function LogIn({ isLightTheme }) {
 
@@ -28,7 +30,7 @@ function LogIn({ isLightTheme }) {
                                 </FormGroup>
                                 <Button type="submit" className="loginButton" variant={isLightTheme ? "success" : "info"}>Log In</Button>
                             </form>
-                            <p className="sign-in-up-redirect">Don't have an account? <a href="/Register">Sign Up</a></p>
+                            <p className="sign-in-up-redirect">Don't have an account? <Link to="/Register">Sign Up</Link></p>
                         </div>
                     </Card>
                 </Col>

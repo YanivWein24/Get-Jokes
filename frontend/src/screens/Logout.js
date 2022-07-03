@@ -21,12 +21,16 @@ function Logout({ userData, theme }) {
 
     return (
         <center className="fade-in">
-            {userData.id && <h1 style={{ marginTop: "2rem" }}>processing...</h1>}
+            {userData.id ? <h1 style={{ marginTop: "2rem" }}>processing...</h1>
+                :
+                <>
+                    {/* appears only in development. in production the user will get redirected to the root route*/}
+                    <h1 style={{ marginTop: "2rem", fontSize: "1.5rem" }}>You are now logged out</h1>
+                    <h1 style={{ fontSize: "1.2rem" }}>Press this button to return to the home page</h1>
+                    <Link to="/"><Button className=" returnHomeButton" variant={isLightTheme ? "success" : "info"}>Home Page</Button></Link>
+                </>
+            }
 
-            {/* appears only in development. in production the user will get redirected to the root route*/}
-            {!userData.id && <h1 style={{ marginTop: "2rem", fontSize: "1.5rem" }}>You are now logged out</h1>}
-            {!userData.id && <h1 style={{ fontSize: "1.2rem" }}>Press this button to return to the home page</h1>}
-            {!userData.id && <Link to="/"><Button className=" returnHomeButton" variant={isLightTheme ? "success" : "info"}>Home Page</Button></Link>}
 
         </center>
     )

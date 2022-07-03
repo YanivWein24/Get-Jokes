@@ -27,20 +27,28 @@ const Header = ({ theme, toggleTheme, userData }) => {
                             <LinkContainer to="/about" activeClassName='active-link'>
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>
-                            {!userData.email &&
-                                <LinkContainer to="/login" className="login-navlink" activeClassName='active-link'>
-                                    <Nav.Link><i className="fa-solid fa-right-to-bracket"></i> Login</Nav.Link>
-                                </LinkContainer>}
-                            {!userData.email &&
-                                <LinkContainer to="/register" className="register-navlink" activeClassName='active-link'>
-                                    <Nav.Link><i className="fa-solid fa-user-plus"></i> Register</Nav.Link>
-                                </LinkContainer>}
-                            {userData.email && <LinkContainer to="/userScreen" className="user-navlink" activeClassName='active-link'>
-                                <Nav.Link><i className="fa-solid fa-user"></i> {userData.firstName}</Nav.Link>
-                            </LinkContainer>}
-                            {userData.email && <LinkContainer to="/logout" activeClassName='active-link'>
-                                <Nav.Link><i className="fa-solid fa-right-from-bracket"></i> Logout</Nav.Link>
-                            </LinkContainer>}
+                            {userData.email ?
+                                <>
+                                    <LinkContainer to="/userScreen" className="user-navlink" activeClassName='active-link'>
+                                        <Nav.Link><i className="fa-solid fa-user"></i> {userData.firstName}</Nav.Link>
+                                    </LinkContainer>
+                                    <LinkContainer to="/logout" activeClassName='active-link'>
+                                        <Nav.Link><i className="fa-solid fa-right-from-bracket"></i> Logout</Nav.Link>
+                                    </LinkContainer>
+                                </>
+                                :
+                                <>
+                                    <LinkContainer to="/login" className="login-navlink" activeClassName='active-link'>
+                                        <Nav.Link><i className="fa-solid fa-right-to-bracket"></i> Login</Nav.Link>
+                                    </LinkContainer>
+                                    <LinkContainer to="/register" className="register-navlink" activeClassName='active-link'>
+                                        <Nav.Link><i className="fa-solid fa-user-plus"></i> Register</Nav.Link>
+                                    </LinkContainer>
+                                </>
+                            }
+
+
+
                             <div className="themeSwitch">
                                 <Switch height={24} onChange={toggleTheme} checked={theme === "dark"} onColor={"#222"} offColor={"#ddd"} />
                                 <p>{theme === "light" ? "Light Mode" : "Dark Mode"}</p>
