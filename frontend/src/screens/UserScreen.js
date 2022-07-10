@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import { UserJoke, TwoPartUserJoke, EmptyUserJoke } from '../components/Joke'
 
-function UserScreen({ userData, isLightTheme }) {
+function UserScreen({ userData }) {
 
     const emptyListCategory = <h1 className="fade-in" style={{ fontSize: "1.5rem" }}>Its not funny here...</h1>
     const emptyListJoke = <p className="fade-in" style={{ fontSize: "1.3rem" }}>To add a joke to your collection press on the<br />'<i className="fa-solid fa-heart"></i>LIKE' button beneath a joke</p>
@@ -15,10 +15,10 @@ function UserScreen({ userData, isLightTheme }) {
                 {
                     userData.jokes[0] ? userData.jokes.map((joke, index) => (
                         joke.joke ?
-                            <UserJoke key={joke._id} category={joke.category} joke={joke.joke} isLightTheme={isLightTheme} index={index}></UserJoke>
-                            : <TwoPartUserJoke key={joke._id} category={joke.category} setup={joke.setup} delivery={joke.delivery} isLightTheme={isLightTheme} index={index}></TwoPartUserJoke>
+                            <UserJoke key={joke._id} category={joke.category} joke={joke.joke} index={index}></UserJoke>
+                            : <TwoPartUserJoke key={joke._id} category={joke.category} setup={joke.setup} delivery={joke.delivery} index={index}></TwoPartUserJoke>
                     ))
-                        : userData.email && <EmptyUserJoke isLightTheme={isLightTheme} category={emptyListCategory} joke={emptyListJoke}></EmptyUserJoke>
+                        : userData.email && <EmptyUserJoke category={emptyListCategory} joke={emptyListJoke}></EmptyUserJoke>
                 }
             </center >
         </Container>

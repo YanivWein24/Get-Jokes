@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import axios from 'axios'
+import { ThemeContext } from "../App"
 
-function Logout({ userData, theme }) {
-
-    // check the current theme to apply different bootstrap button colors
-    const isLightTheme = theme === 'light'
+function Logout({ userData }) {
+    const { isLightTheme } = useContext(ThemeContext)
 
     useEffect(() => {
         axios({
@@ -30,8 +29,6 @@ function Logout({ userData, theme }) {
                     <Link to="/"><Button className=" returnHomeButton" variant={isLightTheme ? "success" : "info"}>Home Page</Button></Link>
                 </>
             }
-
-
         </center>
     )
 }

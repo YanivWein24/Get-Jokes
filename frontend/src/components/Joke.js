@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import axios from 'axios'
+import { ThemeContext } from "../App"
 
 
-const Joke = ({ category, joke, isLightTheme, addToLikes, userData }) => {
+const Joke = ({ category, joke, addToLikes, userData }) => {
+    const { isLightTheme } = useContext(ThemeContext)
     const [like, setLike] = useState(false)
 
     const addedLikeMessage = () => {
@@ -27,7 +29,9 @@ const Joke = ({ category, joke, isLightTheme, addToLikes, userData }) => {
     )
 }
 
-const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, userData }) => {
+
+const TwoPartJoke = ({ category, setup, delivery, addToLikes, userData }) => {
+    const { isLightTheme } = useContext(ThemeContext)
     const [like, setLike] = useState(false)
     const addedLikeMessage = () => {
         setLike(true)
@@ -51,7 +55,8 @@ const TwoPartJoke = ({ category, setup, delivery, isLightTheme, addToLikes, user
     )
 }
 
-const UserJoke = ({ category, joke, isLightTheme, index }) => {
+const UserJoke = ({ category, joke, index }) => {
+    const { isLightTheme } = useContext(ThemeContext)
     const deleteJoke = async () => {
         await axios({
             method: 'post',
@@ -88,7 +93,8 @@ const UserJoke = ({ category, joke, isLightTheme, index }) => {
     )
 }
 
-const TwoPartUserJoke = ({ category, setup, delivery, isLightTheme, index }) => {
+const TwoPartUserJoke = ({ category, setup, delivery, index }) => {
+    const { isLightTheme } = useContext(ThemeContext)
     const deleteJoke = async () => {
         await axios({
             method: 'post',

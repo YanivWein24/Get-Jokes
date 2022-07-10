@@ -11,7 +11,7 @@ import LogIn from './screens/Login';
 import Logout from './screens/Logout';
 
 
-export const themeContext = createContext(null)
+export const ThemeContext = createContext(null)
 
 const getLocalStorage = () => {
   const theme = localStorage.getItem('theme')
@@ -54,20 +54,20 @@ function App() {
 
   return (
     <Router>
-      <themeContext.Provider value={{ theme, toggleTheme }}>
+      <ThemeContext.Provider value={{ theme, toggleTheme, isLightTheme }}>
         <div id={theme}>
-          <Header theme={theme} toggleTheme={toggleTheme} userData={userData} />
+          <Header userData={userData} />
           <Routes>
-            <Route path="/" element={<HomeScreen isLightTheme={isLightTheme} userData={userData} />} />
+            <Route path="/" element={<HomeScreen userData={userData} />} />
             <Route path="/About" element={<About />} />
-            <Route path="/UserScreen" element={<UserScreen userData={userData} isLightTheme={isLightTheme} />} />
-            <Route path="/Register" element={<Register isLightTheme={isLightTheme} />} />
-            <Route path="/Login" element={<LogIn isLightTheme={isLightTheme} />} />
-            <Route path="/Logout" element={<Logout userData={userData} theme={theme} />} />
+            <Route path="/UserScreen" element={<UserScreen userData={userData} />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/Login" element={<LogIn />} />
+            <Route path="/Logout" element={<Logout userData={userData} />} />
           </Routes>
           <Footer />
         </div>
-      </themeContext.Provider>
+      </ThemeContext.Provider>
     </Router>
   );
 }

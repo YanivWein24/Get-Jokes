@@ -488,6 +488,11 @@ option {
   background-color: var(--color-grey-2)
 }
 
+.loginForm input::placeholder,
+.registerForm input::placeholder {
+  color: var(--color-white)
+}
+
 .loginForm input,
 .registerForm input {
   border-radius: 10px;

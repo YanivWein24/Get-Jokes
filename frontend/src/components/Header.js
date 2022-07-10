@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import Switch from 'react-switch'
 import { Navbar, Nav, Container } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
+import { ThemeContext } from "../App"
 
-const Header = ({ theme, toggleTheme, userData }) => {
+const Header = ({ userData }) => {
+
+    const { theme, toggleTheme } = useContext(ThemeContext)
 
     useEffect(() => {
         localStorage.setItem('theme', JSON.stringify(theme))
@@ -46,9 +49,6 @@ const Header = ({ theme, toggleTheme, userData }) => {
                                     </LinkContainer>
                                 </>
                             }
-
-
-
                             <div className="themeSwitch">
                                 <Switch height={24} onChange={toggleTheme} checked={theme === "dark"} onColor={"#222"} offColor={"#ddd"} />
                                 <p>{theme === "light" ? "Light Mode" : "Dark Mode"}</p>

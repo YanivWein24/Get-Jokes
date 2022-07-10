@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
+import { ThemeContext } from "../App"
 
 
-const Menu = ({ isLightTheme, getUrl, findJoke, setJokeData }) => {
+const Menu = ({ getUrl, findJoke, setJokeData }) => {
+
+    const { isLightTheme } = useContext(ThemeContext)
 
     // Categories:
     const [any, setAny] = useState(true)

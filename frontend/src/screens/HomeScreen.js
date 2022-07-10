@@ -5,7 +5,7 @@ import Menu from "../components/Menu"
 import Joke, { TwoPartJoke, EmptyUserJoke } from "../components/Joke"
 
 
-const HomeScreen = ({ isLightTheme, userData }) => {
+const HomeScreen = ({ userData }) => {
 
     // sent to the Menu component as a prop, to receive the url for the GET request
     const [url, setUrl] = useState("")
@@ -52,12 +52,12 @@ const HomeScreen = ({ isLightTheme, userData }) => {
         <main className="fade-in">
             <Container> {/* center the content */}
                 <div className="searchJokeMenu">
-                    <Menu getUrl={getUrl} findJoke={findJoke} setJokeData={setJokeData} isLightTheme={isLightTheme} />
+                    <Menu getUrl={getUrl} findJoke={findJoke} setJokeData={setJokeData} />
                     <p className="url">API Request: {url}</p>
                 </div>
                 {jokeData.error === false ? (jokeData.type === 'single' ?
-                    <Joke category={jokeData.category} joke={jokeData.joke} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></Joke>
-                    : <TwoPartJoke category={jokeData.category} setup={jokeData.setup} delivery={jokeData.delivery} isLightTheme={isLightTheme} addToLikes={addToLikes} userData={userData}></TwoPartJoke>)
+                    <Joke category={jokeData.category} joke={jokeData.joke} addToLikes={addToLikes} userData={userData}></Joke>
+                    : <TwoPartJoke category={jokeData.category} setup={jokeData.setup} delivery={jokeData.delivery} addToLikes={addToLikes} userData={userData}></TwoPartJoke>)
                     : (jokeData.error !== undefined ? <EmptyUserJoke category={"Error"} joke={`Could not find a joke that matches these specifications.`}></EmptyUserJoke>
                         : "")}
                 {/* first we check if we received a response from the api by checking the data.error property
