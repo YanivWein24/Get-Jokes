@@ -391,9 +391,7 @@ option {
 .deleteJokeButton:hover,
 .returnHomeButton:hover,
 .loginButton:hover,
-.registerButton:hover,
-.facebookLogin:hover,
-.googleLogin:hover {
+.registerButton:hover {
   transform: scale(1.08);
 }
 
@@ -589,6 +587,11 @@ label.showPassword:hover {
   flex-direction: row;
   align-items: center;
   transition: all .2s ease-in-out
+}
+
+.facebookLogin:hover,
+.googleLogin:hover {
+  transform: scale(1.04)
 }
 
 .facebookLogin {

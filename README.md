@@ -35,7 +35,11 @@ The jokes are coming from <a href="https://sv443.net/jokeapi/v2/">Jokes-API</a>.
 * A fully customized dark mode.
 * Toggle on and off using 'react-switch' on the navigation bar.
 * The theme preference is being saved in the user's local storage, for the next time they visit!
+* Using the Context-API to change the theme on all child components. 
 
+## Where can i check this out?
+Right Here:  https://get-jokes-gen.herokuapp.com/
+<br />
 
 ## Screenshots:
 ### HomeScreen:  
