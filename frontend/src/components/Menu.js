@@ -1,18 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
-import { ThemeContext } from "../App"
+import { ThemeContext } from '../App'
+import { useSelector, useDispatch } from 'react-redux'
+import categoriesActions from '../actions/categoriesActions'
 
 
 const Menu = ({ getUrl, findJoke, setJokeData }) => {
+
+    const categoriesState = useSelector(state => state.categories)
+    const dispatch = useDispatch()
 
     const { isLightTheme } = useContext(ThemeContext)
 
     // Categories:
     const [any, setAny] = useState(true)
-    const [dark, setDark] = useState(false)
+    // const [dark, setDark] = useState(false)
     const [misc, setMisc] = useState(false)
-    const [programming, setProgramming] = useState(false)
-    const [pun, setPun] = useState(false)
+    // const [programming, setProgramming] = useState(false)
+    // const [pun, setPun] = useState(false)
     const [spooky, setSpooky] = useState(false)
     const [christmas, setChristmas] = useState(false)
 
@@ -127,10 +132,10 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
 
     const anyCategory = () => {
         setAny(true)
-        setDark(false)
+        // setDark(false)
         setMisc(false)
-        setProgramming(false)
-        setPun(false)
+        // setProgramming(false)
+        // setPun(false)
         setSpooky(false)
         setChristmas(false)
     }
@@ -162,6 +167,7 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
     return (
         <div>
             <h1>What kind of joke are you looking for?</h1>
+            <p>{JSON.stringify(categoriesState)}</p>
             <Row>
                 <Col md={6} sm={12} className="options">
                     Select A Category:
@@ -177,14 +183,14 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                         <span className="allCategories">
                             <Row className="menuRow">
                                 <div className="menuOption">
-                                    <input type="checkbox" id="Dark" value={dark} checked={dark} onChange={
-                                        (event) => { setDark(!dark); handleCategoryChange(event) }} /><label htmlFor="Dark">Dark</label>
+                                    <input type="checkbox" id="Dark" value={categoriesState.dark} checked={categoriesState.dark} onChange={
+                                        (event) => { dispatch(categoriesActions("dark")); handleCategoryChange(event) }} /><label htmlFor="Dark">Dark</label>
                                 </div>
-                                <div className="menuOption"><input type="checkbox" id="Pun" value={pun} checked={pun} onChange={
-                                    (event) => { setPun(!pun); handleCategoryChange(event) }} /><label htmlFor="Pun">Pun</label>
+                                <div className="menuOption"><input type="checkbox" id="Pun" value={categoriesState.pun} checked={categoriesState.pun} onChange={
+                                    (event) => { dispatch(categoriesActions("pun")); handleCategoryChange(event) }} /><label htmlFor="Pun">Pun</label>
                                 </div>
-                                <div className="menuOption"><input type="checkbox" id="Programming" value={programming} checked={programming} onChange={
-                                    (event) => { setProgramming(!programming); handleCategoryChange(event) }} />
+                                <div className="menuOption"><input type="checkbox" id="Programming" value={categoriesState.programming} checked={categoriesState.programming} onChange={
+                                    (event) => { dispatch(categoriesActions("programming")); handleCategoryChange(event) }} />
                                     <label htmlFor="Programming">Programming</label>
                                 </div>
                             </Row>
