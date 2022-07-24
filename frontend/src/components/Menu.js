@@ -100,7 +100,7 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
     // Create a valid string from the "blackList" array to be used in the url 
     const blackListString = () => {
         let flags = ""
-        blackList.forEach((flag, index) => {
+        blackList.forEach((flag) => {
             if (flag === blackList[0]) {
                 (language === "" ? flags += `?blacklistFlags=${flag}` : flags += `&blacklistFlags=${flag}`)
             } else if (flag === blackList[blackList.length]) {
@@ -108,8 +108,7 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
             } else {
                 flags += `,${flag}`
             }
-        }
-        )
+        })
         return flags
     }
 
@@ -169,30 +168,30 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                 </Col>
                 <Col>
                     <Row >
-                        <div className="AnyCatButton">
+                        <div className="anyCatButton">
                             <input type="checkbox" name="catSelect" value="any" checked={any} onChange={anyCategory} />
-                            <label value="any" onClick={anyCategory} style={{ fontSize: "1.2rem" }}>Any</label>
+                            <label value="any" onClick={anyCategory}>Any</label>
                         </div>
                     </Row>
                     <Row>
                         <span className="allCategories">
                             <Row className="catSelect">
                                 <input type="checkbox" id="Dark" value={dark} checked={dark} onChange={
-                                    (e) => { setDark(!dark); handleCategoryChange(e) }} /><label htmlFor="Dark">Dark</label>
+                                    (event) => { setDark(!dark); handleCategoryChange(event) }} /><label htmlFor="Dark">Dark</label>
                                 <input type="checkbox" id="Pun" value={pun} checked={pun} onChange={
-                                    (e) => { setPun(!pun); handleCategoryChange(e) }} /><label htmlFor="Pun">Pun</label>
+                                    (event) => { setPun(!pun); handleCategoryChange(event) }} /><label htmlFor="Pun">Pun</label>
                                 <input type="checkbox" id="Programming" value={programming} checked={programming} onChange={
-                                    (e) => { setProgramming(!programming); handleCategoryChange(e) }
+                                    (event) => { setProgramming(!programming); handleCategoryChange(event) }
                                 } />
                                 <label htmlFor="Programming">Programming</label>
                             </Row>
                             <Row className="catSelect">
                                 <input type="checkbox" id="Misc" value={misc} checked={misc} onChange={
-                                    (e) => { setMisc(!misc); handleCategoryChange(e) }} /><label htmlFor="Misc">Misc</label>
+                                    (event) => { setMisc(!misc); handleCategoryChange(event) }} /><label htmlFor="Misc">Misc</label>
                                 <input type="checkbox" id="Spooky" value={spooky} checked={spooky} onChange={
-                                    (e) => { setSpooky(!spooky); handleCategoryChange(e) }} /><label htmlFor="Spooky">Spooky</label>
+                                    (event) => { setSpooky(!spooky); handleCategoryChange(event) }} /><label htmlFor="Spooky">Spooky</label>
                                 <input type="checkbox" id="Christmas" value={christmas} checked={christmas} onChange={
-                                    (e) => { setChristmas(!christmas); handleCategoryChange(e) }} /><label htmlFor="Christmas">Christmas</label>
+                                    (event) => { setChristmas(!christmas); handleCategoryChange(event) }} /><label htmlFor="Christmas">Christmas</label>
                             </Row>
                         </span>
                     </Row>
@@ -200,9 +199,9 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
             </Row>
             <hr />
             <Row>
-                <Col md={6} sm={12} className="options">Select Language</Col>
+                <Col md={6} sm={12} className="options">Select Language:</Col>
                 <Col>
-                    <select name="Language" value={language} onChange={(e) => setLanguage(e.target.value)}>
+                    <select name="Language" value={language} onChange={(event) => setLanguage(event.target.value)}>
                         <option value="">English</option>
                         <option value="cs">Czech</option>
                         <option value="de">German</option>
@@ -222,24 +221,24 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                         <span className="allBlackLists">
                             <Row className="flagSelect">
                                 <input type="checkbox" id="nsfw" value={nsfw} checked={nsfw} onChange={
-                                    (e) => { setNsfw(!nsfw); handleBlackListChange(e) }} />
+                                    (event) => { setNsfw(!nsfw); handleBlackListChange(event) }} />
                                 <label htmlFor="nsfw">NSFW</label>
                                 <input type="checkbox" id="religious" value={religious} checked={religious} onChange={
-                                    (e) => { setReligious(!religious); handleBlackListChange(e) }} />
+                                    (event) => { setReligious(!religious); handleBlackListChange(event) }} />
                                 <label htmlFor="religious">Religious</label>
                                 <input type="checkbox" id="political" value={political} checked={political} onChange={
-                                    (e) => { setPolitical(!political); handleBlackListChange(e) }} />
+                                    (event) => { setPolitical(!political); handleBlackListChange(event) }} />
                                 <label htmlFor="political">Political</label>
                             </Row>
                             <Row className="flagSelect">
                                 <input type="checkbox" id="racist" value={racist} checked={racist} onChange={
-                                    (e) => { setRacist(!racist); handleBlackListChange(e) }} />
+                                    (event) => { setRacist(!racist); handleBlackListChange(event) }} />
                                 <label htmlFor="racist">Racist</label>
                                 <input type="checkbox" id="sexist" value={sexist} checked={sexist} onChange={
-                                    (e) => { setSexist(!sexist); handleBlackListChange(e) }} />
+                                    (event) => { setSexist(!sexist); handleBlackListChange(event) }} />
                                 <label htmlFor="sexist">Sexist</label>
                                 <input type="checkbox" id="explicit" value={explicit} checked={explicit} onChange={
-                                    (e) => { setExplicit(!explicit); handleBlackListChange(e) }} />
+                                    (event) => { setExplicit(!explicit); handleBlackListChange(event) }} />
                                 <label htmlFor="explicit">Explicit</label>
                             </Row>
                         </span>
@@ -254,7 +253,7 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                 </Col>
                 <Col>
                     <input type="text" className="searchString" placeholder="(optional)" onKeyPress={searchJoke}
-                        value={searchString} onChange={(e) => setSearchString(e.target.value)} />
+                        value={searchString} onChange={(event) => setSearchString(event.target.value)} />
                     <Button variant={isLightTheme ? "danger" : "outline-danger"} className="deleteButton" placeholder="Delete" onClick={() => setSearchString("")}>Delete</Button>
                 </Col>
             </Row>

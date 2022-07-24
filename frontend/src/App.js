@@ -43,7 +43,6 @@ function App() {
       withCredentials: true,
       url: "/user"
     })
-    console.log(response.data)
     const { _id, email, firstName, lastName, jokes } = response.data
     setUserData({ id: _id, email: email, firstName: firstName, lastName: lastName, jokes: jokes })
   }

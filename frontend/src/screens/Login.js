@@ -17,7 +17,7 @@ function LogIn() {
                     <Card className="loginForm">
                         <div className="card-body">
                             {/* Makes POST request to /LogIn route */}
-                            <form action="/Login" method="POST">
+                            <form to="/Login" method="POST">
                                 <FormGroup>
                                     <h1 className="login-title">Log In</h1>
                                     <label htmlFor="email" className="loginEmail">Email:</label>
@@ -56,8 +56,7 @@ function LogIn() {
                     </Card>
                 </div>
             </Row>
-        </Container>
-
+        </Container >
     )
 }
 

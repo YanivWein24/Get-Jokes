@@ -19,9 +19,7 @@ const passportConfig = (passport) => {
                     if (!user) return done(errorMessage, false) // null for errors, false for returned user
                     bcrypt.compare(password, user.password)
                         .then((res) => {
-                            console.log("Comparison was: " + res)
                             if (res === true) {
-                                console.log("sending user data")
                                 return done(null, user) // null for errors, user for the returned user
                             } else return done("Password is incorrect", null)
                         })

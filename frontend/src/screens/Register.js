@@ -27,11 +27,11 @@ function Register() {
                                 <h3>Welcome {firstName} {lastName}!</h3>
                                 <FormGroup>
                                     <label htmlFor="fname" className="registerFname">First Name:</label>
-                                    <input type="text" className="form-control" name="firstName" placeholder="First" required={true} onChange={(e) => setFirstName(e.target.value)} />
+                                    <input type="text" className="form-control" name="firstName" placeholder="First" required={true} onChange={(event) => setFirstName(event.target.value)} />
                                 </FormGroup>
                                 <FormGroup>
                                     <label htmlFor="lname" className="registerLname">Last Name:</label>
-                                    <input type="text" className="form-control" name="lastName" placeholder="Last" required={true} onChange={(e) => setLastName(e.target.value)} />
+                                    <input type="text" className="form-control" name="lastName" placeholder="Last" required={true} onChange={(event) => setLastName(event.target.value)} />
                                 </FormGroup>
                                 <FormGroup>
                                     <label htmlFor="email" className="registerEmail">Email:</label>

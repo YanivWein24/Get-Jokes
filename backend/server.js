@@ -103,7 +103,6 @@ passport.use(new FacebookStrategy({
 
 app.post('/register', async (req, res) => {
     const { firstName, lastName, email, password } = req.body
-    console.log("Data from registration form:", firstName, lastName, email, password)
     const hashedPassword = await bcrypt.hash(password, 10) // 10 salting rounds
     const newUser = new User({
         firstName: _.capitalize(firstName),
@@ -116,7 +115,6 @@ app.post('/register', async (req, res) => {
         if (foundUser) res.send("User Already Exists")
         else {
             await newUser.save()
-            console.log("User Added Successfully!")
             res.redirect('/Login')
         }
     })
@@ -128,7 +126,6 @@ app.post("/login", (req, res) => {
         else {
             req.login(user, (err) => {  // passport.js method
                 if (err) throw (err)
-                console.log('successfully logged in!')
                 res.redirect("/userScreen")
             })
         }
@@ -138,7 +135,6 @@ app.post("/login", (req, res) => {
 app.get("/logout", (req, res) => {
     if (req.isAuthenticated() !== true) res.redirect("/")
     else {
-        console.log(`${req.user.firstName} ${req.user.lastName} is requesting to log out`)
         req.logout((err) => {
             if (err) console.log(err)
             else res.redirect("/")
@@ -155,12 +151,10 @@ app.post('/user/delete', (req, res) => {
         // handle the request for a single part joke:
         req.user.jokes = req.user.jokes.filter(joke => joke.joke !== req.body.joke)
         req.user.save()
-            .then(console.log(`Removed joke from${req.user.firstName} ${req.user.lastName}'s collection`))
     } else {
         // handle the request for a two part joke:
         req.user.jokes = req.user.jokes.filter(joke => joke.setup !== req.body.setup)
         req.user.save()
-            .then(console.log(`Removed joke from${req.user.firstName} ${req.user.lastName}'s collection`))
     }
 })
 
@@ -181,9 +175,8 @@ app.post('/like', (req, res) => {
             })
         req.user.jokes.push(newJoke)
         req.user.save()
-            .then(console.log(`Added new joke to ${req.user.firstName} ${req.user.lastName}'s collection`))
     } else {
-        console.log("Failed to find the correct user..")
+        console.error("Failed to find the correct user..")
     }
 })
 

@@ -10,7 +10,7 @@ const Header = ({ userData }) => {
 
     useEffect(() => {
         localStorage.setItem('theme', JSON.stringify(theme))
-    })
+    }, [])
 
     return (
         <header>

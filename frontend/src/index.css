@@ -130,6 +130,10 @@ h1 {
   padding-bottom: 0.1rem;
 }
 
+#dark .anyCatButton {
+  background-color: var(--color-grey-11);
+}
+
 #dark input[type="checkbox"]::before {
   box-shadow: inset 1em 1em var(--color-blue-light);
 }
@@ -248,6 +252,24 @@ hr {
   padding: .3em;
   margin: 2rem auto;
   transition: all 0.6s ease-in-out;
+}
+
+.anyCatButton {
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-grey-2);
+  padding: .5rem 1rem 0;
+  border-radius: 10px;
+}
+
+.anyCatButton label {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.anyCatButton input[type="checkbox"] {
+  width: 1.3em;
+  height: 1.3em;
 }
 
 .options {
@@ -637,7 +659,7 @@ label.showPassword:hover {
 .about {
   width: 100%;
   text-align: center;
-  line-height: 1.15;
+  line-height: 1.25;
   margin-top: 2.9rem;
 }
 
@@ -656,6 +678,7 @@ label.showPassword:hover {
   font-size: 1.2rem;
   color: var(--color-grey-5);
   transition: all .7s ease-in-out;
+  /* line-height: 1; */
 }
 
 .about span {
@@ -738,7 +761,7 @@ footer {
     margin: 0;
   }
 
-  .AnyCatButton,
+  .anyCatButton,
   .allCategories,
   .allBlackLists {
     margin: auto;
