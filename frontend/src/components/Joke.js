@@ -82,13 +82,12 @@ const UserJoke = ({ category, joke, index }) => {
             <div className="jokeCategory"> {category}</div>
             <div>{joke}</div>
             <Button onClick={() => { deleteJoke(); deleteJokeMessage() }}
-                className="btn-sm deleteJokeButton" variant={isLightTheme ? "secondary" : "info"}
-                style={{ margin: "1.5rem auto 0" }}>
+                className="btn-sm deleteJokeButton" variant={isLightTheme ? "secondary" : "info"}>
                 <i className="fa-solid fa-trash-can"></i> Delete</Button>
             {deleteMessage === true &&
                 <p className="deleteMessage fade-in" >Joke Deleted</p>
             }
-            <p style={{ fontSize: "1rem", margin: ".5rem auto 0" }}>{index + 1}</p>
+            <p className="jokeIndex">{index + 1}</p>
         </div>
     )
 }
@@ -124,13 +123,12 @@ const TwoPartUserJoke = ({ category, setup, delivery, index }) => {
             <div>{setup}</div>
             <div>{delivery}</div>
             <Button onClick={() => { deleteJoke(); deleteJokeMessage() }}
-                className="btn-sm deleteJokeButton" variant={isLightTheme ? "secondary" : "info"}
-                style={{ margin: "1.5rem auto 0" }}>
+                className="btn-sm deleteJokeButton" variant={isLightTheme ? "secondary" : "info"}>
                 <i className="fa-solid fa-trash-can"></i> Delete</Button>
             {deleteMessage === true &&
                 <p className="deleteMessage fade-in" >Joke Deleted</p>
             }
-            <p style={{ fontSize: "1rem", margin: ".5rem auto 0" }}>{index + 1}</p>
+            <p className="jokeIndex">{index + 1}</p>
         </div>
     )
 }

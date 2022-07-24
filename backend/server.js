@@ -126,7 +126,7 @@ app.post("/login", (req, res) => {
         else {
             req.login(user, (err) => {  // passport.js method
                 if (err) throw (err)
-                res.redirect("/userScreen")
+                res.redirect("/loggedUser")
             })
         }
     })(req, res)
@@ -188,7 +188,7 @@ app.get('/auth/google/redirect',
     passport.authenticate('google', { failureRedirect: '/login' }), // redirect to "/login" if not successful
     function (req, res) {
         // Successful authentication, redirect to "secrets".
-        res.redirect('/userScreen')
+        res.redirect('/loggedUser')
     })
 
 app.get('/auth/facebook',
@@ -198,7 +198,7 @@ app.get('/auth/facebook/redirect',
     passport.authenticate('facebook', { failureRedirect: '/login' }), // redirect to "/login" if not successful
     function (req, res) {
         // Successful authentication, redirect to "secrets".
-        res.redirect('/userScreen')
+        res.redirect('/loggedUser')
     })
 //? -------------------------------- End Of Routes: --------------------------------
 

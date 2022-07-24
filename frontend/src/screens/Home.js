@@ -5,7 +5,7 @@ import Menu from "../components/Menu"
 import Joke, { TwoPartJoke, EmptyUserJoke } from "../components/Joke"
 
 
-const HomeScreen = ({ userData }) => {
+const Home = ({ userData }) => {
 
     // sent to the Menu component as a prop, to receive the url for the GET request
     const [url, setUrl] = useState("")
@@ -72,4 +72,4 @@ const HomeScreen = ({ userData }) => {
     )
 }
 
-export default HomeScreen
+export default Home

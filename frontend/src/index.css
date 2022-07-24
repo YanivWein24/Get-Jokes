@@ -121,6 +121,8 @@ h1 {
   background-color: var(--color-grey-6);
 }
 
+#dark .menuOption,
+#dark .anyCatButton,
 #dark .nav-link:hover {
   background-color: var(--color-grey-11);
 }
@@ -128,10 +130,6 @@ h1 {
 #dark .active-link {
   border-bottom: 0.3rem solid var(--color-blue-dark);
   padding-bottom: 0.1rem;
-}
-
-#dark .anyCatButton {
-  background-color: var(--color-grey-11);
 }
 
 #dark input[type="checkbox"]::before {
@@ -254,6 +252,14 @@ hr {
   transition: all 0.6s ease-in-out;
 }
 
+.menuOption {
+  display: flex;
+  padding: .5rem .4rem 0;
+  margin: .2rem .2rem;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
 .anyCatButton {
   display: flex;
   justify-content: center;
@@ -288,12 +294,12 @@ label {
 }
 
 label:hover {
-  transform: scale(1.08);
+  transform: scale(1.05);
   font-weight: 600;
 }
 
 label:active {
-  transform: scale(1.1);
+  transform: scale(1.08);
   font-weight: 750;
 }
 
@@ -482,6 +488,15 @@ option {
   border-radius: 20px;
 }
 
+.deleteJokeButton {
+  margin: 1.5rem auto 0;
+}
+
+.jokeIndex {
+  font-size: 1rem;
+  margin: .5rem auto 0;
+}
+
 .fa-heart,
 .fa-trash-can {
   color: red;
@@ -523,6 +538,11 @@ option {
 .loginForm input:active,
 .registerForm input:active {
   background-color: var(--color-grey-2);
+}
+
+.googleImage {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 /* the welcome message */
@@ -654,6 +674,45 @@ label.showPassword:hover {
 
 /*? ----------------------------- End Of Login / Register Screens -----------------------------  */
 
+/*? ----------------------------- Logged User Screen -----------------------------  */
+
+.welcomeHeader {
+  margin-top: 2rem;
+}
+
+.latestJokesHeader {
+  color: var(--color-white);
+  font-size: 1rem;
+}
+
+.emptyListHeader {
+  font-size: 1.5rem;
+}
+
+.emptyListContent {
+  font-size: 1.3rem;
+}
+
+/*? ----------------------------- End Of Logged User Screen -----------------------------  */
+
+/*? ----------------------------- Logout Screen -----------------------------  */
+
+.processing,
+.loggedOutMessage {
+  margin-top: 2rem;
+}
+
+.loggedOutMessage {
+  font-size: 1.5rem;
+}
+
+.redirectMessage {
+  font-size: 1.2rem;
+}
+
+
+/*? ----------------------------- End Of Logout Screen -----------------------------  */
+
 /*? ----------------------------- About Screen -----------------------------  */
 
 .about {
@@ -707,7 +766,7 @@ span.serverSide {
   transition: all .7s ease-in-out;
 }
 
-.catSelect,
+.menuRow,
 .flagSelect {
   padding-top: 0.5rem;
 }
@@ -735,14 +794,12 @@ footer {
 
 /*? --------------------------- Media Queries ---------------------------  */
 
-@media only screen and (max-width: 575px) {
+@media only screen and (max-width: 992px) {
 
   .active-link {
     width: 13%;
     padding-bottom: 0;
     margin-bottom: 1rem;
-    /* we are shortening the border bottom, and removing the bottom padding to make it look like an underline.
-    because we removed 1rem of padding, we need to replace it with 1 rem of margin in order to position the links the same.*/
   }
 
   .login-navlink.active-link {
@@ -765,6 +822,16 @@ footer {
   .allCategories,
   .allBlackLists {
     margin: auto;
+  }
+
+  #dark .menuOption {
+    background-color: transparent;
+  }
+
+  .menuOption {
+    padding: 0;
+    margin: 0rem;
+    background-color: transparent;
   }
 
   .options {
@@ -886,6 +953,11 @@ footer {
   }
 
   /*? Replacing "hover" selector with "active" selector */
+
+  label {
+    font-size: 1rem;
+  }
+
   label:hover {
     transform: scale(1);
     font-weight: 400;

@@ -10,7 +10,7 @@ const Header = ({ userData }) => {
 
     useEffect(() => {
         localStorage.setItem('theme', JSON.stringify(theme))
-    }, [])
+    }, [theme])
 
     return (
         <header>
@@ -32,7 +32,7 @@ const Header = ({ userData }) => {
                             </LinkContainer>
                             {userData.email ?
                                 <>
-                                    <LinkContainer to="/userScreen" className="user-navlink" activeClassName='active-link'>
+                                    <LinkContainer to="/loggedUser" className="user-navlink" activeClassName='active-link'>
                                         <Nav.Link><i className="fa-solid fa-user"></i> {userData.firstName}</Nav.Link>
                                     </LinkContainer>
                                     <LinkContainer to="/logout" activeClassName='active-link'>

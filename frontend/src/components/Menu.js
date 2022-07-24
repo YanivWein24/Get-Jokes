@@ -168,30 +168,36 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                 </Col>
                 <Col>
                     <Row >
-                        <div className="anyCatButton">
-                            <input type="checkbox" name="catSelect" value="any" checked={any} onChange={anyCategory} />
+                        <div className="anyCatButton" style={{ "border": `${any ? "2px solid" : "2px solid transparent"}` }}>
+                            <input type="checkbox" name="menuRow" value="any" checked={any} onChange={anyCategory} />
                             <label value="any" onClick={anyCategory}>Any</label>
                         </div>
                     </Row>
                     <Row>
                         <span className="allCategories">
-                            <Row className="catSelect">
-                                <input type="checkbox" id="Dark" value={dark} checked={dark} onChange={
-                                    (event) => { setDark(!dark); handleCategoryChange(event) }} /><label htmlFor="Dark">Dark</label>
-                                <input type="checkbox" id="Pun" value={pun} checked={pun} onChange={
+                            <Row className="menuRow">
+                                <div className="menuOption">
+                                    <input type="checkbox" id="Dark" value={dark} checked={dark} onChange={
+                                        (event) => { setDark(!dark); handleCategoryChange(event) }} /><label htmlFor="Dark">Dark</label>
+                                </div>
+                                <div className="menuOption"><input type="checkbox" id="Pun" value={pun} checked={pun} onChange={
                                     (event) => { setPun(!pun); handleCategoryChange(event) }} /><label htmlFor="Pun">Pun</label>
-                                <input type="checkbox" id="Programming" value={programming} checked={programming} onChange={
-                                    (event) => { setProgramming(!programming); handleCategoryChange(event) }
-                                } />
-                                <label htmlFor="Programming">Programming</label>
+                                </div>
+                                <div className="menuOption"><input type="checkbox" id="Programming" value={programming} checked={programming} onChange={
+                                    (event) => { setProgramming(!programming); handleCategoryChange(event) }} />
+                                    <label htmlFor="Programming">Programming</label>
+                                </div>
                             </Row>
-                            <Row className="catSelect">
-                                <input type="checkbox" id="Misc" value={misc} checked={misc} onChange={
+                            <Row className="menuRow">
+                                <div className="menuOption"><input type="checkbox" id="Misc" value={misc} checked={misc} onChange={
                                     (event) => { setMisc(!misc); handleCategoryChange(event) }} /><label htmlFor="Misc">Misc</label>
-                                <input type="checkbox" id="Spooky" value={spooky} checked={spooky} onChange={
+                                </div>
+                                <div className="menuOption"><input type="checkbox" id="Spooky" value={spooky} checked={spooky} onChange={
                                     (event) => { setSpooky(!spooky); handleCategoryChange(event) }} /><label htmlFor="Spooky">Spooky</label>
-                                <input type="checkbox" id="Christmas" value={christmas} checked={christmas} onChange={
+                                </div>
+                                <div className="menuOption"><input type="checkbox" id="Christmas" value={christmas} checked={christmas} onChange={
                                     (event) => { setChristmas(!christmas); handleCategoryChange(event) }} /><label htmlFor="Christmas">Christmas</label>
+                                </div>
                             </Row>
                         </span>
                     </Row>
@@ -220,26 +226,32 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                     <Row>
                         <span className="allBlackLists">
                             <Row className="flagSelect">
-                                <input type="checkbox" id="nsfw" value={nsfw} checked={nsfw} onChange={
+                                <div className="menuOption"><input type="checkbox" id="nsfw" value={nsfw} checked={nsfw} onChange={
                                     (event) => { setNsfw(!nsfw); handleBlackListChange(event) }} />
-                                <label htmlFor="nsfw">NSFW</label>
-                                <input type="checkbox" id="religious" value={religious} checked={religious} onChange={
+                                    <label htmlFor="nsfw">NSFW</label>
+                                </div>
+                                <div className="menuOption"><input type="checkbox" id="religious" value={religious} checked={religious} onChange={
                                     (event) => { setReligious(!religious); handleBlackListChange(event) }} />
-                                <label htmlFor="religious">Religious</label>
-                                <input type="checkbox" id="political" value={political} checked={political} onChange={
+                                    <label htmlFor="religious">Religious</label>
+                                </div>
+                                <div className="menuOption"><input type="checkbox" id="political" value={political} checked={political} onChange={
                                     (event) => { setPolitical(!political); handleBlackListChange(event) }} />
-                                <label htmlFor="political">Political</label>
+                                    <label htmlFor="political">Political</label>
+                                </div>
                             </Row>
                             <Row className="flagSelect">
-                                <input type="checkbox" id="racist" value={racist} checked={racist} onChange={
+                                <div className="menuOption"><input type="checkbox" id="racist" value={racist} checked={racist} onChange={
                                     (event) => { setRacist(!racist); handleBlackListChange(event) }} />
-                                <label htmlFor="racist">Racist</label>
-                                <input type="checkbox" id="sexist" value={sexist} checked={sexist} onChange={
+                                    <label htmlFor="racist">Racist</label>
+                                </div>
+                                <div className="menuOption"><input type="checkbox" id="sexist" value={sexist} checked={sexist} onChange={
                                     (event) => { setSexist(!sexist); handleBlackListChange(event) }} />
-                                <label htmlFor="sexist">Sexist</label>
-                                <input type="checkbox" id="explicit" value={explicit} checked={explicit} onChange={
+                                    <label htmlFor="sexist">Sexist</label>
+                                </div>
+                                <div className="menuOption"><input type="checkbox" id="explicit" value={explicit} checked={explicit} onChange={
                                     (event) => { setExplicit(!explicit); handleBlackListChange(event) }} />
-                                <label htmlFor="explicit">Explicit</label>
+                                    <label htmlFor="explicit">Explicit</label>
+                                </div>
                             </Row>
                         </span>
                     </Row>
@@ -263,10 +275,12 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                     Select at least one joke type:
                 </Col>
                 <Col className="jokeType">
-                    <input type="checkbox" id="single" value={single} checked={single} onChange={
+                    <div className="menuOption"><input type="checkbox" id="single" value={single} checked={single} onChange={
                         () => { setSingle(!single); }} /><label htmlFor="single">Single Part</label>
-                    <input type="checkbox" id="twoPart" value={twoPart} checked={twoPart} onChange={
+                    </div>
+                    <div className="menuOption"><input type="checkbox" id="twoPart" value={twoPart} checked={twoPart} onChange={
                         () => { setTwoPart(!twoPart); }} /><label htmlFor="twoPart">Two Part</label>
+                    </div>
                 </Col>
             </Row>
             <Row className="resetRow">

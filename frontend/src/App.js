@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import axios from "axios"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
-import HomeScreen from "./screens/HomeScreen"
+import Home from "./screens/Home"
 import About from "./screens/About"
 import Register from "./screens/Register"
-import UserScreen from "./screens/UserScreen"
+import User from "./screens/LoggedUser"
 import LogIn from './screens/Login';
 import Logout from './screens/Logout';
 
@@ -57,9 +57,9 @@ function App() {
         <div id={theme}>
           <Header userData={userData} />
           <Routes>
-            <Route path="/" element={<HomeScreen userData={userData} />} />
+            <Route path="/" element={<Home userData={userData} />} />
             <Route path="/About" element={<About />} />
-            <Route path="/UserScreen" element={<UserScreen userData={userData} />} />
+            <Route path="/LoggedUser" element={<User userData={userData} />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/Login" element={<LogIn />} />
             <Route path="/Logout" element={<Logout userData={userData} />} />

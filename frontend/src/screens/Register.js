@@ -54,7 +54,7 @@ function Register() {
                     <Card className="googleLogin">
                         <div className="card-body">
                             <a className="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-                                <img src={Google} alt="google Img" style={{ height: "1.5rem", width: "1.5rem" }} />
+                                <img className="googleImage" src={Google} alt="google Img" />
                                 Sign Up With Google
                             </a>
                         </div>

@@ -16,7 +16,6 @@ function LogIn() {
                 <Col className="sm-8">
                     <Card className="loginForm">
                         <div className="card-body">
-                            {/* Makes POST request to /LogIn route */}
                             <form to="/Login" method="POST">
                                 <FormGroup>
                                     <h1 className="login-title">Log In</h1>
@@ -28,7 +27,6 @@ function LogIn() {
                                     <input type={passwordVisible ? "text" : "password"} className="form-control" name="password" required={true} placeholder="Password" />
                                     <input type="checkbox" className="showPassword" value={passwordVisible} checked={passwordVisible} onChange={() => setPasswordVisible(!passwordVisible)} name="showPassword" />
                                     <label htmlFor="showPassword" className="showPassword" onClick={() => setPasswordVisible(!passwordVisible)}>Show Password</label>
-                                    {/* <input type="checkbox" className="showPassword" >Show Password</input> */}
                                 </FormGroup>
                                 <Button type="submit" className="loginButton" variant={isLightTheme ? "success" : "info"}>Log In</Button>
                             </form>
@@ -41,7 +39,7 @@ function LogIn() {
                     <Card className="googleLogin">
                         <div className="card-body">
                             <a className="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-                                <img src={Google} alt="google" style={{ height: "1.5rem", width: "1.5rem" }} />
+                                <img className="googleImage" src={Google} alt="google" />
                                 Sign In With Google
                             </a>
                         </div>
