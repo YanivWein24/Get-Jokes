@@ -1,5 +1,5 @@
-const blackListFlagsActions = (category) => {
-    switch (category) {
+const blackListFlagsActions = (blackFlag) => {
+    switch (blackFlag) {
         case "nsfw":
             return { type: 'REVERT_NSFW' }
         case "religious":
@@ -18,8 +18,8 @@ const blackListFlagsActions = (category) => {
     }
 }
 
-const blackListActions = (category, id) => {
-    switch (category) {
+const blackListActions = (action, id) => {
+    switch (action) {
         case "addFlag":
             return {
                 type: 'ADD_FLAG',

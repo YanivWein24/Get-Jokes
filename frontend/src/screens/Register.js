@@ -2,17 +2,13 @@ import React, { useState, useContext } from 'react'
 import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import Google from '../Google.png'
-import { ThemeContext } from "../App"
 
 
 function Register() {
 
-    const { isLightTheme } = useContext(ThemeContext)
-
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [passwordVisible, setPasswordVisible] = useState(false)
-
 
     return (
         <Container className="fade-in mt-3">
@@ -43,7 +39,7 @@ function Register() {
                                     <input type="checkbox" className="showPassword" value={passwordVisible} checked={passwordVisible} onChange={() => setPasswordVisible(!passwordVisible)} name="showPassword" />
                                     <label htmlFor="showPassword" className="showPassword" onClick={() => setPasswordVisible(!passwordVisible)}>Show Password</label>
                                 </FormGroup>
-                                <Button type="submit" className="registerButton" variant={isLightTheme ? "success" : "info"}>Register</Button>
+                                <Button type="submit" className="registerButton">Register</Button>
                                 <p className="sign-in-up-redirect">Already a member? <Link to="/Login">Sign In</Link></p>
                             </form>
                         </div>

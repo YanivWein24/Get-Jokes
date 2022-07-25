@@ -4,6 +4,9 @@ import { ThemeContext } from '../App'
 import { useSelector, useDispatch } from 'react-redux'
 import categoriesActions, { categoriesListActions } from '../actions/categoriesActions'
 import blackListFlagsActions, { blackListActions } from '../actions/blackListActions'
+import langSelectAction from '../actions/langSelectAction'
+import searchStringActions from '../actions/SearchStringActions'
+import jokeTypeActions from '../actions/jokeTypeActions'
 
 
 const Menu = ({ getUrl, findJoke, setJokeData }) => {
@@ -12,22 +15,18 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
     const categoriesListState = useSelector(state => state.categoriesList)
     const blackListState = useSelector(state => state.blackList)
     const blackFlagsState = useSelector(state => state.blackFlags)
+    const languageState = useSelector(state => state.langSelect)
+    const searchStringState = useSelector(state => state.searchString)
+    const jokeTypeState = useSelector(state => state.jokeType)
     const dispatch = useDispatch()
 
     const { isLightTheme } = useContext(ThemeContext)
 
-    // Picked Language 
-    const [language, setLanguage] = useState("")
-    const pickedLanguage = language !== "" ? `?lang=${language}` : ""
-
     // Joke Format
-    const [single, setSingle] = useState(true)
-    const [twoPart, setTwoPart] = useState(true)
-    const jokeType = (single && twoPart ? "" : (single ? (blackListState[0] === undefined && language === "" ? "?type=Single" : "&type=Single") : (blackListState[0] === undefined && language === "" ? "?type=TwoPart" : "&type=TwoPart")))
+    const jokeType = (jokeTypeState.singlePart && jokeTypeState.twoPart ? "" : (jokeTypeState.singlePart ? (blackListState[0] === undefined && languageState === "" ? "?type=Single" : "&type=Single") : (blackListState[0] === undefined && languageState === "" ? "?type=TwoPart" : "&type=TwoPart")))
 
     // Search Joke String
-    const [searchString, setSearchString] = useState("")
-    const searchStringFormatted = searchString && (blackListState[0] === undefined && jokeType === "" && language === "" ? `?contains=${searchString}` : `&contains=${searchString}`)
+    const searchStringFormatted = searchStringState && (blackListState[0] === undefined && jokeType === "" && languageState === "" ? `?contains=${searchStringState}` : `&contains=${searchStringState}`)
     // if the users apply blackList flags or change the joke type, then instead of "?contains=" we will need to use "&contains="
 
     // Add / Remove a category from the array, depending whether the checkbox is being checked
@@ -35,7 +34,7 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
         const { id, checked } = event.target
         // we could also use the property "value" instead of "checked", but it returns "true"/"false" as strings
         if (checked) {
-            dispatch(categoriesActions("setAnyFalse"))
+            categoriesListState[0] === undefined && dispatch(categoriesActions("setAnyFalse"))
             dispatch(categoriesListActions("addCategory", id))
         } else {
             dispatch(categoriesListActions("removeCategory", id))
@@ -45,6 +44,11 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
     useEffect(() => {
         categoriesListState[0] === undefined && dispatch(categoriesActions("setAnyTrue"))
     }, [categoriesListState])
+
+    useEffect(() => {
+        ((jokeTypeState.singlePart || jokeTypeState.twoPart) === false) &&
+            dispatch(jokeTypeActions("reset"))
+    }, [jokeTypeState])
 
     // Create a valid string from the "categories" array to be used in the url 
     const categoriesString = () => {
@@ -75,7 +79,7 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
         let flags = ""
         blackListState.forEach((flag) => {
             if (flag === blackListState[0]) {
-                (language === "" ? flags += `?blacklistFlags=${flag}` : flags += `&blacklistFlags=${flag}`)
+                (languageState === "" ? flags += `?blacklistFlags=${flag}` : flags += `&blacklistFlags=${flag}`)
             } else if (flag === blackListState[blackListState.length]) {
                 flags += `${flag}`
             } else {
@@ -85,6 +89,7 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
         return flags
     }
 
+    const pickedLanguage = languageState !== "" ? `?lang=${languageState}` : ""
     const blackListFlags = blackListString()
     const category = categoriesState.any ? "/Any" : categoriesString()
     const url = `https://v2.jokeapi.dev/joke${category}${pickedLanguage}${blackListFlags}${jokeType}${searchStringFormatted}`
@@ -98,17 +103,6 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
     }, [sendUrl])
     // call the function and send the url whenever the page loads / the url changes
 
-    // const anyCategory = () => {
-    //     dispatch(categoriesActions("reset"))
-    //      setAny(true)
-    //      setDark(false)
-    //      setMisc(false)
-    //      setProgramming(false)
-    //      setPun(false)
-    //      setSpooky(false)
-    //      setChristmas(false)
-    // }
-
     const searchJoke = (event) => {
         // call the findJoke method only if the user presses "Enter" on the search field, or if the user presses the search button
         if (event.key === 'Enter' || event.target.type === 'button') {
@@ -121,26 +115,15 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
         dispatch(categoriesListActions("removeAllCategories"))
         dispatch(blackListFlagsActions("reset"))
         dispatch(blackListActions("removeAllFlags"))
+        dispatch(langSelectAction(""))
+        dispatch(jokeTypeActions("reset"))
+        dispatch(searchStringActions("delete"))
         //     setJokeData({}) // setting data to {} - removes the joke being displayed
-        //     anyCategory() // this method resets all the categories
-        //     setLanguage("")
-        //     setNsfw(false)
-        //     setReligious(false)
-        //     setPolitical(false)
-        //     setRacist(false)
-        //     setSexist(false)
-        //     setExplicit(false)
-        //     setSearchString("")
-        //     setSingle(true)
-        //     setTwoPart(true)
-        //     setBlackList([])
-        //     setCategories([])
     }
 
     return (
         <div>
             <h1>What kind of joke are you looking for?</h1>
-            <p>{JSON.stringify(categoriesState)}</p>
             <Row>
                 <Col md={6} sm={12} className="options">
                     Select A Category:
@@ -186,7 +169,7 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
             <Row>
                 <Col md={6} sm={12} className="options">Select Language:</Col>
                 <Col>
-                    <select name="Language" value={language} onChange={(event) => setLanguage(event.target.value)}>
+                    <select name="Language" value={languageState} onChange={(event) => dispatch(langSelectAction(event.target.value))}>
                         <option value="">English</option>
                         <option value="cs">Czech</option>
                         <option value="de">German</option>
@@ -244,8 +227,8 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                 </Col>
                 <Col>
                     <input type="text" className="searchString" placeholder="(optional)" onKeyPress={searchJoke}
-                        value={searchString} onChange={(event) => setSearchString(event.target.value)} />
-                    <Button variant={isLightTheme ? "danger" : "outline-danger"} className="deleteButton" placeholder="Delete" onClick={() => setSearchString("")}>Delete</Button>
+                        value={searchStringState} onChange={(event) => dispatch(searchStringActions("changeString", event.target.value))} />
+                    <Button variant={isLightTheme ? "danger" : "outline-danger"} className="deleteButton" placeholder="Delete" onClick={() => dispatch(searchStringActions("delete"))}>Delete</Button>
                 </Col>
             </Row>
             <hr />
@@ -254,19 +237,19 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                     Select at least one joke type:
                 </Col>
                 <Col className="jokeType">
-                    <div className="menuOption"><input type="checkbox" id="single" value={single} checked={single} onChange={
-                        () => { setSingle(!single); }} /><label htmlFor="single">Single Part</label>
+                    <div className="menuOption"><input type="checkbox" id="single" value={jokeTypeState.singlePart} checked={jokeTypeState.singlePart} onChange={
+                        () => dispatch(jokeTypeActions("revertSinglePart"))} /><label htmlFor="single">Single Part</label>
                     </div>
-                    <div className="menuOption"><input type="checkbox" id="twoPart" value={twoPart} checked={twoPart} onChange={
-                        () => { setTwoPart(!twoPart); }} /><label htmlFor="twoPart">Two Part</label>
+                    <div className="menuOption"><input type="checkbox" id="twoPart" value={jokeTypeState.twoPart} checked={jokeTypeState.twoPart} onChange={
+                        () => dispatch(jokeTypeActions("revertTwoPart"))} /><label htmlFor="twoPart">Two Part</label>
                     </div>
                 </Col>
             </Row>
             <Row className="resetRow">
-                <Button variant={isLightTheme ? "outline-success" : "outline-info"} className="resetButton m-auto" onClick={reset}>Reset</Button>
+                <Button className="resetButton m-auto" onClick={reset}>Reset</Button>
                 {/* className => rounded, margin auto */}
             </Row>
-            <Button variant={isLightTheme ? "success" : "info"} className="searchButton mx-auto my-2" type="button" onClick={searchJoke}>Search</Button>
+            <Button className="searchButton mx-auto my-2" type="button" onClick={searchJoke}>Search</Button>
             {/* className => rounded, margin auto on x axis, margin 16px on y axis */}
         </div>
     )

@@ -28,7 +28,7 @@ function LogIn() {
                                     <input type="checkbox" className="showPassword" value={passwordVisible} checked={passwordVisible} onChange={() => setPasswordVisible(!passwordVisible)} name="showPassword" />
                                     <label htmlFor="showPassword" className="showPassword" onClick={() => setPasswordVisible(!passwordVisible)}>Show Password</label>
                                 </FormGroup>
-                                <Button type="submit" className="loginButton" variant={isLightTheme ? "success" : "info"}>Log In</Button>
+                                <Button type="submit" className="loginButton">Log In</Button>
                             </form>
                             <p className="sign-in-up-redirect">Don't have an account? <Link to="/Register">Sign Up</Link></p>
                         </div>

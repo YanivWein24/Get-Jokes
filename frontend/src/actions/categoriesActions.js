@@ -24,8 +24,8 @@ const categoriesActions = (category) => {
     }
 }
 
-const categoriesListActions = (category, id) => {
-    switch (category) {
+const categoriesListActions = (action, id) => {
+    switch (action) {
         case "addCategory":
             return {
                 type: 'ADD_CATEGORY',

@@ -19,6 +19,7 @@
   --color-blue-light: rgb(26, 130, 174);
   --color-blue-dark: rgba(5, 43, 87, 1);
   --color-blue-very-light: rgb(36, 184, 205);
+  --color-blue-dim: rgb(194, 205, 224);
 }
 
 /* removes bottom white space */
@@ -92,13 +93,13 @@ h1 {
 }
 
 #light {
-  color: var(--color-grey-5);
-  background: linear-gradient(180deg, var(--color-green-success) 0%, var(--color-blue-very-light) 100%);
+  color: #d2dbeb;
+  background: linear-gradient(180deg, var(--color-blue-light) 10%, var(--color-blue-dim) 100%);
   transition: all .2s ease-in-out;
 }
 
 #light .navbar {
-  background-color: var(--color-green-success);
+  background-color: var(--color-blue-light);
 }
 
 #light .active-link {
@@ -143,6 +144,22 @@ h1 {
 
 #dark .deleteButton {
   width: 5rem;
+}
+
+#dark .resetButton {
+  border: 2px solid var(--color-blue-light);
+  color: var(--color-blue-light);
+}
+
+#dark .resetButton:hover {
+  color: var(--color-grey);
+  background-color: var(--color-blue-light);
+}
+
+#dark .searchButton,
+#dark .loginButton,
+#dark .registerButton {
+  background-color: var(--color-blue-light);
 }
 
 #dark .search,
@@ -212,7 +229,7 @@ h1 {
 
 .nav-link:hover {
   transform: scale(1.1);
-  background-color: var(--color-green-dark);
+  background-color: var(--color-grey-00);
   border-radius: 5px;
 }
 
@@ -327,7 +344,7 @@ input[type="checkbox"]::before {
   height: 0.8rem;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--color-green-light);
+  box-shadow: inset 1em 1em var(--color-blue-dim);
 }
 
 input[type="checkbox"]:checked::before {
@@ -348,7 +365,7 @@ input[type="checkbox"]:active {
 .searchString,
 select {
   text-align: center;
-  color: var(--color-grey-5);
+  color: var(--color-blue-dim);
   font-weight: 500;
   background-color: transparent;
   border-radius: 10px;
@@ -369,14 +386,14 @@ select:hover {
 }
 
 option {
-  background-color: var(--color-grey-2);
+  background-color: var(--color-blue-light);
   font-weight: 500;
 }
 
 ::placeholder {
   /* for the 'searchString' input tag */
   transition: all 0.6s ease-in-out;
-  color: var(--color-black);
+  color: var(--color-blue-dim);
 }
 
 .deleteButton {
@@ -395,12 +412,51 @@ option {
   height: 2.7rem;
   padding: 0 0;
   font-size: .8rem;
+  background-color: transparent;
+  border: 3px solid #399ced;
+  color: var(--color-grey00);
+}
+
+.resetButton:hover {
+  width: 10rem;
+  height: 2.7rem;
+  padding: 0 0;
+  font-size: .8rem;
+  color: var(--color-grey);
+  background-color: #399ced;
+  border: 3px solid transparent;
 }
 
 .searchButton {
   width: 15rem;
   height: 3rem;
   font-size: 1rem;
+}
+
+.searchButton,
+.loginButton,
+.registerButton {
+  color: var(--color-grey);
+  background-color: #399ced;
+}
+
+.searchButton:hover,
+.loginButton:hover,
+.registerButton:hover {
+  color: var(--color-grey);
+  background-color: #399ced;
+}
+
+.searchButton:active,
+.loginButton:active,
+.registerButton:active,
+.searchButton:focus-within,
+.loginButton:focus-within,
+.registerButton:focus-within,
+.resetButton:focus-within {
+  color: var(--color-grey);
+  background-color: #399ced;
+  border: none;
 }
 
 .resetButton,
@@ -609,7 +665,7 @@ label.showPassword:hover {
 }
 
 .sign-in-up-redirect a {
-  color: var(--color-green-success);
+  color: var(--color-blue-dark);
   font-weight: 600;
   text-decoration: underline;
   transition: all .2s ease-in-out;
@@ -945,11 +1001,7 @@ footer {
   }
 
   .nav-link:hover {
-    background-color: var(--color-green-success);
-  }
-
-  #dark .nav-link:hover {
-    background-color: var(--color-grey-6);
+    background-color: var(--color-grey-00);
   }
 
   /*? Replacing "hover" selector with "active" selector */
