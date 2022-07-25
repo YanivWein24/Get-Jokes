@@ -28,7 +28,7 @@ const categoriesReducer = (state = initialState, action) => {
             return { ...state, any: true }
         case 'SET_ANY_FALSE':
             return { ...state, any: false }
-        case 'RESET':
+        case 'RESET_CATEGORIES':
             return {
                 any: true,
                 dark: false,

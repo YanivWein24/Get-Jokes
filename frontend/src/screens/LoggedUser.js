@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { UserJoke, TwoPartUserJoke, EmptyUserJoke } from '../components/Joke'
+import { useSelector } from 'react-redux'
 
-function User({ userData }) {
+function User() {
+
+    const userData = useSelector(state => state.userData)
 
     const emptyListCategory = <h1 className="emptyListHeader fade-in">Its not funny here...</h1>
     const emptyListJoke = <p className="emptyListContent fade-in">To add a joke to your collection press on the<br />'<i className="fa-solid fa-heart"></i>LIKE' button beneath a joke</p>

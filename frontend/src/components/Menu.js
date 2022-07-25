@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 import { ThemeContext } from '../App'
 import { useSelector, useDispatch } from 'react-redux'
@@ -9,7 +9,7 @@ import searchStringActions from '../actions/SearchStringActions'
 import jokeTypeActions from '../actions/jokeTypeActions'
 
 
-const Menu = ({ getUrl, findJoke, setJokeData }) => {
+const Menu = ({ getUrl, findJoke }) => {
 
     const categoriesState = useSelector(state => state.categories)
     const categoriesListState = useSelector(state => state.categoriesList)
@@ -47,7 +47,7 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
 
     useEffect(() => {
         ((jokeTypeState.singlePart || jokeTypeState.twoPart) === false) &&
-            dispatch(jokeTypeActions("reset"))
+            dispatch(jokeTypeActions("resetJokeType"))
     }, [jokeTypeState])
 
     // Create a valid string from the "categories" array to be used in the url 
@@ -111,12 +111,12 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
     }
 
     const reset = () => {
-        dispatch(categoriesActions("reset"))
+        dispatch(categoriesActions("resetCategories"))
         dispatch(categoriesListActions("removeAllCategories"))
-        dispatch(blackListFlagsActions("reset"))
+        dispatch(blackListFlagsActions("resetFlags"))
         dispatch(blackListActions("removeAllFlags"))
         dispatch(langSelectAction(""))
-        dispatch(jokeTypeActions("reset"))
+        dispatch(jokeTypeActions("resetJokeType"))
         dispatch(searchStringActions("delete"))
         //     setJokeData({}) // setting data to {} - removes the joke being displayed
     }
@@ -131,8 +131,8 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                 <Col>
                     <Row >
                         <div className="anyCatButton" style={{ "border": `${categoriesState.any ? "2px solid" : "2px solid transparent"}` }}>
-                            <input type="checkbox" name="menuRow" value={categoriesState.any} checked={categoriesState.any} onChange={() => dispatch(categoriesActions("reset"))} />
-                            <label value="any" onClick={() => dispatch(categoriesActions("reset"))}>Any</label>
+                            <input type="checkbox" name="menuRow" value={categoriesState.any} checked={categoriesState.any} onChange={() => { dispatch(categoriesActions("resetCategories")); dispatch(categoriesListActions("removeAllCategories")) }} />
+                            <label value="any" onClick={() => { dispatch(categoriesActions("resetCategories")); dispatch(categoriesListActions("removeAllCategories")) }}>Any</label>
                         </div>
                     </Row>
                     <Row>
@@ -247,10 +247,8 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
             </Row>
             <Row className="resetRow">
                 <Button className="resetButton m-auto" onClick={reset}>Reset</Button>
-                {/* className => rounded, margin auto */}
             </Row>
             <Button className="searchButton mx-auto my-2" type="button" onClick={searchJoke}>Search</Button>
-            {/* className => rounded, margin auto on x axis, margin 16px on y axis */}
         </div>
     )
 }

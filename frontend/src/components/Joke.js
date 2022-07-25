@@ -2,11 +2,13 @@ import React, { useState, useContext } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import axios from 'axios'
 import { ThemeContext } from "../App"
+import { useSelector } from 'react-redux'
 
+const Joke = ({ category, joke, addToLikes }) => {
 
-const Joke = ({ category, joke, addToLikes, userData }) => {
     const { isLightTheme } = useContext(ThemeContext)
     const [like, setLike] = useState(false)
+    const userDataState = useSelector(state => state.userData)
 
     const addedLikeMessage = () => {
         setLike(true)
@@ -19,10 +21,10 @@ const Joke = ({ category, joke, addToLikes, userData }) => {
         <div className="joke fade-in">
             <div className="jokeCategory">Category: {category}</div>
             <div>{joke}</div>
-            {userData.email !== "" && userData.email !== undefined &&
+            {userDataState.email !== "" && userDataState.email !== undefined &&
                 <Button className="likeButton my-1 btn-sm" onClick={async () => { await addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
-            {userData.email !== "" && like === true &&
+            {userDataState.email !== "" && like === true &&
                 <p className="likeMessage fade-in">Added to the collection!</p>
             }
         </div >
@@ -30,9 +32,11 @@ const Joke = ({ category, joke, addToLikes, userData }) => {
 }
 
 
-const TwoPartJoke = ({ category, setup, delivery, addToLikes, userData }) => {
+const TwoPartJoke = ({ category, setup, delivery, addToLikes }) => {
     const { isLightTheme } = useContext(ThemeContext)
     const [like, setLike] = useState(false)
+    const userDataState = useSelector(state => state.userData)
+
     const addedLikeMessage = () => {
         setLike(true)
         setTimeout(() => {
@@ -45,10 +49,10 @@ const TwoPartJoke = ({ category, setup, delivery, addToLikes, userData }) => {
             <div className="jokeCategory underline">Category: {category}</div>
             <div> {setup}</div>
             <div> {delivery}</div>
-            {userData.email !== "" && userData.email !== undefined &&
+            {userDataState.email !== "" && userDataState.email !== undefined &&
                 <Button className="likeButton my-2 btn-sm" onClick={async () => { await addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
-            {userData.email !== "" && like === true &&
+            {userDataState.email !== "" && like === true &&
                 <p className="likeMessage fade-in" >Added to the collection!</p>
             }
         </div >

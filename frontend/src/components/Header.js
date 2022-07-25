@@ -1,12 +1,14 @@
 import React, { useEffect, useContext } from 'react'
+import { useSelector } from 'react-redux'
 import Switch from 'react-switch'
 import { Navbar, Nav, Container } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 import { ThemeContext } from "../App"
 
-const Header = ({ userData }) => {
+const Header = () => {
 
     const { theme, toggleTheme } = useContext(ThemeContext)
+    const userDataState = useSelector(state => state.userData)
 
     useEffect(() => {
         localStorage.setItem('theme', JSON.stringify(theme))
@@ -30,10 +32,10 @@ const Header = ({ userData }) => {
                             <LinkContainer to="/about" activeClassName='active-link'>
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>
-                            {userData.email ?
+                            {userDataState.email ?
                                 <>
                                     <LinkContainer to="/loggedUser" className="user-navlink" activeClassName='active-link'>
-                                        <Nav.Link><i className="fa-solid fa-user"></i> {userData.firstName}</Nav.Link>
+                                        <Nav.Link><i className="fa-solid fa-user"></i> {userDataState.firstName}</Nav.Link>
                                     </LinkContainer>
                                     <LinkContainer to="/logout" activeClassName='active-link'>
                                         <Nav.Link><i className="fa-solid fa-right-from-bracket"></i> Logout</Nav.Link>

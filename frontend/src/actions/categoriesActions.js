@@ -18,8 +18,8 @@ const categoriesActions = (category) => {
             return { type: 'SET_ANY_TRUE' }
         case "setAnyFalse":
             return { type: 'SET_ANY_FALSE' }
-        case "reset":
-            return { type: 'RESET' }
+        case "resetCategories":
+            return { type: 'RESET_CATEGORIES' }
         default: return { type: '' }
     }
 }

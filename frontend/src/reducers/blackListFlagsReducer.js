@@ -21,7 +21,7 @@ const blackFlagsReducer = (state = initialState, action) => {
             return { ...state, sexist: !state.sexist }
         case 'REVERT_EXPLICIT':
             return { ...state, explicit: !state.explicit }
-        case 'RESET':
+        case 'RESET_FLAGS':
             return {
                 nsfw: false,
                 religious: false,

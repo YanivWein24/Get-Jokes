@@ -12,8 +12,8 @@ const blackListFlagsActions = (blackFlag) => {
             return { type: 'REVERT_SEXIST' }
         case "explicit":
             return { type: 'REVERT_EXPLICIT' }
-        case "reset":
-            return { type: 'RESET' }
+        case "resetFlags":
+            return { type: 'RESET_FLAGS' }
         default: return { type: '' }
     }
 }

@@ -9,7 +9,7 @@ const jokeTypeReducer = (state = initialState, action) => {
             return { ...state, singlePart: !state.singlePart }
         case 'REVERT_TWO_PART':
             return { ...state, twoPart: !state.twoPart }
-        case 'RESET':
+        case 'RESET_JOKE_TYPE':
             return {
                 singlePart: true,
                 twoPart: true

@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import axios from 'axios'
 import { ThemeContext } from "../App"
+import { useSelector } from 'react-redux'
 
-function Logout({ userData }) {
+function Logout() {
+    const userData = useSelector(state => state.userData)
+
     const { isLightTheme } = useContext(ThemeContext)
 
     useEffect(() => {
@@ -13,7 +16,7 @@ function Logout({ userData }) {
             withCredentials: true,
             url: "/logout"
         })
-            .then(() => { userData.id && window.location.reload(false) })
+            .then(() => { userData._id && window.location.reload(false) })
             // reload the page after logging out. (executes ONLY when the user is still logged in, to prevent infinite loop)
             .catch((err) => console.log(err))
     }, []);

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import { Container } from "react-bootstrap"
+import axios from 'axios'
 import Menu from "../components/Menu"
 import Joke, { TwoPartJoke, EmptyUserJoke } from "../components/Joke"
 
 
-const Home = ({ userData }) => {
+const Home = () => {
 
     // sent to the Menu component as a prop, to receive the url for the GET request
     const [url, setUrl] = useState("")
@@ -56,8 +56,8 @@ const Home = ({ userData }) => {
                     <p className="url">API Request: {url}</p>
                 </div>
                 {jokeData.error === false ? (jokeData.type === 'single' ?
-                    <Joke category={jokeData.category} joke={jokeData.joke} addToLikes={addToLikes} userData={userData}></Joke>
-                    : <TwoPartJoke category={jokeData.category} setup={jokeData.setup} delivery={jokeData.delivery} addToLikes={addToLikes} userData={userData}></TwoPartJoke>)
+                    <Joke category={jokeData.category} joke={jokeData.joke} addToLikes={addToLikes}></Joke>
+                    : <TwoPartJoke category={jokeData.category} setup={jokeData.setup} delivery={jokeData.delivery} addToLikes={addToLikes}></TwoPartJoke>)
                     : (jokeData.error !== undefined ? <EmptyUserJoke category={"Error"} joke={`Could not find a joke that matches these specifications.`}></EmptyUserJoke>
                         : "")}
                 {/* first we check if we received a response from the api by checking the data.error property

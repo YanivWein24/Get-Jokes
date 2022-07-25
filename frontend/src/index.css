@@ -95,7 +95,6 @@ h1 {
 #light {
   color: #d2dbeb;
   background: linear-gradient(180deg, var(--color-blue-light) 10%, var(--color-blue-dim) 100%);
-  transition: all .2s ease-in-out;
 }
 
 #light .navbar {
@@ -108,7 +107,6 @@ h1 {
 
 #dark {
   background: linear-gradient(180deg, rgba(15, 15, 15, 1) 0%, var(--color-blue-dark) 90%);
-  transition: all .2s ease-in-out;
 }
 
 #dark,
@@ -201,6 +199,7 @@ h1 {
 
 #dark .url {
   background-color: var(--color-grey-11);
+  border: 2px solid var(--color-blue-light);
 }
 
 #dark .about p {
@@ -283,6 +282,7 @@ hr {
   background-color: var(--color-grey-2);
   padding: .5rem 1rem 0;
   border-radius: 10px;
+  transition: all .2s ease-in-out;
 }
 
 .anyCatButton label {
@@ -447,13 +447,14 @@ option {
   background-color: #399ced;
 }
 
+.searchButton:focus,
+.loginButton:focus,
+.registerButton:focus,
+.resetButton:focus,
 .searchButton:active,
 .loginButton:active,
 .registerButton:active,
-.searchButton:focus-within,
-.loginButton:focus-within,
-.registerButton:focus-within,
-.resetButton:focus-within {
+.resetButton:active {
   color: var(--color-grey);
   background-color: #399ced;
   border: none;
@@ -503,10 +504,11 @@ option {
   margin: 0.5rem auto 0;
   padding: .5rem;
   font-size: 1rem;
-  font-weight: 300;
-  color: var(--color-grey-0);
-  background-color: var(--color-grey-1);
+  font-weight: 400;
+  color: var(--color-blue-dark);
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 1rem;
+  border: 2px solid #399ced;
   width: 60%;
   word-wrap: break-word;
   transition: all .8s ease-in-out;

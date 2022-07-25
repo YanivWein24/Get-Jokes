@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { useDispatch } from 'react-redux'
 import axios from "axios"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
@@ -9,7 +10,7 @@ import Register from "./screens/Register"
 import User from "./screens/LoggedUser"
 import LogIn from './screens/Login';
 import Logout from './screens/Logout';
-
+import userDataAction from './actions/userDataAction'
 
 export const ThemeContext = createContext(null)
 
@@ -21,6 +22,8 @@ const getLocalStorage = () => {
 
 function App() {
 
+  const dispatch = useDispatch()
+
   const [theme, setTheme] = useState(getLocalStorage ? getLocalStorage : "light")
   const toggleTheme = () => {
     setTheme((currTheme) => (currTheme === "light" ? "dark" : "light"))
@@ -29,22 +32,13 @@ function App() {
   // check and apply the current theme in all children components
   const isLightTheme = theme === 'light'
 
-  const [userData, setUserData] = useState({
-    id: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    jokes: []
-  })
-
   const getUserData = async () => {
     const response = await axios({
       method: "GET",
       withCredentials: true,
       url: "/user"
     })
-    const { _id, email, firstName, lastName, jokes } = response.data
-    setUserData({ id: _id, email: email, firstName: firstName, lastName: lastName, jokes: jokes })
+    dispatch(userDataAction(response.data))
   }
 
   useEffect(() => {
@@ -55,14 +49,14 @@ function App() {
     <Router>
       <ThemeContext.Provider value={{ theme, toggleTheme, isLightTheme }}>
         <div id={theme}>
-          <Header userData={userData} />
+          <Header />
           <Routes>
-            <Route path="/" element={<Home userData={userData} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/About" element={<About />} />
-            <Route path="/LoggedUser" element={<User userData={userData} />} />
+            <Route path="/LoggedUser" element={<User />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/Login" element={<LogIn />} />
-            <Route path="/Logout" element={<Logout userData={userData} />} />
+            <Route path="/Logout" element={<Logout />} />
           </Routes>
           <Footer />
         </div>
