@@ -1,17 +1,19 @@
-import React, { useEffect, useContext } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import Switch from 'react-switch'
 import { Navbar, Nav, Container } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
-import { ThemeContext } from "../App"
+import themeAction from '../actions/themeAction'
 
 const Header = () => {
 
-    const { theme, toggleTheme } = useContext(ThemeContext)
-    const userDataState = useSelector(state => state.userData)
+    const theme = useSelector(state => state.theme)
+    const dispatch = useDispatch()
+
+    const userData = useSelector(state => state.userData)
 
     useEffect(() => {
-        localStorage.setItem('theme', JSON.stringify(theme))
+        theme !== undefined && localStorage.setItem('theme', JSON.stringify(theme))
     }, [theme])
 
     return (
@@ -32,10 +34,10 @@ const Header = () => {
                             <LinkContainer to="/about" activeClassName='active-link'>
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>
-                            {userDataState.email ?
+                            {userData.email ?
                                 <>
                                     <LinkContainer to="/loggedUser" className="user-navlink" activeClassName='active-link'>
-                                        <Nav.Link><i className="fa-solid fa-user"></i> {userDataState.firstName}</Nav.Link>
+                                        <Nav.Link><i className="fa-solid fa-user"></i> {userData.firstName}</Nav.Link>
                                     </LinkContainer>
                                     <LinkContainer to="/logout" activeClassName='active-link'>
                                         <Nav.Link><i className="fa-solid fa-right-from-bracket"></i> Logout</Nav.Link>
@@ -52,7 +54,7 @@ const Header = () => {
                                 </>
                             }
                             <div className="themeSwitch">
-                                <Switch height={24} onChange={toggleTheme} checked={theme === "dark"} onColor={"#222"} offColor={"#ddd"} />
+                                <Switch height={24} onChange={() => dispatch(themeAction())} checked={theme === "dark"} onColor={"#222"} offColor={"#ddd"} />
                                 <p>{theme === "light" ? "Light Mode" : "Dark Mode"}</p>
                             </div>
                         </Nav>

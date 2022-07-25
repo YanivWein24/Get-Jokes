@@ -7,6 +7,7 @@ import blackListFlagsActions, { blackListActions } from '../actions/blackListAct
 import langSelectAction from '../actions/langSelectAction'
 import searchStringActions from '../actions/SearchStringActions'
 import jokeTypeActions from '../actions/jokeTypeActions'
+import jokeActions from '../actions/jokeActions'
 
 
 const Menu = ({ getUrl, findJoke }) => {
@@ -18,9 +19,10 @@ const Menu = ({ getUrl, findJoke }) => {
     const languageState = useSelector(state => state.langSelect)
     const searchStringState = useSelector(state => state.searchString)
     const jokeTypeState = useSelector(state => state.jokeType)
+    const theme = useSelector(state => state.theme)
     const dispatch = useDispatch()
 
-    const { isLightTheme } = useContext(ThemeContext)
+    const isLightTheme = theme === "light"
 
     // Joke Format
     const jokeType = (jokeTypeState.singlePart && jokeTypeState.twoPart ? "" : (jokeTypeState.singlePart ? (blackListState[0] === undefined && languageState === "" ? "?type=Single" : "&type=Single") : (blackListState[0] === undefined && languageState === "" ? "?type=TwoPart" : "&type=TwoPart")))
@@ -118,7 +120,7 @@ const Menu = ({ getUrl, findJoke }) => {
         dispatch(langSelectAction(""))
         dispatch(jokeTypeActions("resetJokeType"))
         dispatch(searchStringActions("delete"))
-        //     setJokeData({}) // setting data to {} - removes the joke being displayed
+        dispatch(jokeActions("resetJoke")) // - removes the joke that is being displayed
     }
 
     return (
@@ -182,7 +184,7 @@ const Menu = ({ getUrl, findJoke }) => {
             <hr />
             <Row>
                 <Col md={6} sm={12} className="options">
-                    Select flags to blacklist (optional):
+                    Select flags to blacklist (Optional):
                 </Col>
                 <Col>
                     <Row>

@@ -1,13 +1,11 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import Google from '../Google.png'
-import { ThemeContext } from "../App"
 
 
 function LogIn() {
 
-    const { isLightTheme } = useContext(ThemeContext)
     const [passwordVisible, setPasswordVisible] = useState(false)
 
     return (

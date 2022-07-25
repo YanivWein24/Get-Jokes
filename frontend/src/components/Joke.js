@@ -1,14 +1,14 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import axios from 'axios'
-import { ThemeContext } from "../App"
 import { useSelector } from 'react-redux'
 
 const Joke = ({ category, joke, addToLikes }) => {
 
-    const { isLightTheme } = useContext(ThemeContext)
     const [like, setLike] = useState(false)
     const userDataState = useSelector(state => state.userData)
+    const theme = useSelector(state => state.theme)
+    const isLightTheme = theme === "light"
 
     const addedLikeMessage = () => {
         setLike(true)
@@ -33,9 +33,10 @@ const Joke = ({ category, joke, addToLikes }) => {
 
 
 const TwoPartJoke = ({ category, setup, delivery, addToLikes }) => {
-    const { isLightTheme } = useContext(ThemeContext)
     const [like, setLike] = useState(false)
     const userDataState = useSelector(state => state.userData)
+    const theme = useSelector(state => state.theme)
+    const isLightTheme = theme === "light"
 
     const addedLikeMessage = () => {
         setLike(true)
@@ -60,7 +61,8 @@ const TwoPartJoke = ({ category, setup, delivery, addToLikes }) => {
 }
 
 const UserJoke = ({ category, joke, index }) => {
-    const { isLightTheme } = useContext(ThemeContext)
+    const theme = useSelector(state => state.theme)
+    const isLightTheme = theme === "light"
     const deleteJoke = async () => {
         await axios({
             method: 'post',
@@ -97,7 +99,8 @@ const UserJoke = ({ category, joke, index }) => {
 }
 
 const TwoPartUserJoke = ({ category, setup, delivery, index }) => {
-    const { isLightTheme } = useContext(ThemeContext)
+    const theme = useSelector(state => state.theme)
+    const isLightTheme = theme === "light"
     const deleteJoke = async () => {
         await axios({
             method: 'post',

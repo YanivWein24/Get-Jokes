@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import { Container } from "react-bootstrap"
+import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import Menu from "../components/Menu"
 import Joke, { TwoPartJoke, EmptyUserJoke } from "../components/Joke"
-
+import jokeActions from '../actions/jokeActions'
 
 const Home = () => {
+
+    const jokeData = useSelector(state => state.joke)
+    const dispatch = useDispatch()
 
     // sent to the Menu component as a prop, to receive the url for the GET request
     const [url, setUrl] = useState("")
@@ -13,14 +17,12 @@ const Home = () => {
         setUrl(url)
     }
 
-    //  Full response from the API
-    const [jokeData, setJokeData] = useState({})
-
     // send a request to "joke api" and handle the response
     const findJoke = async () => {
         try {
             const response = await axios.get(url)
-            setJokeData(response.data)
+            // setJokeData(response.data)
+            dispatch(jokeActions("getJoke", response.data))
         } catch {
             console.log("error - can't receive response from API")
         }
@@ -52,7 +54,7 @@ const Home = () => {
         <main className="fade-in">
             <Container> {/* center the content */}
                 <div className="searchJokeMenu">
-                    <Menu getUrl={getUrl} findJoke={findJoke} setJokeData={setJokeData} />
+                    <Menu getUrl={getUrl} findJoke={findJoke} />
                     <p className="url">API Request: {url}</p>
                 </div>
                 {jokeData.error === false ? (jokeData.type === 'single' ?

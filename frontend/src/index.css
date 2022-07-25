@@ -344,7 +344,7 @@ input[type="checkbox"]::before {
   height: 0.8rem;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--color-blue-dim);
+  box-shadow: inset 1em 1em var(--color-blue-very-light);
 }
 
 input[type="checkbox"]:checked::before {

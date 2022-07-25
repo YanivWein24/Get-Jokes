@@ -6,9 +6,11 @@ import { ThemeContext } from "../App"
 import { useSelector } from 'react-redux'
 
 function Logout() {
-    const userData = useSelector(state => state.userData)
 
-    const { isLightTheme } = useContext(ThemeContext)
+    const userData = useSelector(state => state.userData)
+    const theme = useSelector(state => state.theme)
+
+    const isLightTheme = theme === "light"
 
     useEffect(() => {
         axios({

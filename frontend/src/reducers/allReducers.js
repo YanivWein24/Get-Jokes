@@ -5,6 +5,8 @@ import langSelectReducer from './langSelectReducer'
 import searchStringReducer from './searchStringReducer'
 import jokeTypeReducer from './jokeTypeReducer'
 import userDataReducer from './userDataReducer'
+import jokesReducer from './jokesReducer'
+import themesReducer from './themesReducer'
 
 const allReducers = combineReducers({
     categories: categoriesReducer,
@@ -14,7 +16,9 @@ const allReducers = combineReducers({
     langSelect: langSelectReducer,
     searchString: searchStringReducer,
     jokeType: jokeTypeReducer,
-    userData: userDataReducer
+    userData: userDataReducer,
+    joke: jokesReducer,
+    theme: themesReducer
 })
 
 export default allReducers
