@@ -2,48 +2,32 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 import { ThemeContext } from '../App'
 import { useSelector, useDispatch } from 'react-redux'
-import categoriesActions from '../actions/categoriesActions'
+import categoriesActions, { categoriesListActions } from '../actions/categoriesActions'
+import blackListFlagsActions, { blackListActions } from '../actions/blackListActions'
 
 
 const Menu = ({ getUrl, findJoke, setJokeData }) => {
 
     const categoriesState = useSelector(state => state.categories)
+    const categoriesListState = useSelector(state => state.categoriesList)
+    const blackListState = useSelector(state => state.blackList)
+    const blackFlagsState = useSelector(state => state.blackFlags)
     const dispatch = useDispatch()
 
     const { isLightTheme } = useContext(ThemeContext)
-
-    // Categories:
-    const [any, setAny] = useState(true)
-    // const [dark, setDark] = useState(false)
-    const [misc, setMisc] = useState(false)
-    // const [programming, setProgramming] = useState(false)
-    // const [pun, setPun] = useState(false)
-    const [spooky, setSpooky] = useState(false)
-    const [christmas, setChristmas] = useState(false)
-
-    // BlackList Flags:
-    const [nsfw, setNsfw] = useState(false)
-    const [religious, setReligious] = useState(false)
-    const [political, setPolitical] = useState(false)
-    const [racist, setRacist] = useState(false)
-    const [sexist, setSexist] = useState(false)
-    const [explicit, setExplicit] = useState(false)
 
     // Picked Language 
     const [language, setLanguage] = useState("")
     const pickedLanguage = language !== "" ? `?lang=${language}` : ""
 
-    // Arrays of categories and blacklists flags
-    const [categories, setCategories] = useState([])
-    const [blackList, setBlackList] = useState([])
     // Joke Format
     const [single, setSingle] = useState(true)
     const [twoPart, setTwoPart] = useState(true)
-    const jokeType = (single && twoPart ? "" : (single ? (blackList[0] === undefined && language === "" ? "?type=Single" : "&type=Single") : (blackList[0] === undefined && language === "" ? "?type=TwoPart" : "&type=TwoPart")))
+    const jokeType = (single && twoPart ? "" : (single ? (blackListState[0] === undefined && language === "" ? "?type=Single" : "&type=Single") : (blackListState[0] === undefined && language === "" ? "?type=TwoPart" : "&type=TwoPart")))
 
     // Search Joke String
     const [searchString, setSearchString] = useState("")
-    const searchStringFormatted = searchString && (blackList[0] === undefined && jokeType === "" && language === "" ? `?contains=${searchString}` : `&contains=${searchString}`)
+    const searchStringFormatted = searchString && (blackListState[0] === undefined && jokeType === "" && language === "" ? `?contains=${searchString}` : `&contains=${searchString}`)
     // if the users apply blackList flags or change the joke type, then instead of "?contains=" we will need to use "&contains="
 
     // Add / Remove a category from the array, depending whether the checkbox is being checked
@@ -51,37 +35,27 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
         const { id, checked } = event.target
         // we could also use the property "value" instead of "checked", but it returns "true"/"false" as strings
         if (checked) {
-            setAny(false)
-            setCategories((prevCategories) => {
-                return [...prevCategories, id]
-            })
+            dispatch(categoriesActions("setAnyFalse"))
+            dispatch(categoriesListActions("addCategory", id))
         } else {
-            setCategories((prevCategories) => {
-                return prevCategories.filter((category) => {
-                    return category !== id
-                })
-            })
+            dispatch(categoriesListActions("removeCategory", id))
         }
     }
 
-    // whenever the categories array is empty, we set "Any" to true.
-    // if we try to do the same thing inside "handleCategoryChange" method, this wont work,
-    // and we will end up using an outdated value of the categories array 
     useEffect(() => {
-        categories[0] === undefined && setAny(true)
-    }, [categories])
+        categoriesListState[0] === undefined && dispatch(categoriesActions("setAnyTrue"))
+    }, [categoriesListState])
 
     // Create a valid string from the "categories" array to be used in the url 
     const categoriesString = () => {
         let catString = ""
-        categories.forEach((category) => {
-            if (category === categories[0]) {
+        categoriesListState.forEach((category) => {
+            if (category === categoriesListState[0]) {
                 catString += `/${category}`
             } else {
                 catString += `,${category}`
             }
-        }
-        )
+        })
         return catString
     }
 
@@ -90,25 +64,19 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
         const { id, checked } = event.target
         // we could also use the property "value" instead of "checked", but it returns "true"/"false" as strings
         if (checked) {
-            setBlackList((prevFlags) => {
-                return [...prevFlags, id]
-            })
+            dispatch(blackListActions("addFlag", id))
         } else {
-            setBlackList((prevFlags) => {
-                return prevFlags.filter((flag) => {
-                    return flag !== id
-                })
-            })
+            dispatch(blackListActions("removeFlag", id))
         }
     }
 
     // Create a valid string from the "blackList" array to be used in the url 
     const blackListString = () => {
         let flags = ""
-        blackList.forEach((flag) => {
-            if (flag === blackList[0]) {
+        blackListState.forEach((flag) => {
+            if (flag === blackListState[0]) {
                 (language === "" ? flags += `?blacklistFlags=${flag}` : flags += `&blacklistFlags=${flag}`)
-            } else if (flag === blackList[blackList.length]) {
+            } else if (flag === blackListState[blackListState.length]) {
                 flags += `${flag}`
             } else {
                 flags += `,${flag}`
@@ -118,7 +86,7 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
     }
 
     const blackListFlags = blackListString()
-    const category = any ? "/Any" : categoriesString()
+    const category = categoriesState.any ? "/Any" : categoriesString()
     const url = `https://v2.jokeapi.dev/joke${category}${pickedLanguage}${blackListFlags}${jokeType}${searchStringFormatted}`
 
     const sendUrl = () => {
@@ -130,15 +98,16 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
     }, [sendUrl])
     // call the function and send the url whenever the page loads / the url changes
 
-    const anyCategory = () => {
-        setAny(true)
-        // setDark(false)
-        setMisc(false)
-        // setProgramming(false)
-        // setPun(false)
-        setSpooky(false)
-        setChristmas(false)
-    }
+    // const anyCategory = () => {
+    //     dispatch(categoriesActions("reset"))
+    //      setAny(true)
+    //      setDark(false)
+    //      setMisc(false)
+    //      setProgramming(false)
+    //      setPun(false)
+    //      setSpooky(false)
+    //      setChristmas(false)
+    // }
 
     const searchJoke = (event) => {
         // call the findJoke method only if the user presses "Enter" on the search field, or if the user presses the search button
@@ -148,20 +117,24 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
     }
 
     const reset = () => {
-        setJokeData({}) // setting data to {} - removes the joke being displayed
-        anyCategory() // this method resets all the categories
-        setLanguage("")
-        setNsfw(false)
-        setReligious(false)
-        setPolitical(false)
-        setRacist(false)
-        setSexist(false)
-        setExplicit(false)
-        setSearchString("")
-        setSingle(true)
-        setTwoPart(true)
-        setBlackList([])
-        setCategories([])
+        dispatch(categoriesActions("reset"))
+        dispatch(categoriesListActions("removeAllCategories"))
+        dispatch(blackListFlagsActions("reset"))
+        dispatch(blackListActions("removeAllFlags"))
+        //     setJokeData({}) // setting data to {} - removes the joke being displayed
+        //     anyCategory() // this method resets all the categories
+        //     setLanguage("")
+        //     setNsfw(false)
+        //     setReligious(false)
+        //     setPolitical(false)
+        //     setRacist(false)
+        //     setSexist(false)
+        //     setExplicit(false)
+        //     setSearchString("")
+        //     setSingle(true)
+        //     setTwoPart(true)
+        //     setBlackList([])
+        //     setCategories([])
     }
 
     return (
@@ -174,9 +147,9 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                 </Col>
                 <Col>
                     <Row >
-                        <div className="anyCatButton" style={{ "border": `${any ? "2px solid" : "2px solid transparent"}` }}>
-                            <input type="checkbox" name="menuRow" value="any" checked={any} onChange={anyCategory} />
-                            <label value="any" onClick={anyCategory}>Any</label>
+                        <div className="anyCatButton" style={{ "border": `${categoriesState.any ? "2px solid" : "2px solid transparent"}` }}>
+                            <input type="checkbox" name="menuRow" value={categoriesState.any} checked={categoriesState.any} onChange={() => dispatch(categoriesActions("reset"))} />
+                            <label value="any" onClick={() => dispatch(categoriesActions("reset"))}>Any</label>
                         </div>
                     </Row>
                     <Row>
@@ -195,14 +168,14 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                                 </div>
                             </Row>
                             <Row className="menuRow">
-                                <div className="menuOption"><input type="checkbox" id="Misc" value={misc} checked={misc} onChange={
-                                    (event) => { setMisc(!misc); handleCategoryChange(event) }} /><label htmlFor="Misc">Misc</label>
+                                <div className="menuOption"><input type="checkbox" id="Misc" value={categoriesState.misc} checked={categoriesState.misc} onChange={
+                                    (event) => { dispatch(categoriesActions("misc")); handleCategoryChange(event) }} /><label htmlFor="Misc">Misc</label>
                                 </div>
-                                <div className="menuOption"><input type="checkbox" id="Spooky" value={spooky} checked={spooky} onChange={
-                                    (event) => { setSpooky(!spooky); handleCategoryChange(event) }} /><label htmlFor="Spooky">Spooky</label>
+                                <div className="menuOption"><input type="checkbox" id="Spooky" value={categoriesState.spooky} checked={categoriesState.spooky} onChange={
+                                    (event) => { dispatch(categoriesActions("spooky")); handleCategoryChange(event) }} /><label htmlFor="Spooky">Spooky</label>
                                 </div>
-                                <div className="menuOption"><input type="checkbox" id="Christmas" value={christmas} checked={christmas} onChange={
-                                    (event) => { setChristmas(!christmas); handleCategoryChange(event) }} /><label htmlFor="Christmas">Christmas</label>
+                                <div className="menuOption"><input type="checkbox" id="Christmas" value={categoriesState.christmas} checked={categoriesState.christmas} onChange={
+                                    (event) => { dispatch(categoriesActions("christmas")); handleCategoryChange(event) }} /><label htmlFor="Christmas">Christmas</label>
                                 </div>
                             </Row>
                         </span>
@@ -232,30 +205,30 @@ const Menu = ({ getUrl, findJoke, setJokeData }) => {
                     <Row>
                         <span className="allBlackLists">
                             <Row className="flagSelect">
-                                <div className="menuOption"><input type="checkbox" id="nsfw" value={nsfw} checked={nsfw} onChange={
-                                    (event) => { setNsfw(!nsfw); handleBlackListChange(event) }} />
+                                <div className="menuOption"><input type="checkbox" id="nsfw" value={blackFlagsState.nsfw} checked={blackFlagsState.nsfw} onChange={
+                                    (event) => { dispatch(blackListFlagsActions("nsfw")); handleBlackListChange(event) }} />
                                     <label htmlFor="nsfw">NSFW</label>
                                 </div>
-                                <div className="menuOption"><input type="checkbox" id="religious" value={religious} checked={religious} onChange={
-                                    (event) => { setReligious(!religious); handleBlackListChange(event) }} />
+                                <div className="menuOption"><input type="checkbox" id="religious" value={blackFlagsState.religious} checked={blackFlagsState.religious} onChange={
+                                    (event) => { dispatch(blackListFlagsActions("religious")); handleBlackListChange(event) }} />
                                     <label htmlFor="religious">Religious</label>
                                 </div>
-                                <div className="menuOption"><input type="checkbox" id="political" value={political} checked={political} onChange={
-                                    (event) => { setPolitical(!political); handleBlackListChange(event) }} />
+                                <div className="menuOption"><input type="checkbox" id="political" value={blackFlagsState.political} checked={blackFlagsState.political} onChange={
+                                    (event) => { dispatch(blackListFlagsActions("political")); handleBlackListChange(event) }} />
                                     <label htmlFor="political">Political</label>
                                 </div>
                             </Row>
                             <Row className="flagSelect">
-                                <div className="menuOption"><input type="checkbox" id="racist" value={racist} checked={racist} onChange={
-                                    (event) => { setRacist(!racist); handleBlackListChange(event) }} />
+                                <div className="menuOption"><input type="checkbox" id="racist" value={blackFlagsState.racist} checked={blackFlagsState.racist} onChange={
+                                    (event) => { dispatch(blackListFlagsActions("racist")); handleBlackListChange(event) }} />
                                     <label htmlFor="racist">Racist</label>
                                 </div>
-                                <div className="menuOption"><input type="checkbox" id="sexist" value={sexist} checked={sexist} onChange={
-                                    (event) => { setSexist(!sexist); handleBlackListChange(event) }} />
+                                <div className="menuOption"><input type="checkbox" id="sexist" value={blackFlagsState.sexist} checked={blackFlagsState.sexist} onChange={
+                                    (event) => { dispatch(blackListFlagsActions("sexist")); handleBlackListChange(event) }} />
                                     <label htmlFor="sexist">Sexist</label>
                                 </div>
-                                <div className="menuOption"><input type="checkbox" id="explicit" value={explicit} checked={explicit} onChange={
-                                    (event) => { setExplicit(!explicit); handleBlackListChange(event) }} />
+                                <div className="menuOption"><input type="checkbox" id="explicit" value={blackFlagsState.explicit} checked={blackFlagsState.explicit} onChange={
+                                    (event) => { dispatch(blackListFlagsActions("explicit")); handleBlackListChange(event) }} />
                                     <label htmlFor="explicit">Explicit</label>
                                 </div>
                             </Row>
