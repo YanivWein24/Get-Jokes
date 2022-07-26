@@ -9,6 +9,7 @@ import jokesReducer from './jokesReducer'
 import themesReducer from './themesReducer'
 import jokeMessageReducer from './jokeMessageReducer'
 import urlReducer from './urlReducer'
+import loginRegisterReducer from './loginRegisterReducer'
 
 const allReducers = combineReducers({
     categories: categoriesReducer,
@@ -22,7 +23,8 @@ const allReducers = combineReducers({
     joke: jokesReducer,
     theme: themesReducer,
     jokeMessage: jokeMessageReducer,
-    url: urlReducer
+    url: urlReducer,
+    loginRegister: loginRegisterReducer
 })
 
 export default allReducers

@@ -787,6 +787,11 @@ label.showPassword:hover {
   margin-top: 2.9rem;
 }
 
+.about .left-aligned {
+  text-align: left;
+  margin-left: 15%;
+}
+
 .about h1 {
   font-size: 2.5rem;
   color: var(--color-white);
@@ -800,7 +805,7 @@ label.showPassword:hover {
 
 .about p {
   font-size: 1.2rem;
-  color: var(--color-grey-5);
+  color: var(--color-blue-dim);
   transition: all .7s ease-in-out;
   /* line-height: 1; */
 }
@@ -811,7 +816,7 @@ label.showPassword:hover {
 
 span.clientSide,
 span.serverSide {
-  color: var(--color-black);
+  color: var(--color-grey-4);
   text-decoration: underline;
   font-weight: 800;
   font-size: 1.1rem;
@@ -825,7 +830,7 @@ span.serverSide {
 }
 
 .about-links {
-  color: var(--color-grey-6);
+  color: var(--color-grey-4);
   font-weight: 800;
   font-size: 1rem;
   transition: all .7s ease-in-out;
@@ -968,6 +973,10 @@ footer {
     margin-top: 1rem;
     padding: 0.5rem;
     font-weight: 400;
+  }
+
+  .about .left-aligned {
+    margin-left: 3%;
   }
 
   .about h1 {

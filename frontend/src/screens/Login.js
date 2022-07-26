@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Container, Card, Row, Col, FormGroup, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { useSelector, useDispatch } from 'react-redux'
+import loginRegisterActions from '../actions/loginRegisterActions'
 import Google from '../Google.png'
 
 
 function LogIn() {
 
-    const [passwordVisible, setPasswordVisible] = useState(false)
+    const showPassword = useSelector(state => state.loginRegister.showPassword)
+    const dispatch = useDispatch()
 
     return (
         <Container className="fade-in mt-5">
@@ -22,9 +25,9 @@ function LogIn() {
                                 </FormGroup>
                                 <FormGroup>
                                     <label htmlFor="password" className="loginPassword">Password:</label>
-                                    <input type={passwordVisible ? "text" : "password"} className="form-control" name="password" required={true} placeholder="Password" />
-                                    <input type="checkbox" className="showPassword" value={passwordVisible} checked={passwordVisible} onChange={() => setPasswordVisible(!passwordVisible)} name="showPassword" />
-                                    <label htmlFor="showPassword" className="showPassword" onClick={() => setPasswordVisible(!passwordVisible)}>Show Password</label>
+                                    <input type={showPassword ? "text" : "password"} className="form-control" name="password" required={true} placeholder="Password" />
+                                    <input type="checkbox" className="showPassword" value={showPassword} checked={showPassword} onChange={() => dispatch(loginRegisterActions("showPassword"))} name="showPassword" />
+                                    <label htmlFor="showPassword" className="showPassword" onClick={() => dispatch(loginRegisterActions("showPassword"))}>Show Password</label>
                                 </FormGroup>
                                 <Button type="submit" className="loginButton">Log In</Button>
                             </form>
