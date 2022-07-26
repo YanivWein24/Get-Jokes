@@ -7,6 +7,8 @@ import jokeTypeReducer from './jokeTypeReducer'
 import userDataReducer from './userDataReducer'
 import jokesReducer from './jokesReducer'
 import themesReducer from './themesReducer'
+import jokeMessageReducer from './jokeMessageReducer'
+import urlReducer from './urlReducer'
 
 const allReducers = combineReducers({
     categories: categoriesReducer,
@@ -18,7 +20,9 @@ const allReducers = combineReducers({
     jokeType: jokeTypeReducer,
     userData: userDataReducer,
     joke: jokesReducer,
-    theme: themesReducer
+    theme: themesReducer,
+    jokeMessage: jokeMessageReducer,
+    url: urlReducer
 })
 
 export default allReducers

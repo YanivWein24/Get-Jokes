@@ -1,30 +1,31 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, Container } from 'react-bootstrap'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import jokeMessageAction from '../actions/jokeMessageAction'
 
 const Joke = ({ category, joke, addToLikes }) => {
 
-    const [like, setLike] = useState(false)
     const userDataState = useSelector(state => state.userData)
-    const theme = useSelector(state => state.theme)
-    const isLightTheme = theme === "light"
+    const jokeMessage = useSelector(state => state.jokeMessage)
+    const dispatch = useDispatch()
+
 
     const addedLikeMessage = () => {
-        setLike(true)
+        dispatch(jokeMessageAction("toggleMessage"));
         setTimeout(() => {
-            setLike(false)
+            dispatch(jokeMessageAction("toggleMessage"))
             window.location.reload()
-        }, 1000)
+        }, 1000);
     }
     return (
         <div className="joke fade-in">
             <div className="jokeCategory">Category: {category}</div>
             <div>{joke}</div>
             {userDataState.email !== "" && userDataState.email !== undefined &&
-                <Button className="likeButton my-1 btn-sm" onClick={async () => { await addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
+                <Button className="likeButton my-1 btn-sm" onClick={async () => { await addToLikes(); addedLikeMessage() }} variant={"secondary"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
-            {userDataState.email !== "" && like === true &&
+            {userDataState.email !== "" && jokeMessage === true &&
                 <p className="likeMessage fade-in">Added to the collection!</p>
             }
         </div >
@@ -33,17 +34,16 @@ const Joke = ({ category, joke, addToLikes }) => {
 
 
 const TwoPartJoke = ({ category, setup, delivery, addToLikes }) => {
-    const [like, setLike] = useState(false)
     const userDataState = useSelector(state => state.userData)
-    const theme = useSelector(state => state.theme)
-    const isLightTheme = theme === "light"
+    const jokeMessage = useSelector(state => state.jokeMessage)
+    const dispatch = useDispatch()
 
     const addedLikeMessage = () => {
-        setLike(true)
+        dispatch(jokeMessageAction("toggleMessage"));
         setTimeout(() => {
-            setLike(false)
+            dispatch(jokeMessageAction("toggleMessage"))
             window.location.reload()
-        }, 1000)
+        }, 1000);
     }
     return (
         <div className="joke fade-in">
@@ -51,9 +51,9 @@ const TwoPartJoke = ({ category, setup, delivery, addToLikes }) => {
             <div> {setup}</div>
             <div> {delivery}</div>
             {userDataState.email !== "" && userDataState.email !== undefined &&
-                <Button className="likeButton my-2 btn-sm" onClick={async () => { await addToLikes(); addedLikeMessage() }} variant={isLightTheme ? "secondary" : "info"}><i className="fa-solid fa-heart"></i> Like</Button>
+                <Button className="likeButton my-2 btn-sm" onClick={async () => { await addToLikes(); addedLikeMessage() }} variant={"secondary"}><i className="fa-solid fa-heart"></i> Like</Button>
             }
-            {userDataState.email !== "" && like === true &&
+            {userDataState.email !== "" && jokeMessage === true &&
                 <p className="likeMessage fade-in" >Added to the collection!</p>
             }
         </div >
@@ -61,8 +61,6 @@ const TwoPartJoke = ({ category, setup, delivery, addToLikes }) => {
 }
 
 const UserJoke = ({ category, joke, index }) => {
-    const theme = useSelector(state => state.theme)
-    const isLightTheme = theme === "light"
     const deleteJoke = async () => {
         await axios({
             method: 'post',
@@ -75,22 +73,24 @@ const UserJoke = ({ category, joke, index }) => {
             }
         })
     }
-    const [deleteMessage, setDeleteMessage] = useState(false)
+    const jokeMessage = useSelector(state => state.jokeMessage)
+    const dispatch = useDispatch()
+
     const deleteJokeMessage = () => {
-        setDeleteMessage(true)
+        dispatch(jokeMessageAction("toggleMessage"));
         setTimeout(() => {
-            setDeleteMessage(false)
+            dispatch(jokeMessageAction("toggleMessage"))
             window.location.reload()
-        }, 1000)
+        }, 1000);
     }
     return (
         <div className="joke fade-in">
             <div className="jokeCategory"> {category}</div>
             <div>{joke}</div>
             <Button onClick={() => { deleteJoke(); deleteJokeMessage() }}
-                className="btn-sm deleteJokeButton" variant={isLightTheme ? "secondary" : "info"}>
+                className="btn-sm deleteJokeButton" variant={"secondary"}>
                 <i className="fa-solid fa-trash-can"></i> Delete</Button>
-            {deleteMessage === true &&
+            {jokeMessage === true &&
                 <p className="deleteMessage fade-in" >Joke Deleted</p>
             }
             <p className="jokeIndex">{index + 1}</p>
@@ -99,8 +99,6 @@ const UserJoke = ({ category, joke, index }) => {
 }
 
 const TwoPartUserJoke = ({ category, setup, delivery, index }) => {
-    const theme = useSelector(state => state.theme)
-    const isLightTheme = theme === "light"
     const deleteJoke = async () => {
         await axios({
             method: 'post',
@@ -113,15 +111,15 @@ const TwoPartUserJoke = ({ category, setup, delivery, index }) => {
             }
         })
     }
-
-    const [deleteMessage, setDeleteMessage] = useState(false)
+    const jokeMessage = useSelector(state => state.jokeMessage)
+    const dispatch = useDispatch()
 
     const deleteJokeMessage = () => {
-        setDeleteMessage(true)
+        dispatch(jokeMessageAction("toggleMessage"));
         setTimeout(() => {
-            setDeleteMessage(false)
+            dispatch(jokeMessageAction("toggleMessage"))
             window.location.reload()
-        }, 1000)
+        }, 1000);
     }
 
     return (
@@ -130,9 +128,9 @@ const TwoPartUserJoke = ({ category, setup, delivery, index }) => {
             <div>{setup}</div>
             <div>{delivery}</div>
             <Button onClick={() => { deleteJoke(); deleteJokeMessage() }}
-                className="btn-sm deleteJokeButton" variant={isLightTheme ? "secondary" : "info"}>
+                className="btn-sm deleteJokeButton" variant={"secondary"}>
                 <i className="fa-solid fa-trash-can"></i> Delete</Button>
-            {deleteMessage === true &&
+            {jokeMessage === true &&
                 <p className="deleteMessage fade-in" >Joke Deleted</p>
             }
             <p className="jokeIndex">{index + 1}</p>

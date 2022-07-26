@@ -1,6 +1,5 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
-import { ThemeContext } from '../App'
 import { useSelector, useDispatch } from 'react-redux'
 import categoriesActions, { categoriesListActions } from '../actions/categoriesActions'
 import blackListFlagsActions, { blackListActions } from '../actions/blackListActions'
@@ -19,10 +18,8 @@ const Menu = ({ getUrl, findJoke }) => {
     const languageState = useSelector(state => state.langSelect)
     const searchStringState = useSelector(state => state.searchString)
     const jokeTypeState = useSelector(state => state.jokeType)
-    const theme = useSelector(state => state.theme)
     const dispatch = useDispatch()
 
-    const isLightTheme = theme === "light"
 
     // Joke Format
     const jokeType = (jokeTypeState.singlePart && jokeTypeState.twoPart ? "" : (jokeTypeState.singlePart ? (blackListState[0] === undefined && languageState === "" ? "?type=Single" : "&type=Single") : (blackListState[0] === undefined && languageState === "" ? "?type=TwoPart" : "&type=TwoPart")))
@@ -230,7 +227,7 @@ const Menu = ({ getUrl, findJoke }) => {
                 <Col>
                     <input type="text" className="searchString" placeholder="(optional)" onKeyPress={searchJoke}
                         value={searchStringState} onChange={(event) => dispatch(searchStringActions("changeString", event.target.value))} />
-                    <Button variant={isLightTheme ? "danger" : "outline-danger"} className="deleteButton" placeholder="Delete" onClick={() => dispatch(searchStringActions("delete"))}>Delete</Button>
+                    <Button variant={"outline-danger"} className="deleteButton" placeholder="Delete" onClick={() => dispatch(searchStringActions("delete"))}>Delete</Button>
                 </Col>
             </Row>
             <hr />

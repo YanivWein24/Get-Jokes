@@ -106,7 +106,7 @@ h1 {
 }
 
 #dark {
-  background: linear-gradient(180deg, rgba(15, 15, 15, 1) 0%, var(--color-blue-dark) 90%);
+  background: linear-gradient(180deg, rgb(10, 10, 10) 0%, var(--color-blue-dark) 90%);
 }
 
 #dark,
@@ -163,10 +163,6 @@ h1 {
 #dark .search,
 #dark .joke {
   background-color: var(--color-grey-4);
-}
-
-#dark .fa-trash-can {
-  color: white;
 }
 
 #dark .likeMessage,
@@ -405,6 +401,11 @@ option {
   padding: 0 0;
   border-radius: 6px;
   transition: all .25s ease-in-out;
+  font-weight: 800;
+}
+
+.deleteButton:hover {
+  font-weight: 600;
 }
 
 .resetButton {
@@ -444,7 +445,7 @@ option {
 .loginButton:hover,
 .registerButton:hover {
   color: var(--color-grey);
-  background-color: #399ced;
+  background-color: #2a8cdb;
 }
 
 .searchButton:focus,
@@ -456,7 +457,7 @@ option {
 .registerButton:active,
 .resetButton:active {
   color: var(--color-grey);
-  background-color: #399ced;
+  background-color: #328fdb;
   border: none;
 }
 
@@ -689,9 +690,15 @@ label.showPassword:hover {
   transition: all .2s ease-in-out
 }
 
-.facebookLogin:hover,
+.facebookLogin:hover {
+  transform: scale(1.04);
+  background-color: #0647c9;
+
+}
+
 .googleLogin:hover {
-  transform: scale(1.04)
+  transform: scale(1.04);
+  background-color: #ddd;
 }
 
 .facebookLogin {

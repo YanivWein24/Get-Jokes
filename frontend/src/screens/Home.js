@@ -1,27 +1,28 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Container } from "react-bootstrap"
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import Menu from "../components/Menu"
 import Joke, { TwoPartJoke, EmptyUserJoke } from "../components/Joke"
 import jokeActions from '../actions/jokeActions'
+import urlAction from '../actions/urlAction'
 
 const Home = () => {
 
     const jokeData = useSelector(state => state.joke)
+    const url = useSelector(state => state.url)
     const dispatch = useDispatch()
 
     // sent to the Menu component as a prop, to receive the url for the GET request
-    const [url, setUrl] = useState("")
     const getUrl = (url) => {
-        setUrl(url)
+        // setUrl(url)
+        dispatch(urlAction(url))
     }
 
     // send a request to "joke api" and handle the response
     const findJoke = async () => {
         try {
             const response = await axios.get(url)
-            // setJokeData(response.data)
             dispatch(jokeActions("getJoke", response.data))
         } catch {
             console.log("error - can't receive response from API")
