@@ -20,11 +20,11 @@ function Logout() {
             .then(() => { userData._id && window.location.reload(false) })
             // reload the page after logging out. (executes ONLY when the user is still logged in, to prevent infinite loop)
             .catch((err) => console.log(err))
-    }, []);
+    }, [])
 
     return (
         <center className="fade-in">
-            {userData.id ? <h1 className="processing">processing...</h1>
+            {userData._id ? <h1 className="processing">processing...</h1>
                 :
                 <>
                     {/* appears only in development. in production the user will get redirected to the root route*/}

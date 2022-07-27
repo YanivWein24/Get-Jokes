@@ -14,6 +14,7 @@
   "author": "Yaniv Weinshtein",
   "license": "MIT",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.3",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "concurrently": "^7.2.2",

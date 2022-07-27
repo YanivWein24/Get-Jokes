@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     getUserData()
-  }, []);
+  }, [])
 
   return (
     <Router>
@@ -45,7 +45,7 @@ function App() {
         <Footer />
       </div>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

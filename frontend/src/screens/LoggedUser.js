@@ -13,15 +13,15 @@ function User() {
     return (
         <Container>
             <center className="fade-in">
-                {userData.email && <h1 className="welcomeHeader fade-in">Welcome back {userData.firstName}!</h1>}
+                {userData._id && <h1 className="welcomeHeader fade-in">Welcome back {userData.firstName}!</h1>}
                 {userData.jokes[0] && <h2 className="latestJokesHeader fade-in">Here are your latest jokes:</h2>}
                 {
                     userData.jokes[0] ? userData.jokes.map((joke, index) => (
                         joke.joke ?
-                            <UserJoke key={joke._id} category={joke.category} joke={joke.joke} index={index}></UserJoke>
-                            : <TwoPartUserJoke key={joke._id} category={joke.category} setup={joke.setup} delivery={joke.delivery} index={index}></TwoPartUserJoke>
+                            <UserJoke key={joke._id} joke={joke} index={index}></UserJoke>
+                            : <TwoPartUserJoke key={joke._id} joke={joke} index={index}></TwoPartUserJoke>
                     ))
-                        : userData.email && <EmptyUserJoke category={emptyListCategory} joke={emptyListJoke}></EmptyUserJoke>
+                        : userData._id && <EmptyUserJoke category={emptyListCategory} joke={emptyListJoke}></EmptyUserJoke>
                 }
             </center >
         </Container>

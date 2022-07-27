@@ -12,6 +12,7 @@ import urlReducer from './urlReducer'
 import loginRegisterReducer from './loginRegisterReducer'
 
 const allReducers = combineReducers({
+    theme: themesReducer,
     categories: categoriesReducer,
     categoriesList: categoriesListReducer,
     blackFlags: blackFlagsReducer,
@@ -19,11 +20,10 @@ const allReducers = combineReducers({
     langSelect: langSelectReducer,
     searchString: searchStringReducer,
     jokeType: jokeTypeReducer,
-    userData: userDataReducer,
-    joke: jokesReducer,
-    theme: themesReducer,
-    jokeMessage: jokeMessageReducer,
     url: urlReducer,
+    joke: jokesReducer,
+    userData: userDataReducer,
+    jokeMessage: jokeMessageReducer,
     loginRegister: loginRegisterReducer
 })
 

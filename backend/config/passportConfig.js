@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 
 
 const passportConfig = (passport) => {
-    const User = mongoose.model('User', userSchema);
+    const User = mongoose.model('User', userSchema)
 
     passport.use(
         new LocalStrategy(

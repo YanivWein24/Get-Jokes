@@ -34,7 +34,7 @@ const Header = () => {
                             <LinkContainer to="/about" activeClassName='active-link'>
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>
-                            {userData.email ?
+                            {userData._id ?
                                 <>
                                     <LinkContainer to="/loggedUser" className="user-navlink" activeClassName='active-link'>
                                         <Nav.Link><i className="fa-solid fa-user"></i> {userData.firstName}</Nav.Link>
